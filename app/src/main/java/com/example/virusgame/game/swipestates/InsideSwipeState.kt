@@ -4,7 +4,10 @@ import com.example.virusgame.game.SwipeTaker
 
 class InsideSwipeState(private val enterXTouch: Int, private val enterYTouch: Int) : SwipeState {
       override fun onTouch(xTouch: Int, yTouch: Int, swipeTaker: SwipeTaker): SwipeState {
-        return this
+          if(xTouch > swipeTaker.rect.right || xTouch < swipeTaker.rect.left || yTouch < swipeTaker.rect.top || yTouch > swipeTaker.rect.bottom){
+              return StartSwipeState()
+          }
+          return this
       }
 
 //    override fun onTouch(xTouch: Int, yTouch: Int, swipeTaker: SwipeTaker): SwipeState {

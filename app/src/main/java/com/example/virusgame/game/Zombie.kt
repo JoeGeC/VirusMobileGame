@@ -8,7 +8,7 @@ import android.graphics.Rect
 class Zombie(var image: Bitmap) : SwipeTaker {
     var x: Int = Resources.getSystem().displayMetrics.widthPixels / 2 - image.width / 2
     var y: Int = Resources.getSystem().displayMetrics.heightPixels / 2 - image.height / 2
-    override var rect: Rect get() { return Rect(x, y, x + image.width, y + image.height) } set(value) {}
+    override var rect: Rect get() { return Rect(x, y, x + image.width, y + image.height) } set(value) { }
     var health: Int = 100
 
     fun draw(canvas: Canvas){
