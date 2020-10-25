@@ -9,6 +9,10 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setFullScreen()
         setContentView(R.layout.activity_main)
+
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.fragmentContainer, MainMenu())
+        fragmentTransaction.commit()
     }
 
     private fun setFullScreen() {
@@ -17,4 +21,6 @@ class MainActivity : AppCompatActivity(){
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
     }
+
+
 }

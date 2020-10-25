@@ -1,4 +1,4 @@
-package com.example.virusgame
+package com.example.virusgame.game
 
 import android.graphics.Rect
 

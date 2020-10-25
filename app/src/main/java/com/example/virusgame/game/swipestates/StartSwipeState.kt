@@ -1,6 +1,6 @@
-package com.example.virusgame.swipestates
+package com.example.virusgame.game.swipestates
 
-import com.example.virusgame.SwipeTaker
+import com.example.virusgame.game.SwipeTaker
 
 class StartSwipeState : SwipeState {
     override fun onTouch(xTouch: Int, yTouch: Int, swipeTaker: SwipeTaker) : SwipeState {

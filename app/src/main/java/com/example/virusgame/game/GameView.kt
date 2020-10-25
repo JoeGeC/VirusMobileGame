@@ -1,4 +1,4 @@
-package com.example.virusgame
+package com.example.virusgame.game
 
 import android.content.Context
 import android.content.res.Resources
@@ -10,8 +10,9 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.core.content.ContextCompat
-import com.example.virusgame.swipestates.StartSwipeState
-import com.example.virusgame.swipestates.SwipeState
+import com.example.virusgame.R
+import com.example.virusgame.game.swipestates.StartSwipeState
+import com.example.virusgame.game.swipestates.SwipeState
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
