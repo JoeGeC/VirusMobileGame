@@ -10,6 +10,8 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.core.content.ContextCompat
+import com.example.virusgame.swipestates.StartSwipeState
+import com.example.virusgame.swipestates.SwipeState
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
@@ -18,7 +20,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var touched: Boolean = false
     private var xTouch: Int = 0
     private var yTouch: Int = 0
-    private var swipeState: SwipeState = SwipeState.START
+    private var swipeState: SwipeState = StartSwipeState()
 
     private val zombieHealthPaint: Paint = Paint()
 
@@ -54,28 +56,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     fun update(){
-        if(touched) handleZombieDamage()
-    }
-
-    private fun handleZombieDamage() {
-        if(swipeState == SwipeState.START){
-            if(xTouch > zombie!!.rect.right || xTouch < zombie!!.rect.left || yTouch < zombie!!.rect.top || yTouch > zombie!!.rect.bottom){
-                swipeState = SwipeState.OUT
-                return
-            }
-        }else if(swipeState == SwipeState.OUT){
-            if(xTouch < zombie!!.rect.right && xTouch > zombie!!.rect.left && yTouch > zombie!!.rect.top && yTouch < zombie!!.rect.bottom){
-                swipeState = SwipeState.ENTER
-                return
-            }
-        }else if(swipeState == SwipeState.ENTER){
-            if(xTouch > zombie!!.rect.right || xTouch < zombie!!.rect.left || yTouch < zombie!!.rect.top || yTouch > zombie!!.rect.bottom){
-                swipeState = SwipeState.EXIT
-                zombie!!.takeDamage(1)
-                swipeState = SwipeState.START
-                return
-            }
-        }
+        if(touched) swipeState = swipeState.onTouch(xTouch, yTouch, zombie!!)
     }
 
     override fun draw(canvas: Canvas) {
@@ -101,13 +82,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     private fun releaseTouch() {
         touched = false
-        swipeState = SwipeState.START
+        swipeState = StartSwipeState()
     }
 }
 
-enum class SwipeState {
-    START,
-    OUT,
-    ENTER,
-    EXIT
-}
