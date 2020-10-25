@@ -22,6 +22,7 @@ class InsideSwipeStateShould {
         sprite = Zombie(BitmapFactory.decodeResource(appContext.resources, R.drawable.zombie))
         sprite!!.x = 0
         sprite!!.y = 0
+        sprite!!.health = 10
     }
 
     @Test
@@ -34,5 +35,12 @@ class InsideSwipeStateShould {
     fun returnStartSwipeStateIfNotStillTouchingInsideSprite(){
         val swipeState = InsideSwipeState(10, 10)
         assert(swipeState.onTouch(101, 101, sprite!!) is StartSwipeState)
+    }
+
+    @Test
+    fun zombieTakesDamageWhenSuccessfulSwipe(){
+        val swipeState = InsideSwipeState(10, 10)
+        swipeState.onTouch(1000, 101, sprite!!)
+        assertEquals(9, sprite!!.health)
     }
 }
