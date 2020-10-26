@@ -47,12 +47,8 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
         currentHealth -= damage
         if(currentHealth <= 0){
             currentHealth = 0
-            die()
+            state = DeadZombie(this)
         }
-    }
-
-    private fun die() {
-        state = DeadZombie(this)
     }
 
     override fun onSuccessfulSwipe() {
@@ -73,5 +69,11 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
         }
         val healthBarHeight = y - 50.0f
         canvas.drawLine(healthBarStartPos, healthBarHeight, healthBarStopPos, healthBarHeight, zombieHealthPaint)
+    }
+
+    fun setStats(level: Int){
+        maxHealth = Random.nextInt(level * 3, level * 5)
+        currentHealth = maxHealth
+        gold = maxHealth
     }
 }

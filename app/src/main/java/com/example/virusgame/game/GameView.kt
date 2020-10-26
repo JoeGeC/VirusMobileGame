@@ -9,7 +9,6 @@ import android.view.SurfaceView
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 import com.example.virusgame.game.zombie.Zombie
-import com.example.virusgame.game.zombie.ZombieDeathHandler
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback,
     EntityHandler {
@@ -17,6 +16,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var zombie: Zombie? = null
     private var player: Player = Player(context)
     private var sword: Sword = Sword(context)
+    private var level: Int = 1
+    private var zombieKillCount = 0
 
     private var touched: Boolean = false
     private var xTouch: Int = 0
@@ -29,7 +30,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        zombie = Zombie(context, this, sword.offset)
+        spawnNewZombie()
         thread.setRunning(true)
         thread.start()
     }
@@ -91,10 +92,16 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         player.increaseGold(gold)
     }
 
-
-
     override fun spawnNewZombie() {
-        zombie = Zombie(context, this, sword.offset)
+        zombie = ZombieMaker().makeZombie(context, this, sword.offset, level)
+    }
+
+    override fun incrementZombieKillCount() {
+        zombieKillCount++
+        if(zombieKillCount >= 10){
+            level++
+            zombieKillCount = 0
+        }
     }
 
     override fun inflictPlayerDamage(damage: Int) {
