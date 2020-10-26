@@ -35,5 +35,13 @@ class Player(var context: Context){
 
     fun takeDamage(damage: Int){
         health -= damage
+        if(health <= 0){
+            health = 0
+            die()
+        }
+    }
+
+    private fun die(){
+
     }
 }

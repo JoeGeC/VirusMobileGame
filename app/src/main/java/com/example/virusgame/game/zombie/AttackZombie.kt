@@ -2,6 +2,7 @@ package com.example.virusgame.game.zombie
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import com.example.virusgame.game.Clock
 
 class AttackZombie(private val zombie: Zombie) : ZombieState {
     private var frameNum: Int = 0
@@ -14,7 +15,7 @@ class AttackZombie(private val zombie: Zombie) : ZombieState {
     }
 
     override fun getAnimationFrame(): Bitmap {
-        if((System.nanoTime() - lastFrameUpdateTime) / 1000000 > 100){
+        if(Clock().millisecondsHavePassed(lastFrameUpdateTime, 100)){
             lastFrameUpdateTime = System.nanoTime()
             frameNum++
             if(frameNum > animation.size - 1) attack()
