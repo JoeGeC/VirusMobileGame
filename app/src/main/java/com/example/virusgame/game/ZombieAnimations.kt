@@ -22,6 +22,19 @@ class ZombieAnimations(private var context: Context) {
         )
     }
 
+    fun dieAnimation1(): List<Bitmap>{
+        return listOf(
+            getResource(R.drawable.zombie_die_000),
+            getResource(R.drawable.zombie_die_001),
+            getResource(R.drawable.zombie_die_002),
+            getResource(R.drawable.zombie_die_003),
+            getResource(R.drawable.zombie_die_004),
+            getResource(R.drawable.zombie_die_005),
+            getResource(R.drawable.zombie_die_006),
+            getResource(R.drawable.zombie_die_007)
+        )
+    }
+
     private fun getResource(resource: Int): Bitmap{
         return BitmapFactory.decodeResource(context.resources, resource)
     }
