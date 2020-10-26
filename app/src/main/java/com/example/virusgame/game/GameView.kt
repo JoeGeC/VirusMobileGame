@@ -63,6 +63,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     override fun onTouchEvent(event: MotionEvent): Boolean {
         xTouch = event.x.toInt()
         yTouch = event.y.toInt()
+
         when(event.action){
             MotionEvent.ACTION_DOWN -> touched = true
             MotionEvent.ACTION_MOVE -> touched = true

@@ -14,7 +14,8 @@ class Zombie(var context: Context, var deathHandler: ZombieDeathHandler) : Swipe
     internal var x: Int = screenWidth / 2 - state.animation[0].width / 2
     internal var y: Int = screenHeight / 2 - state.animation[0].height / 2
 
-    override var rect: Rect get() { return Rect(x, y, x + state.animation[0].width, y + state.animation[0].height) } set(value) {}
+    private var fullRect: Rect get() { return Rect(x, y, x + state.animation[0].width, y + state.animation[0].height) } set(value) {}
+    override var rect: Rect get() { return Rect(x + fullRect.width() / 5, y + fullRect.height() / 5, x + state.animation[0].width - fullRect.width() / 5, y + state.animation[0].height - fullRect.height() / 5) } set(value) {}
     internal val zombieHealthPaint: Paint = Paint()
     internal var maxHealth = 3
     internal var currentHealth = maxHealth

@@ -23,8 +23,8 @@ class AliveZombie(private var zombie: Zombie) : ZombieState {
     }
 
     private fun drawHealthBar(canvas: Canvas) {
-        val healthBarStartPos = zombie.x + 50.0f
-        val maxHealthBarStopPos = zombie.rect.right - 50.0f
+        val healthBarStartPos = zombie.rect.left - 10.0f
+        val maxHealthBarStopPos = zombie.rect.right + 10.0f
         val healthBarStopPos: Float = try {
             (maxHealthBarStopPos - healthBarStartPos) / zombie.maxHealth * zombie.currentHealth + healthBarStartPos
         } catch (e: Exception) {

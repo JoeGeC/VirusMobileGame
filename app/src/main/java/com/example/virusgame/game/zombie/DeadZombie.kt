@@ -26,6 +26,5 @@ class DeadZombie(var zombie: Zombie) : ZombieState {
         zombie.deathHandler.spawnNewZombie()
     }
 
-    override fun onSuccessfulSwipe() {
-    }
+    override fun onSuccessfulSwipe() {}
 }
