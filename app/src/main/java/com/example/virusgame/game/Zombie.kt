@@ -2,24 +2,24 @@ package com.example.virusgame.game
 
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import androidx.core.content.ContextCompat
+import androidx.core.content.contentValuesOf
 import com.example.virusgame.R
 import java.lang.Exception
 
-class Zombie(var image: Bitmap, context: Context, var deathHandler: ZombieDeathHandler) : SwipeTaker {
+class Zombie(private var images: List<Bitmap>, var context: Context, var deathHandler: ZombieDeathHandler) : SwipeTaker {
     private var screenWidth = Resources.getSystem().displayMetrics.widthPixels
     private var screenHeight = Resources.getSystem().displayMetrics.heightPixels
-    private var x: Int = screenWidth / 2 - image.width / 2
-    private var y: Int = screenHeight / 2 - image.height / 2
-    override var rect: Rect get() { return Rect(x, y, x + image.width, y + image.height) } set(value) {}
+    private var x: Int = screenWidth / 2 - images[0].width / 2
+    private var y: Int = screenHeight / 2 - images[0].height / 2
+    override var rect: Rect get() { return Rect(x, y, x + images[0].width, y + images[0].height) } set(value) {}
     private val zombieHealthPaint: Paint = Paint()
-    private var maxHealth: Int = 3
-    private var currentHealth: Int = maxHealth
-    private var gold: Int = 5
+    private var maxHealth = 3
+    private var currentHealth = maxHealth
+    private var gold = 5
+    private var frameNum : Int = 0
+    private var lastFrameUpdateTime: Long = 0
 
     init {
         zombieHealthPaint.color = ContextCompat.getColor(context, R.color.red)
@@ -27,8 +27,17 @@ class Zombie(var image: Bitmap, context: Context, var deathHandler: ZombieDeathH
     }
 
     fun draw(canvas: Canvas){
-        canvas.drawBitmap(image, x.toFloat(), y.toFloat(), null)
+        canvas.drawBitmap(getAnimationFrame(), x.toFloat(), y.toFloat(), null)
         drawHealthBar(canvas)
+    }
+
+    private fun getAnimationFrame(): Bitmap {
+        if((System.nanoTime() - lastFrameUpdateTime) / 1000000 > 100){
+            lastFrameUpdateTime = System.nanoTime()
+            frameNum++
+            if(frameNum > images.size - 1) frameNum = 0
+        }
+        return images[frameNum]
     }
 
     private fun drawHealthBar(canvas: Canvas) {

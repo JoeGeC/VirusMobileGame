@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import androidx.core.content.ContextCompat
 import com.example.virusgame.R
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
@@ -27,8 +28,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        zombie = Zombie(BitmapFactory.decodeResource(resources, R.drawable.zombie), context, this)
-
+        zombie = Zombie(ZombieAnimations(context).idleAnimation1(), context, this)
         thread.setRunning(true)
         thread.start()
     }
@@ -83,7 +83,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun spawnNewZombie() {
-        zombie = Zombie(BitmapFactory.decodeResource(resources, R.drawable.zombie), context, this)
+        zombie = Zombie(ZombieAnimations(context).idleAnimation1(), context, this)
     }
 }
 
