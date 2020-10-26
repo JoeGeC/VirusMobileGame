@@ -22,9 +22,11 @@ class DeadZombie(var zombie: Zombie) : ZombieState {
     }
 
     private fun die() {
-        zombie.deathHandler.takeGold(zombie.gold)
-        zombie.deathHandler.spawnNewZombie()
+        zombie.entityHandler.takeGold(zombie.gold)
+        zombie.entityHandler.spawnNewZombie()
     }
 
     override fun onSuccessfulSwipe() {}
+
+    override fun update() {}
 }

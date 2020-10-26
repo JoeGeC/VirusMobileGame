@@ -35,6 +35,28 @@ class ZombieAnimations(private var context: Context) {
         )
     }
 
+    fun preAttackAnimation1(): List<Bitmap>{
+        return listOf(
+            getResource(R.drawable.zombie_attack_000),
+            getResource(R.drawable.zombie_attack_001),
+            getResource(R.drawable.zombie_attack_002),
+            getResource(R.drawable.zombie_attack_003)
+        )
+    }
+
+    fun attackAnimation1(): List<Bitmap>{
+        return listOf(
+            getResource(R.drawable.zombie_attack_004),
+            getResource(R.drawable.zombie_attack_005),
+            getResource(R.drawable.zombie_attack_006),
+            getResource(R.drawable.zombie_attack_007),
+            getResource(R.drawable.zombie_attack_008),
+            getResource(R.drawable.zombie_attack_009),
+            getResource(R.drawable.zombie_attack_010),
+            getResource(R.drawable.zombie_attack_011)
+        )
+    }
+
     private fun getResource(resource: Int): Bitmap{
         return BitmapFactory.decodeResource(context.resources, resource)
     }

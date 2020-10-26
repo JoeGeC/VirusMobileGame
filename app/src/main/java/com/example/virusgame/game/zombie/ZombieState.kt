@@ -8,4 +8,5 @@ interface ZombieState {
     fun getAnimationFrame(): Bitmap
     fun draw(canvas: Canvas, x: Float, y: Float)
     fun onSuccessfulSwipe()
+    fun update()
 }

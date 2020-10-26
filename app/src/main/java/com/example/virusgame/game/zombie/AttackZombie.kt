@@ -2,35 +2,34 @@ package com.example.virusgame.game.zombie
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import kotlin.random.Random
 
-class AliveZombie(private var zombie: Zombie) : ZombieState {
-    private var frameNum : Int = 0
+class AttackZombie(private val zombie: Zombie) : ZombieState {
+    private var frameNum: Int = 0
     private var lastFrameUpdateTime: Long = 0
-    override val animation = ZombieAnimations(zombie.context).idleAnimation1()
+    override val animation: List<Bitmap> = ZombieAnimations(zombie.context).attackAnimation1()
 
-    override fun draw(canvas: Canvas, x: Float, y: Float){
+    override fun draw(canvas: Canvas, x: Float, y: Float) {
         canvas.drawBitmap(getAnimationFrame(), x, y, null)
         zombie.drawHealthBar(canvas)
     }
 
-    override fun getAnimationFrame() : Bitmap {
+    override fun getAnimationFrame(): Bitmap {
         if((System.nanoTime() - lastFrameUpdateTime) / 1000000 > 100){
             lastFrameUpdateTime = System.nanoTime()
             frameNum++
-            if(frameNum > animation.size - 1) frameNum = 0
+            if(frameNum > animation.size - 1) attack()
         }
         return animation[frameNum]
     }
 
+    private fun attack() {
+        zombie.state = AliveZombie(zombie)
+        zombie.entityHandler.inflictPlayerDamage(1)
+    }
+
     override fun onSuccessfulSwipe() {
-        zombie.takeDamage(1)
     }
 
     override fun update() {
-        if(Random.nextInt(0, 350) == 1){
-            zombie.state = PreAttackZombie(zombie)
-        }
     }
 }
-

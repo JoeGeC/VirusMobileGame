@@ -5,19 +5,21 @@ import android.content.res.Resources
 import android.graphics.*
 import androidx.core.content.ContextCompat
 import com.example.virusgame.R
+import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.SwipeTaker
 import com.example.virusgame.game.Vector2
+import kotlin.random.Random
 
-class Zombie(var context: Context, var deathHandler: ZombieDeathHandler, var rectOffset: Vector2) : SwipeTaker {
-    private var state: ZombieState = AliveZombie(this)
+class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOffset: Vector2) : SwipeTaker {
+    internal var state: ZombieState = AliveZombie(this)
     private var screenWidth = Resources.getSystem().displayMetrics.widthPixels
     private var screenHeight = Resources.getSystem().displayMetrics.heightPixels
-    internal var x: Int = screenWidth / 2 - state.animation[0].width / 2
-    internal var y: Int = screenHeight / 2 - state.animation[0].height / 2
+    private var x: Int = screenWidth / 2 - state.animation[0].width / 2
+    private var y: Int = screenHeight / 2 - state.animation[0].height / 2
 
-    internal val zombieHealthPaint: Paint = Paint()
-    internal var maxHealth = 3
-    internal var currentHealth = maxHealth
+    private val zombieHealthPaint: Paint = Paint()
+    private var maxHealth = 3
+    private var currentHealth = maxHealth
     internal var gold = 5
 
     private var fullRect: Rect get(){
@@ -55,5 +57,21 @@ class Zombie(var context: Context, var deathHandler: ZombieDeathHandler, var rec
 
     override fun onSuccessfulSwipe() {
         state.onSuccessfulSwipe()
+    }
+
+    fun update() {
+        state.update()
+    }
+
+    internal fun drawHealthBar(canvas: Canvas) {
+        val healthBarStartPos = rect.left - 10.0f
+        val maxHealthBarStopPos = rect.right + 10.0f
+        val healthBarStopPos: Float = try {
+            (maxHealthBarStopPos - healthBarStartPos) / maxHealth * currentHealth + healthBarStartPos
+        } catch (e: Exception) {
+            healthBarStartPos
+        }
+        val healthBarHeight = y - 50.0f
+        canvas.drawLine(healthBarStartPos, healthBarHeight, healthBarStopPos, healthBarHeight, zombieHealthPaint)
     }
 }

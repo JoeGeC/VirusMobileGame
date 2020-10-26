@@ -12,7 +12,7 @@ import com.example.virusgame.game.zombie.Zombie
 import com.example.virusgame.game.zombie.ZombieDeathHandler
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback,
-    ZombieDeathHandler {
+    EntityHandler {
     private val thread: GameThread
     private var zombie: Zombie? = null
     private var player: Player = Player(context)
@@ -34,20 +34,22 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         thread.start()
     }
 
-    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
-    }
+    override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         var retry = true
         while(retry){
-            try{
-                thread.setRunning(false)
-                thread.join()
-            } catch (e: Exception){
-                e.printStackTrace()
-            }
-
+            tryWaitingForThreadToDie()
             retry = false
+        }
+    }
+
+    private fun tryWaitingForThreadToDie() {
+        try {
+            thread.setRunning(false)
+            thread.join()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -56,6 +58,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
             swipeState = swipeState.onTouch(xTouch, yTouch, zombie!!)
             sword.update(xTouch.toFloat(), yTouch.toFloat())
         } else sword.active = false
+        zombie!!.update()
     }
 
     override fun draw(canvas: Canvas) {
@@ -88,8 +91,14 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         player.increaseGold(gold)
     }
 
+
+
     override fun spawnNewZombie() {
         zombie = Zombie(context, this, sword.offset)
+    }
+
+    override fun inflictPlayerDamage(damage: Int) {
+        player.takeDamage(damage)
     }
 }
 

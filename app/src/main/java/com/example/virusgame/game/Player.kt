@@ -32,4 +32,8 @@ class Player(var context: Context){
     fun increaseGold(goldToAdd: Int){
         gold += goldToAdd
     }
+
+    fun takeDamage(damage: Int){
+        health -= damage
+    }
 }
