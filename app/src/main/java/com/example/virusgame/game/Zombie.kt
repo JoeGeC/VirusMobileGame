@@ -10,18 +10,20 @@ import androidx.core.content.ContextCompat
 import com.example.virusgame.R
 import java.lang.Exception
 
-class Zombie(var image: Bitmap, context: Context) : SwipeTaker {
+class Zombie(var image: Bitmap, context: Context, var deathHandler: ZombieDeathHandler) : SwipeTaker {
     private var screenWidth = Resources.getSystem().displayMetrics.widthPixels
     private var screenHeight = Resources.getSystem().displayMetrics.heightPixels
     private var x: Int = screenWidth / 2 - image.width / 2
     private var y: Int = screenHeight / 2 - image.height / 2
     override var rect: Rect get() { return Rect(x, y, x + image.width, y + image.height) } set(value) {}
+    private val zombieHealthPaint: Paint = Paint()
     private var maxHealth: Int = 3
     private var currentHealth: Int = maxHealth
-    private val zombieHealthPaint: Paint = Paint()
+    private var gold: Int = 5
 
     init {
         zombieHealthPaint.color = ContextCompat.getColor(context, R.color.red)
+        zombieHealthPaint.strokeWidth = 20.0f
     }
 
     fun draw(canvas: Canvas){
@@ -50,6 +52,8 @@ class Zombie(var image: Bitmap, context: Context) : SwipeTaker {
     }
 
     private fun die() {
+        deathHandler.takeGold(gold)
+        deathHandler.spawnNewZombie()
     }
 
     override fun onSuccessfulSwipe() {

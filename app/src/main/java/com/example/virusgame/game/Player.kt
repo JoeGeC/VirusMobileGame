@@ -28,4 +28,8 @@ class Player(var context: Context){
         canvas.drawText("Gold: $gold", screenWidth - 250.0f, 150.0f, goldPaint)
         canvas.drawText("Health: $health", screenWidth - 250.0f, 100.0f, healthPaint)
     }
+
+    fun increaseGold(goldToAdd: Int){
+        gold += goldToAdd
+    }
 }

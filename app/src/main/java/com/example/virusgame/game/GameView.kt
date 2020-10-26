@@ -11,7 +11,7 @@ import com.example.virusgame.R
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 
-class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
+class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback, ZombieDeathHandler {
     private val thread: GameThread
     private var zombie: Zombie? = null
     private var player: Player = Player(context)
@@ -27,7 +27,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        zombie = Zombie(BitmapFactory.decodeResource(resources, R.drawable.zombie), context)
+        zombie = Zombie(BitmapFactory.decodeResource(resources, R.drawable.zombie), context, this)
 
         thread.setRunning(true)
         thread.start()
@@ -76,6 +76,14 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private fun releaseTouch() {
         touched = false
         swipeState = StartSwipeState()
+    }
+
+    override fun takeGold(gold: Int) {
+        player.increaseGold(gold)
+    }
+
+    override fun spawnNewZombie() {
+        zombie = Zombie(BitmapFactory.decodeResource(resources, R.drawable.zombie), context, this)
     }
 }
 
