@@ -29,7 +29,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        zombie = Zombie(context, this)
+        zombie = Zombie(context, this, sword.offset)
         thread.setRunning(true)
         thread.start()
     }
@@ -89,7 +89,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun spawnNewZombie() {
-        zombie = Zombie(context, this)
+        zombie = Zombie(context, this, sword.offset)
     }
 }
 

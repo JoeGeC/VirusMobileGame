@@ -11,11 +11,12 @@ class Sword(context: Context) {
     private var position: Queue<Vector2> = LinkedList<Vector2>()
     private var image: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.short_sword)
     var active: Boolean = false
+    val offset: Vector2 = Vector2(0.0f, image.width.toFloat())
 
     fun draw(canvas: Canvas) {
         if(active) {
             for(pos in position)
-                canvas.drawBitmap(image, pos.x, pos.y - image.width, null)
+                canvas.drawBitmap(image, pos.x - offset.x, pos.y - offset.y, null)
         }
     }
 
