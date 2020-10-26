@@ -24,6 +24,7 @@ class DeadZombie(var zombie: Zombie) : ZombieState {
 
     private fun die() {
         zombie.entityHandler.takeGold(zombie.gold)
+        zombie.entityHandler.takeExp(zombie.exp)
         zombie.entityHandler.spawnNewZombie()
         zombie.entityHandler.incrementZombieKillCount()
     }

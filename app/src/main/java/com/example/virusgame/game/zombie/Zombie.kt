@@ -22,7 +22,7 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
     private var currentHealth = maxHealth
     internal var gold = 5
     internal var attack = 1
-    private var exp: Int = 0
+    internal var exp: Int = 0
 
     private var fullRect: Rect get(){
         return Rect(x, y, x + state.animation[0].width, y + state.animation[0].height)

@@ -15,10 +15,11 @@ import com.example.virusgame.game.zombie.ZombieMaker
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback,
     EntityHandler {
     private val thread: GameThread
+    private val ui: Ui = Ui(context)
     private var zombie: Zombie? = null
     private var player: Player = Player(context)
     private var sword: Sword = Sword(context)
-    private var level: Int = 1
+    private var wave: Int = 1
     private var zombieKillCount = 0
 
     private var touched: Boolean = false
@@ -68,8 +69,12 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         zombie!!.draw(canvas)
-        player.draw(canvas)
         sword.draw(canvas)
+        ui.drawHealth(canvas, player.health, player.maxHealth)
+        ui.drawBorder(canvas)
+        ui.drawWave(canvas, wave)
+        ui.drawGold(canvas, player.gold)
+        ui.drawLevel(canvas, player.level)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -100,13 +105,13 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun spawnNewZombie() {
-        zombie = ZombieMaker().makeZombie(context, this, sword.offset, level)
+        zombie = ZombieMaker().makeZombie(context, this, sword.offset, wave)
     }
 
     override fun incrementZombieKillCount() {
         zombieKillCount++
         if(zombieKillCount >= 10){
-            level++
+            wave++
             zombieKillCount = 0
         }
     }
