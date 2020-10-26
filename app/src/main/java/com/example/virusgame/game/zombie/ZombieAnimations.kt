@@ -1,4 +1,4 @@
-package com.example.virusgame.game
+package com.example.virusgame.game.zombie
 
 import android.content.Context
 import android.graphics.Bitmap

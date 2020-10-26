@@ -1,4 +1,4 @@
-package com.example.virusgame.game
+package com.example.virusgame.game.zombie
 
 interface ZombieDeathHandler {
     fun takeGold(gold: Int)

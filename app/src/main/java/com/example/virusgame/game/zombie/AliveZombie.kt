@@ -1,10 +1,9 @@
-package com.example.virusgame.game
+package com.example.virusgame.game.zombie
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import java.lang.Exception
 
-class AliveZombie(var zombie: Zombie) : ZombieState{
+class AliveZombie(private var zombie: Zombie) : ZombieState {
     private var frameNum : Int = 0
     private var lastFrameUpdateTime: Long = 0
     override val animation = ZombieAnimations(zombie.context).idleAnimation1()
@@ -18,7 +17,12 @@ class AliveZombie(var zombie: Zombie) : ZombieState{
         return animation[frameNum]
     }
 
-    override fun drawHealthBar(canvas: Canvas) {
+    override fun draw(canvas: Canvas, x: Float, y: Float){
+        canvas.drawBitmap(getAnimationFrame(), x, y, null)
+        drawHealthBar(canvas)
+    }
+
+    private fun drawHealthBar(canvas: Canvas) {
         val healthBarStartPos = zombie.x + 50.0f
         val maxHealthBarStopPos = zombie.rect.right - 50.0f
         val healthBarStopPos: Float = try {
@@ -30,5 +34,8 @@ class AliveZombie(var zombie: Zombie) : ZombieState{
         canvas.drawLine(healthBarStartPos, healthBarHeight, healthBarStopPos, healthBarHeight, zombie.zombieHealthPaint)
     }
 
+    override fun onSuccessfulSwipe() {
+        zombie.takeDamage(1)
+    }
 }
 
