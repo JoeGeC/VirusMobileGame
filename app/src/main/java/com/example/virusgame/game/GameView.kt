@@ -16,6 +16,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private val thread: GameThread
     private var zombie: Zombie? = null
     private var player: Player = Player(context)
+    private var sword: Sword = Sword(context)
 
     private var touched: Boolean = false
     private var xTouch: Int = 0
@@ -51,13 +52,17 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     fun update(){
-        if(touched) swipeState = swipeState.onTouch(xTouch, yTouch, zombie!!)
+        if(touched){
+            swipeState = swipeState.onTouch(xTouch, yTouch, zombie!!)
+            sword.update(xTouch.toFloat(), yTouch.toFloat())
+        } else sword.active = false
     }
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         zombie!!.draw(canvas)
         player.draw(canvas)
+        sword.draw(canvas)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
