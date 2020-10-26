@@ -9,6 +9,8 @@ import android.view.SurfaceView
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 import com.example.virusgame.game.zombie.Zombie
+import com.example.virusgame.game.zombie.ZombieDamageCalculator
+import com.example.virusgame.game.zombie.ZombieMaker
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback,
     EntityHandler {
@@ -27,6 +29,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     init {
         holder.addCallback(this)
         thread = GameThread(holder, this)
+        ZombieDamageCalculator.player = player
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -90,6 +93,10 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     override fun takeGold(gold: Int) {
         player.increaseGold(gold)
+    }
+
+    override fun takeExp(exp: Int){
+        player.earnExp(exp)
     }
 
     override fun spawnNewZombie() {

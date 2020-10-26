@@ -41,9 +41,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
         return animation[frameNum]
     }
 
-    override fun onSuccessfulSwipe() {
-
-    }
+    override fun onSuccessfulSwipe() { }
 
     override fun update() {
         if(Clock().millisecondsHavePassed(startTime, 3000)){

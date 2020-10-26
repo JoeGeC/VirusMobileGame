@@ -25,7 +25,7 @@ class AliveZombie(private var zombie: Zombie) : ZombieState {
     }
 
     override fun onSuccessfulSwipe() {
-        zombie.takeDamage(1)
+        zombie.takeDamage(ZombieDamageCalculator.calculateDamage())
     }
 
     override fun update() {

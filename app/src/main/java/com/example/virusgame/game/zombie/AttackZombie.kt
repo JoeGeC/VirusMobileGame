@@ -25,12 +25,10 @@ class AttackZombie(private val zombie: Zombie) : ZombieState {
 
     private fun attack() {
         zombie.state = AliveZombie(zombie)
-        zombie.entityHandler.inflictPlayerDamage(1)
+        zombie.entityHandler.inflictPlayerDamage(zombie.attack)
     }
 
-    override fun onSuccessfulSwipe() {
-    }
+    override fun onSuccessfulSwipe() { }
 
-    override fun update() {
-    }
+    override fun update() { }
 }

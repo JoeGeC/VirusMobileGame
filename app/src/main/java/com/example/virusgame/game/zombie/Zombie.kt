@@ -18,9 +18,11 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
     private var y: Int = screenHeight / 2 - state.animation[0].height / 2
 
     private val zombieHealthPaint: Paint = Paint()
-    private var maxHealth = 3
+    private var maxHealth = 0
     private var currentHealth = maxHealth
     internal var gold = 5
+    internal var attack = 1
+    private var exp: Int = 0
 
     private var fullRect: Rect get(){
         return Rect(x, y, x + state.animation[0].width, y + state.animation[0].height)
@@ -75,5 +77,7 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
         maxHealth = Random.nextInt(level * 3, level * 5)
         currentHealth = maxHealth
         gold = maxHealth
+        attack = Random.nextInt(level, (level * 1.5 + 1).toInt())
+        exp = maxHealth + attack + level
     }
 }

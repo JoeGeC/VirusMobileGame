@@ -1,7 +1,8 @@
-package com.example.virusgame.game
+package com.example.virusgame.game.zombie
 
 import android.content.Context
-import com.example.virusgame.game.zombie.Zombie
+import com.example.virusgame.game.EntityHandler
+import com.example.virusgame.game.Vector2
 
 class ZombieMaker {
     fun makeZombie(context: Context, entityHandler: EntityHandler, offset: Vector2, level: Int): Zombie? {
