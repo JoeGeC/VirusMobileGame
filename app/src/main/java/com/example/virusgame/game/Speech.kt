@@ -11,22 +11,26 @@ class Speech(context: Context) {
     private val screenHeight = Resources.getSystem().displayMetrics.heightPixels
     private val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     private val x : Int = screenWidth / 2 - sprite.width / 2
-    private val y : Int = screenHeight - 600
-    private val speechBubble = Rect(x + 500, y + 110, x + sprite.width, y + sprite.height)
+    private val y : Int = (screenHeight - sprite.height * 1.3f).toInt()
+    private val speechBubble = Rect((x + sprite.width / 2.5f).toInt(), y + sprite.height / 4, x + sprite.width, y + sprite.height)
     private val namePaint: Paint = Paint()
     private val speechPaint: Paint = Paint()
 
     init{
-        namePaint.textSize = 70.0f
         namePaint.color = ContextCompat.getColor(context, R.color.blue)
+        namePaint.textSize = screenHeight / 40.0f
 
-        speechPaint.textSize = 70.0f
         speechPaint.color = ContextCompat.getColor(context, R.color.white)
+        speechPaint.textSize = screenHeight / 40.0f
+        speechPaint.typeface = Typeface.createFromAsset(context.assets, "fonts/unispace")
     }
 
     fun draw(canvas: Canvas, speech: String){
-        canvas.drawBitmap(sprite, screenWidth / 2.0f - sprite.width / 2.0f, screenHeight - 600.0f, null)
+        canvas.drawBitmap(sprite, x.toFloat(), y.toFloat(), null)
         canvas.drawText("Knight:", speechBubble.left.toFloat(), speechBubble.top.toFloat(), namePaint)
-        canvas.drawText(speech, speechBubble.left.toFloat(), speechBubble.top + 100.0f, speechPaint)
+        canvas.drawText("WWWWWWWWWWWW", speechBubble.left.toFloat(), speechBubble.top + speechBubble.height() / 5.0f, speechPaint)
+        canvas.drawText("iiiiiiiiiiii", speechBubble.left.toFloat(), speechBubble.top + speechBubble.height() / 5.0f * 2, speechPaint)
+        canvas.drawText(speech, speechBubble.left.toFloat(), speechBubble.top + speechBubble.height() / 5.0f * 3, speechPaint)
+        canvas.drawText(speech, speechBubble.left.toFloat(), speechBubble.top + speechBubble.height() / 5.0f * 4, speechPaint)
     }
 }
