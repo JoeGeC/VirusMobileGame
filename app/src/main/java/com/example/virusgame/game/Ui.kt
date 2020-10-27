@@ -13,6 +13,8 @@ class Ui (context: Context){
     private val border: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ui_border)
     private val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     private val screenHeight = Resources.getSystem().displayMetrics.heightPixels
+    private val borderPosY = screenHeight / 10.0f * 3.2f - border.height
+    private val borderBottom = borderPosY + border.height - border.height / 10.0f * 1.922f
     private val waveLabelPaint: Paint = Paint()
     private val wavePaint: Paint = Paint()
     private val healthPaint: Paint = Paint()
@@ -42,7 +44,7 @@ class Ui (context: Context){
     }
 
     fun drawBorder(canvas: Canvas){
-        canvas.drawBitmap(border, screenWidth / 2.0f - border.width / 2.0f, screenHeight / 2.0f - border.height - 500.0f , null)
+        canvas.drawBitmap(border, screenWidth / 2.0f - border.width / 2.0f, borderPosY, null)
     }
 
     fun drawWave(canvas: Canvas, wave: Int){
@@ -51,9 +53,8 @@ class Ui (context: Context){
     }
 
     fun drawHealth(canvas: Canvas, currentHealth: Int, maxHealth: Int){
-        val startY = screenHeight / 2.0f - 880.0f
-        val healthBarStopPos = -startY / maxHealth * currentHealth + startY
-        canvas.drawRect(0.0f, healthBarStopPos, screenWidth / 2.0f, startY, healthPaint)
+        val healthBarStopPos = -borderBottom / maxHealth * currentHealth + borderBottom
+        canvas.drawRect(0.0f, healthBarStopPos, screenWidth / 2.0f, borderBottom, healthPaint)
         canvas.drawText("$currentHealth / $maxHealth", 70.0f, 300.0f, healthLabelPaint)
     }
 
