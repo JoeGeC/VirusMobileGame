@@ -1,11 +1,15 @@
 package com.example.virusgame.game
 
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import androidx.core.content.ContextCompat
+import com.example.virusgame.R
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 import com.example.virusgame.game.zombie.Zombie
@@ -16,6 +20,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     EntityHandler {
     private val thread: GameThread
     private val ui: Ui = Ui(context)
+    private val speech: Speech = Speech(context)
     private var zombie: Zombie? = null
     private var player: Player = Player(context)
     private var sword: Sword = Sword(context)
@@ -75,6 +80,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         ui.drawWave(canvas, wave)
         ui.drawGold(canvas, player.gold)
         ui.drawLevel(canvas, player.level)
+        speech.draw(canvas, "Hello!")
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
