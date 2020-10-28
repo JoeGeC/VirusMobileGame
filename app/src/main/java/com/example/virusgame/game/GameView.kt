@@ -1,15 +1,11 @@
 package com.example.virusgame.game
 
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import androidx.core.content.ContextCompat
-import com.example.virusgame.R
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 import com.example.virusgame.game.zombie.Zombie
@@ -30,6 +26,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var touched: Boolean = false
     private var xTouch: Int = 0
     private var yTouch: Int = 0
+    private var xStartTouch: Int = 0
+    private var yStartTouch: Int = 0
     private var swipeState: SwipeState = StartSwipeState()
 
     init {
@@ -42,6 +40,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         spawnNewZombie()
         thread.setRunning(true)
         thread.start()
+        speech.splitTextForSpeech("Blah blah")
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
@@ -80,7 +79,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         ui.drawWave(canvas, wave)
         ui.drawGold(canvas, player.gold)
         ui.drawLevel(canvas, player.level)
-        speech.draw(canvas, "Hello!")
+        speech.draw(canvas)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -88,18 +87,23 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         yTouch = event.y.toInt()
 
         when(event.action){
-            MotionEvent.ACTION_DOWN -> touched = true
+            MotionEvent.ACTION_DOWN -> updateTouchStartPos()
             MotionEvent.ACTION_MOVE -> touched = true
             MotionEvent.ACTION_UP -> releaseTouch()
-            MotionEvent.ACTION_CANCEL -> releaseTouch()
-            MotionEvent.ACTION_OUTSIDE -> releaseTouch()
         }
         return true
+    }
+
+    private fun updateTouchStartPos() {
+        xStartTouch = xTouch
+        yStartTouch = yTouch
+        touched = true
     }
 
     private fun releaseTouch() {
         touched = false
         swipeState = StartSwipeState()
+        speech.onTouch(xStartTouch, yStartTouch)
     }
 
     override fun takeGold(gold: Int) {
