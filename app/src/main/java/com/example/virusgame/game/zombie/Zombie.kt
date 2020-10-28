@@ -15,7 +15,7 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
     private var screenWidth = Resources.getSystem().displayMetrics.widthPixels
     private var screenHeight = Resources.getSystem().displayMetrics.heightPixels
     private var x: Int = screenWidth / 2 - state.animation[0].width / 2
-    private var y: Int = screenHeight / 2 - state.animation[0].height / 2
+    private var y: Int = (screenHeight / 1.8f - state.animation[0].height / 2).toInt()
 
     private val zombieHealthPaint: Paint = Paint()
     private var maxHealth = 0
