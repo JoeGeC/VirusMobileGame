@@ -61,4 +61,24 @@ class SpeechShould {
         speech.onTouch(11, 11)
         assertEquals(true, speech.active)
     }
+
+    @Test
+    fun moveOntoNextPartOfMessageWhenTouchedAndStillMessageLeft(){
+        speech.setSpeechText("Hello world! I'm here to tell you a story about a really great guy called Joe!")
+        speech.fullRect = Rect(0, 0, 10, 10)
+        speech.onTouch(5, 5)
+        val secondPartOfMessage = mutableListOf("story ", "about a ", "really ", "great guy ", "called ", "Joe! ")
+        assertEquals(secondPartOfMessage, speech.messageToDisplay)
+        assertEquals(true, speech.active)
+    }
+
+    @Test
+    fun deactivateAfterFinishingLongMessage(){
+        speech.setSpeechText("Hello world! I'm here to tell you a story about a really great guy called Joe!")
+        speech.fullRect = Rect(0, 0, 10, 10)
+        speech.onTouch(5, 5)
+        speech.onTouch(5, 5)
+        speech.onTouch(5, 5)
+        assertEquals(false, speech.active)
+    }
 }

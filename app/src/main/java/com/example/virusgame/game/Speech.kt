@@ -16,6 +16,7 @@ class Speech(private var context: Context) {
     private var speechBubbleRect = Rect((x + sprite.width / 2.5f).toInt(), y + sprite.height / 4, x + sprite.width, y + sprite.height)
     var fullRect = Rect(x, y, x + sprite.width, y + sprite.height)
     var lineLength = 23
+    private val amountOfLines = 4
     private val textSize = screenHeight / 60.0f
     private val line1y = speechBubbleRect.top + speechBubbleRect.height() / 5.0f
     private val line2y = speechBubbleRect.top + speechBubbleRect.height() / 5.0f * 2
@@ -48,6 +49,13 @@ class Speech(private var context: Context) {
 
     fun onTouch(xTouch: Int, yTouch: Int) {
         if(xTouch > fullRect.left && xTouch < fullRect.right && yTouch > fullRect.top && yTouch < fullRect.bottom)
+            displayNextPartOfMessage()
+    }
+
+    private fun displayNextPartOfMessage() {
+        if(messageToDisplay.size > amountOfLines)
+            repeat(amountOfLines){ messageToDisplay.removeAt(0) }
+        else
             active = false
     }
 

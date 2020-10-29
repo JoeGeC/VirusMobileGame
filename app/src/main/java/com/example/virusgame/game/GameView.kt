@@ -40,6 +40,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         spawnNewZombie()
         thread.setRunning(true)
         thread.start()
+        speech.setSpeechText("Hello my name is Knight and I'm here to help you on your long, perilous journey! By the way, have you ever met my pal zombie over here? Careful, he'll bite!")
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
