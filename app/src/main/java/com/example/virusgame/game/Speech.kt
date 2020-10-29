@@ -15,7 +15,7 @@ class Speech(private var context: Context) {
     private val y : Int = (screenHeight - sprite.height * 1.3f).toInt()
     private val speechBubble = Rect((x + sprite.width / 2.5f).toInt(), y + sprite.height / 4, x + sprite.width, y + sprite.height)
     private val fullRect = Rect(x, y, x + sprite.width, y + sprite.height)
-    private val lineLength = 23
+    var lineLength = 23
     private val textSize = screenHeight / 60.0f
     private val line1y = speechBubble.top + speechBubble.height() / 5.0f
     private val line2y = speechBubble.top + speechBubble.height() / 5.0f * 2
@@ -52,7 +52,15 @@ class Speech(private var context: Context) {
     }
 
     fun setSpeechText(message: String) {
-        messageToDisplay.add(message)
+        if(message.length < lineLength)
+            messageToDisplay.add(message)
+        else{
+            val messageChunked = message.chunked(lineLength)
+            messageChunked.forEach { line ->
+                messageToDisplay.add(line)
+            }
+        }
+
         active = true
     }
 }

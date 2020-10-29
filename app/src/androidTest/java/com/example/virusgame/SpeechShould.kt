@@ -11,12 +11,13 @@ import org.junit.Before
 @RunWith(AndroidJUnit4::class)
 class SpeechShould {
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
-    private val message = "Hello world!"
+    private val oneLineMessage = "test"
+    private val twoLineMessage = "testtest"
     private val speech = Speech(context)
 
     @Before
     fun setup(){
-        speech.setSpeechText(message)
+        speech.lineLength = 4
     }
 
     @Test
@@ -26,11 +27,20 @@ class SpeechShould {
 
     @Test
     fun setMessageWhenUnderLineLength(){
-        assertEquals(message, speech.messageToDisplay[0])
+        speech.setSpeechText(oneLineMessage)
+        assertEquals(oneLineMessage, speech.messageToDisplay[0])
     }
 
     @Test
     fun activateWhenMessageSet(){
+        speech.setSpeechText(oneLineMessage)
         assertEquals(true, speech.active)
+    }
+
+    @Test
+    fun setMessageOnTwoLinesWhenMessageOverLineLength(){
+        speech.setSpeechText(twoLineMessage)
+        assertEquals("test", speech.messageToDisplay[0])
+        assertEquals("test", speech.messageToDisplay[1])
     }
 }
