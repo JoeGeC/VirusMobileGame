@@ -6,10 +6,18 @@ import com.example.virusgame.game.Speech
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Assert.*
+import org.junit.Before
 
 @RunWith(AndroidJUnit4::class)
 class SpeechShould {
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
+    private val message = "Hello world!"
+    private val speech = Speech(context)
+
+    @Before
+    fun setup(){
+        speech.setSpeechText(message)
+    }
 
     @Test
     fun useAppContext() {
@@ -18,17 +26,11 @@ class SpeechShould {
 
     @Test
     fun setMessageWhenUnderLineLength(){
-        val message = "Hello world!"
-        val speech = Speech(context)
-        speech.setSpeechText(message)
         assertEquals(message, speech.messageToDisplay[0])
     }
 
     @Test
     fun activateWhenMessageSet(){
-        val message = "Hello world!"
-        val speech = Speech(context)
-        speech.setSpeechText(message)
         assertEquals(true, speech.active)
     }
 }
