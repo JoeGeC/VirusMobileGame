@@ -23,4 +23,12 @@ class SpeechShould {
         speech.setSpeechText(message)
         assertEquals(message, speech.messageToDisplay[0])
     }
+
+    @Test
+    fun activateWhenMessageSet(){
+        val message = "Hello world!"
+        val speech = Speech(context)
+        speech.setSpeechText(message)
+        assertEquals(true, speech.active)
+    }
 }

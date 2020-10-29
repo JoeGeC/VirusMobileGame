@@ -24,7 +24,7 @@ class Speech(private var context: Context) {
     private val namePaint: Paint = Paint()
     private val speechPaint: Paint = Paint()
     var messageToDisplay = mutableListOf<String>()
-    private var active = false
+    var active = false
 
     init{
         namePaint.color = ContextCompat.getColor(context, R.color.blue)
@@ -53,5 +53,6 @@ class Speech(private var context: Context) {
 
     fun setSpeechText(message: String) {
         messageToDisplay.add(message)
+        active = true
     }
 }
