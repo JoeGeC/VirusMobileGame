@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.hardware.Sensor
 import android.hardware.SensorManager
-import com.example.virusgame.game.Clock
+import com.example.virusgame.Clock.Clock
 import com.example.virusgame.game.ShakeSensor
 
 class PreAttackZombie(var zombie: Zombie) : ZombieState {

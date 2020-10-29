@@ -2,7 +2,7 @@ package com.example.virusgame.game.zombie
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import com.example.virusgame.game.Clock
+import com.example.virusgame.Clock.Clock
 import kotlin.random.Random
 
 class AliveZombie(private var zombie: Zombie) : ZombieState {

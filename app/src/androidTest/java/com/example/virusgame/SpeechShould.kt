@@ -73,17 +73,12 @@ class SpeechShould {
     }
 
     @Test
-    fun deactivateAfterFinishingLongMessage(){
+    fun deactivateAfterFinishingLongMessage() {
         speech.setSpeechText("Hello world! I'm here to tell you a story about a really great guy called Joe!")
         speech.fullRect = Rect(0, 0, 10, 10)
         speech.onTouch(5, 5)
         speech.onTouch(5, 5)
         speech.onTouch(5, 5)
         assertEquals(false, speech.active)
-    }
-
-    @Test
-    fun onlyDrawFirstCharacterToStart(){
-        assertEquals("H", speech.typedLine("Hello!"))
     }
 }

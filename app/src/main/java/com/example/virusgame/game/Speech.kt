@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.graphics.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import com.example.virusgame.Clock.Clock
 import com.example.virusgame.R
 
 class Speech(private var context: Context) {
@@ -18,13 +19,18 @@ class Speech(private var context: Context) {
     var lineLength = 23
     private val amountOfLines = 4
     private val textSize = screenHeight / 60.0f
-    private val line1y = speechBubbleRect.top + speechBubbleRect.height() / 5.0f
+    private val linePosY = floatArrayOf(
+        speechBubbleRect.top + speechBubbleRect.height() / 5.0f,
+        speechBubbleRect.top + speechBubbleRect.height() / 5.0f * 2,
+        speechBubbleRect.top + speechBubbleRect.height() / 5.0f * 3,
+        speechBubbleRect.top + speechBubbleRect.height() / 5.0f * 4)
     private val namePaint: Paint = Paint()
     private val speechPaint: Paint = Paint()
     var messageToDisplay = mutableListOf<String>()
     var active = false
-    var currentChar = 1
-    private var timeSpeechSet: Long = 0
+    private var currentChar = intArrayOf(0, 0, 0, 0, 0)
+    private var messageSetTime = longArrayOf(0, 0, 0, 0, 0)
+    private var messageTyped = booleanArrayOf(false, false, false, false)
 
     init{
         namePaint.color = ContextCompat.getColor(context, R.color.blue)
@@ -40,18 +46,31 @@ class Speech(private var context: Context) {
         if(!active) return
         canvas.drawBitmap(sprite, x.toFloat(), y.toFloat(), null)
         canvas.drawText(context.getString(R.string.knight), speechBubbleRect.left.toFloat(), speechBubbleRect.top.toFloat(), namePaint)
-        drawLine(canvas, 1)
-        drawLine(canvas, 2)
-        drawLine(canvas, 3)
-        drawLine(canvas, 4)
+        for(i in 0..3) drawLine(canvas, i)
     }
 
     private fun drawLine(canvas: Canvas, lineNum: Int){
-        canvas.drawText(typedLine(messageToDisplay[lineNum]), speechBubbleRect.left.toFloat(), line1y * (lineNum + 1), speechPaint)
+        canvas.drawText(typedLine(lineNum), speechBubbleRect.left.toFloat(), linePosY[lineNum], speechPaint)
     }
 
-    fun typedLine(line: String): String{
-        return "H"
+    private fun typedLine(lineNum: Int): String{
+        if(lineNum >= messageToDisplay.size) messageTyped[lineNum] = true
+        if(messageSetTime[lineNum] < messageSetTime[0] || lineNum >= messageToDisplay.size) return ""
+        if(messageTyped[lineNum]) return messageToDisplay[lineNum]
+        if(Clock.millisecondsHavePassed(messageSetTime[lineNum], 200))
+            typeNextCharacter(lineNum)
+        var result = ""
+        for(i in 0..currentChar[lineNum])
+            result += messageToDisplay[lineNum][i]
+        return result
+    }
+
+    private fun typeNextCharacter(lineNum: Int) {
+        currentChar[lineNum]++
+        if (currentChar[lineNum] >= messageToDisplay[lineNum].length) {
+            messageSetTime[lineNum + 1] = System.nanoTime()
+            messageTyped[lineNum] = true
+        }
     }
 
     fun onTouch(xTouch: Int, yTouch: Int) {
@@ -60,16 +79,33 @@ class Speech(private var context: Context) {
     }
 
     private fun displayNextPartOfMessage() {
+        if(!messageTyped[3]) {
+            skipMessage()
+            return
+        }
+        resetMessageTyper()
         if(messageToDisplay.size > amountOfLines)
             repeat(amountOfLines){ messageToDisplay.removeAt(0) }
         else
             active = false
     }
 
+    private fun skipMessage() {
+        messageSetTime = longArrayOf(0, 0, 0, 0, 0)
+        currentChar = intArrayOf(messageToDisplay[0].length, messageToDisplay[1].length, messageToDisplay[2].length, messageToDisplay[3].length, 0)
+        messageTyped = booleanArrayOf(true, true, true, true)
+    }
+
+    private fun resetMessageTyper() {
+        messageSetTime[0] = System.nanoTime()
+        currentChar = intArrayOf(0, 0, 0, 0, 0)
+        messageTyped = booleanArrayOf(false, false, false, false)
+    }
+
     fun setSpeechText(message: String) {
         messageToDisplay = setMessageToDisplay(message)
         active = true
-        timeSpeechSet = System.nanoTime()
+        messageSetTime[0] = System.nanoTime()
     }
 
     private fun setMessageToDisplay(message: String): MutableList<String> {

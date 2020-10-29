@@ -2,7 +2,7 @@ package com.example.virusgame.game.zombie
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import com.example.virusgame.game.Clock
+import com.example.virusgame.Clock.Clock
 
 class DeadZombie(var zombie: Zombie) : ZombieState {
     private var frameNum: Int = 0
