@@ -81,4 +81,9 @@ class SpeechShould {
         speech.onTouch(5, 5)
         assertEquals(false, speech.active)
     }
+
+    @Test
+    fun onlyDrawFirstCharacterToStart(){
+        assertEquals("H", speech.typedLine("Hello!"))
+    }
 }
