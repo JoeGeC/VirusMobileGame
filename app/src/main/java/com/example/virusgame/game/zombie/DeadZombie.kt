@@ -14,7 +14,7 @@ class DeadZombie(var zombie: Zombie) : ZombieState {
     }
 
     override fun getAnimationFrame(): Bitmap {
-        if(Clock().millisecondsHavePassed(lastFrameUpdateTime, 20)){
+        if(Clock.millisecondsHavePassed(lastFrameUpdateTime, 20)){
             lastFrameUpdateTime = System.nanoTime()
             frameNum++
             if(frameNum > animation.size - 1) die()

@@ -15,7 +15,7 @@ class AttackZombie(private val zombie: Zombie) : ZombieState {
     }
 
     override fun getAnimationFrame(): Bitmap {
-        if(Clock().millisecondsHavePassed(lastFrameUpdateTime, 100)){
+        if(Clock.millisecondsHavePassed(lastFrameUpdateTime, 100)){
             lastFrameUpdateTime = System.nanoTime()
             frameNum++
             if(frameNum > animation.size - 1) attack()
