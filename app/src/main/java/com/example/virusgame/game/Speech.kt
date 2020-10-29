@@ -58,17 +58,20 @@ class Speech(private var context: Context) {
 
     private fun setMessageToDisplay(message: String): MutableList<String> {
         if (message.length < lineLength) return mutableListOf(message)
-
         val result = mutableListOf<String>()
         val splitMessage = message.split(" ")
         var currentLine = ""
         splitMessage.forEachIndexed { i, word ->
             currentLine += word
-            if(i == splitMessage.size - 1 || currentLine.length + splitMessage[i + 1].length > lineLength) {
+            if(atEndOfMessage(i, splitMessage) || nextWordWillGoOverLineLength(currentLine, splitMessage[i + 1])){
                 result.add(currentLine)
                 currentLine = ""
             }
         }
         return result
     }
+
+    private fun nextWordWillGoOverLineLength(currentLine: String, nextWord: String) = currentLine.length + nextWord.length > lineLength
+
+    private fun atEndOfMessage(i: Int, splitMessage: List<String>) = i == splitMessage.size - 1
 }
