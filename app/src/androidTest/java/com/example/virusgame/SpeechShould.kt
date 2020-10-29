@@ -12,7 +12,6 @@ import org.junit.Before
 class SpeechShould {
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
     private val oneLineMessage = "Hello!"
-    private val twoLineMessage = "Hello world!"
     private val speech = Speech(context)
 
     @Before
@@ -39,8 +38,16 @@ class SpeechShould {
 
     @Test
     fun setMessageOnTwoLinesWhenMessageOverLineLengthAndWordsDontSplitAcrossLines(){
-        speech.setSpeechText(twoLineMessage)
-        assertEquals("Hello", speech.messageToDisplay[0])
-        assertEquals("world!", speech.messageToDisplay[1])
+        speech.setSpeechText("Hello world!")
+        assertEquals("Hello ", speech.messageToDisplay[0])
+        assertEquals("world! ", speech.messageToDisplay[1])
+    }
+
+    @Test
+    fun setMessageOnThreeLinesWhenMessageOverLineLengthX2AndWordsDontSplitAcrossLines(){
+        speech.setSpeechText("Hello my name is Joe")
+        assertEquals("Hello my ", speech.messageToDisplay[0])
+        assertEquals("name is ", speech.messageToDisplay[1])
+        assertEquals("Joe ", speech.messageToDisplay[2])
     }
 }

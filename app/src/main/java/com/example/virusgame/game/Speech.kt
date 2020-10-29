@@ -62,7 +62,7 @@ class Speech(private var context: Context) {
         val splitMessage = message.split(" ")
         var currentLine = ""
         splitMessage.forEachIndexed { i, word ->
-            currentLine += word
+            currentLine += "$word "
             if(atEndOfMessage(i, splitMessage) || nextWordWillGoOverLineLength(currentLine, splitMessage[i + 1])){
                 result.add(currentLine)
                 currentLine = ""
