@@ -33,7 +33,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     }
 
     override fun getAnimationFrame(): Bitmap {
-        if(Clock().millisecondsHavePassed(lastFrameUpdateTime, 100)){
+        if(Clock.millisecondsHavePassed(lastFrameUpdateTime, 100)){
             lastFrameUpdateTime = System.nanoTime()
             frameNum++
             if(frameNum > animation.size - 1) frameNum = animation.size - 1
@@ -44,7 +44,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     override fun onSuccessfulSwipe() { }
 
     override fun update() {
-        if(Clock().millisecondsHavePassed(startTime, 3000)){
+        if(Clock.millisecondsHavePassed(startTime, 3000)){
             sensorManager.unregisterListener(shakeSensor)
             zombie.state = AttackZombie(zombie)
         }
