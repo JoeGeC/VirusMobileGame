@@ -58,6 +58,17 @@ class Speech(private var context: Context) {
 
     private fun setMessageToDisplay(message: String): MutableList<String> {
         if (message.length < lineLength) return mutableListOf(message)
-        return message.chunked(lineLength).toMutableList()
+
+        val result = mutableListOf<String>()
+        val splitMessage = message.split(" ")
+        var currentLine = ""
+        splitMessage.forEachIndexed { i, word ->
+            currentLine += word
+            if(i == splitMessage.size - 1 || currentLine.length + splitMessage[i + 1].length > lineLength) {
+                result.add(currentLine)
+                currentLine = ""
+            }
+        }
+        return result
     }
 }

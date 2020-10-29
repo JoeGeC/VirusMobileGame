@@ -11,13 +11,13 @@ import org.junit.Before
 @RunWith(AndroidJUnit4::class)
 class SpeechShould {
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
-    private val oneLineMessage = "test"
-    private val twoLineMessage = "testtest"
+    private val oneLineMessage = "Hello!"
+    private val twoLineMessage = "Hello world!"
     private val speech = Speech(context)
 
     @Before
     fun setup(){
-        speech.lineLength = 4
+        speech.lineLength = 10
     }
 
     @Test
@@ -38,9 +38,9 @@ class SpeechShould {
     }
 
     @Test
-    fun setMessageOnTwoLinesWhenMessageOverLineLength(){
+    fun setMessageOnTwoLinesWhenMessageOverLineLengthAndWordsDontSplitAcrossLines(){
         speech.setSpeechText(twoLineMessage)
-        assertEquals("test", speech.messageToDisplay[0])
-        assertEquals("test", speech.messageToDisplay[1])
+        assertEquals("Hello", speech.messageToDisplay[0])
+        assertEquals("world!", speech.messageToDisplay[1])
     }
 }
