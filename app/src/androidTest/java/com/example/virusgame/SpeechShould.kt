@@ -1,5 +1,6 @@
 package com.example.virusgame
 
+import android.graphics.Rect
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.virusgame.game.Speech
@@ -37,17 +38,18 @@ class SpeechShould {
     }
 
     @Test
-    fun setMessageOnTwoLinesWhenMessageOverLineLengthAndWordsDontSplitAcrossLines(){
-        speech.setSpeechText("Hello world!")
-        assertEquals("Hello ", speech.messageToDisplay[0])
-        assertEquals("world! ", speech.messageToDisplay[1])
+    fun setMessageOnSeparateLinesWhenMessageOverLineLengthAndWordsDontSplitAcrossLines(){
+        speech.setSpeechText("Hello my name is Joe and I'm great!")
+        assertEquals("Hello my ", speech.messageToDisplay[0])
+        assertEquals("name is ", speech.messageToDisplay[1])
+        assertEquals("Joe and ", speech.messageToDisplay[2])
+        assertEquals("I'm great! ", speech.messageToDisplay[3])
     }
 
     @Test
-    fun setMessageOnThreeLinesWhenMessageOverLineLengthX2AndWordsDontSplitAcrossLines(){
-        speech.setSpeechText("Hello my name is Joe")
-        assertEquals("Hello my ", speech.messageToDisplay[0])
-        assertEquals("name is ", speech.messageToDisplay[1])
-        assertEquals("Joe ", speech.messageToDisplay[2])
+    fun deactivateWhenSpeechTouched(){
+        speech.speechBubbleRect = Rect(0, 0, 10, 10)
+        speech.onTouch(5, 5)
+        assertEquals(false, speech.active)
     }
 }
