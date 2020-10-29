@@ -52,15 +52,12 @@ class Speech(private var context: Context) {
     }
 
     fun setSpeechText(message: String) {
-        if(message.length < lineLength)
-            messageToDisplay.add(message)
-        else{
-            val messageChunked = message.chunked(lineLength)
-            messageChunked.forEach { line ->
-                messageToDisplay.add(line)
-            }
-        }
-
+        messageToDisplay = setMessageToDisplay(message)
         active = true
+    }
+
+    private fun setMessageToDisplay(message: String): MutableList<String> {
+        if (message.length < lineLength) return mutableListOf(message)
+        return message.chunked(lineLength).toMutableList()
     }
 }
