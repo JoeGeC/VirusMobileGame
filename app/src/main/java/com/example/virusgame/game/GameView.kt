@@ -40,7 +40,6 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         spawnNewZombie()
         thread.setRunning(true)
         thread.start()
-        speech.splitTextForSpeech("Hi, my name is Knight and I'm here to help you on your journey!")
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
