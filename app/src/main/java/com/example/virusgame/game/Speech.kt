@@ -13,8 +13,8 @@ class Speech(private var context: Context) {
     private val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     private val x : Int = screenWidth / 2 - sprite.width / 2
     private val y : Int = (screenHeight - sprite.height * 1.3f).toInt()
-    var speechBubbleRect = Rect((x + sprite.width / 2.5f).toInt(), y + sprite.height / 4, x + sprite.width, y + sprite.height)
-    private val fullRect = Rect(x, y, x + sprite.width, y + sprite.height)
+    private var speechBubbleRect = Rect((x + sprite.width / 2.5f).toInt(), y + sprite.height / 4, x + sprite.width, y + sprite.height)
+    var fullRect = Rect(x, y, x + sprite.width, y + sprite.height)
     var lineLength = 23
     private val textSize = screenHeight / 60.0f
     private val line1y = speechBubbleRect.top + speechBubbleRect.height() / 5.0f

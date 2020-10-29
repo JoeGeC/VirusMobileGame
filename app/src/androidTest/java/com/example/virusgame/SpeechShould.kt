@@ -48,8 +48,17 @@ class SpeechShould {
 
     @Test
     fun deactivateWhenSpeechTouched(){
-        speech.speechBubbleRect = Rect(0, 0, 10, 10)
+        speech.setSpeechText("Hello!")
+        speech.fullRect = Rect(0, 0, 10, 10)
         speech.onTouch(5, 5)
         assertEquals(false, speech.active)
+    }
+
+    @Test
+    fun notDeactivateWhenTouchedOutsideOfSpeech(){
+        speech.setSpeechText("Hello!")
+        speech.fullRect = Rect(0, 0, 10, 10)
+        speech.onTouch(11, 11)
+        assertEquals(true, speech.active)
     }
 }
