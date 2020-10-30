@@ -4,7 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@drawable/city_background">
+    android:background="@drawable/city_background"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/gameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/game_name"
+        android:textSize="50sp"
+        android:textColor="@color/white"
+        android:layout_marginBottom="32dp"/>
     <TextView
         android:id="@+id/playText"
         android:layout_width="wrap_content"

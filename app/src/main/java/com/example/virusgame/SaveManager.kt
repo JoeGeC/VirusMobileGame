@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken
 object SaveManager {
     private val context = MainActivity.applicationContext()
     private val gson = Gson()
-    private val sharedPref = context.getSharedPreferences(context.getString(R.string.game_name), Context.MODE_PRIVATE)
+    private val sharedPref = context.getSharedPreferences(context.getString(R.string.game_name_id), Context.MODE_PRIVATE)
 
     fun saveGame(player: Player, gameStats: GameStats, eventManager: EventManager){
         val playerJson = gson.toJson(player)
