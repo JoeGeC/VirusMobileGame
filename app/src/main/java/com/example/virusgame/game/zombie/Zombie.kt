@@ -23,6 +23,7 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
     internal var gold = 5
     internal var attack = 1
     internal var exp: Int = 0
+    internal var canAttack = false
 
     private var fullRect: Rect get(){
         return Rect(x, y, x + state.animation[0].width, y + state.animation[0].height)
@@ -73,11 +74,12 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
         canvas.drawLine(healthBarStartPos, healthBarHeight, healthBarStopPos, healthBarHeight, zombieHealthPaint)
     }
 
-    fun setStats(level: Int){
-        maxHealth = Random.nextInt(level * 3, level * 5)
+    fun setStats(wave: Int){
+        maxHealth = Random.nextInt(wave * 3, wave * 5)
         currentHealth = maxHealth
         gold = maxHealth
-        attack = Random.nextInt(level, (level * 1.5 + 1).toInt())
-        exp = maxHealth + attack + level
+        attack = Random.nextInt(wave, (wave * 1.5 + 1).toInt())
+        exp = maxHealth + attack + wave
+        canAttack = wave > 1
     }
 }

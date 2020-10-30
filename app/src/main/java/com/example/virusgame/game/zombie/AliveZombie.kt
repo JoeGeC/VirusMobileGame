@@ -31,7 +31,7 @@ class AliveZombie(private var zombie: Zombie) : ZombieState {
     }
 
     override fun update() {
-        if(Random.nextInt(0, 350) == 1){
+        if(Random.nextInt(0, 350) == 1 && zombie.canAttack){
             zombie.state = PreAttackZombie(zombie)
             ZombieAttackEvent.trigger()
         }
