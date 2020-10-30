@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.example.virusgame.game.events.FirstTimePlayingEvent
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 import com.example.virusgame.game.zombie.Zombie
@@ -16,12 +17,11 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     EntityHandler {
     private val thread: GameThread
     private val ui: Ui = Ui(context)
-    private val speech: Speech = Speech(context)
     private var zombie: Zombie? = null
     private var player: Player = Player(context)
     private var sword: Sword = Sword(context)
     private var wave: Int = 1
-    private var zombieKillCount = 0
+    override var zombieKillCount = 0
 
     private var touched: Boolean = false
     private var xTouch: Int = 0
@@ -40,7 +40,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         spawnNewZombie()
         thread.setRunning(true)
         thread.start()
-        speech.setSpeechText("Hello there! My name is knight and I'm here to help you on your long, perilous journey! By the way, have you met my friend zombie over there? Careful, he bites!")
+        FirstTimePlayingEvent.trigger()
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
@@ -79,7 +79,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         ui.drawWave(canvas, wave)
         ui.drawGold(canvas, player.gold)
         ui.drawLevel(canvas, player.level)
-        speech.draw(canvas)
+        Speech.draw(canvas)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -103,7 +103,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private fun releaseTouch() {
         touched = false
         swipeState = StartSwipeState()
-        speech.onTouch(xStartTouch, yStartTouch)
+        Speech.onTouch(xStartTouch, yStartTouch)
     }
 
     override fun takeGold(gold: Int) {
@@ -120,10 +120,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     override fun incrementZombieKillCount() {
         zombieKillCount++
-        if(zombieKillCount >= 10){
+        if(zombieKillCount % 10 == 0)
             wave++
-            zombieKillCount = 0
-        }
     }
 
     override fun inflictPlayerDamage(damage: Int) {

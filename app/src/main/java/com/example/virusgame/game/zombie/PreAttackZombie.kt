@@ -7,6 +7,8 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import com.example.virusgame.Clock.Clock
 import com.example.virusgame.game.ShakeSensor
+import com.example.virusgame.game.events.FirstDefenceEvent
+import com.example.virusgame.game.events.ZombieAttackEvent
 
 class PreAttackZombie(var zombie: Zombie) : ZombieState {
     private var frameNum: Int = 0
@@ -33,7 +35,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     }
 
     override fun getAnimationFrame(): Bitmap {
-        if(Clock.millisecondsHavePassed(lastFrameUpdateTime, 100)){
+        if(Clock.millisecondsHavePassedSince(lastFrameUpdateTime, 100)){
             lastFrameUpdateTime = System.nanoTime()
             frameNum++
             if(frameNum > animation.size - 1) frameNum = animation.size - 1
@@ -44,7 +46,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     override fun onSuccessfulSwipe() { }
 
     override fun update() {
-        if(Clock.millisecondsHavePassed(startTime, 3000)){
+        if(Clock.millisecondsHavePassedSince(startTime, 3000)){
             sensorManager.unregisterListener(shakeSensor)
             zombie.state = AttackZombie(zombie)
         }
@@ -57,6 +59,8 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
             override fun onShake(count: Int) {
                 sensorManager.unregisterListener(shakeSensor)
                 zombie.state = AliveZombie(zombie)
+                ZombieAttackEvent.complete = true
+                FirstDefenceEvent.trigger()
             }
         })
     }

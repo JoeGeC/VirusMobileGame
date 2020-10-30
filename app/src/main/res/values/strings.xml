@@ -3,4 +3,9 @@
     <string name="health">Health: </string>
     <string name="play">Play</string>
     <string name="knight">Knight:</string>
+    <string name="first_kill">Good, keep on taking out those zombies!</string>
+    <string name="shake_advice">Quick! Shake your device to defend the zombie\'s attack!</string>
+    <string name="first_damage_advice">Ouch! Try to shake your device next time so you don\'t take damage. If your health hits 0, you\'ll die!</string>
+    <string name="intro">A virus has broken out! Quick, swipe on the screen and take out that zombie!</string>
+    <string name="first_defence">Great! Remember, you can\'t attack while a zombie has a hold of you.</string>
 </resources>

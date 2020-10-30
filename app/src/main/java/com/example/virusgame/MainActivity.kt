@@ -1,11 +1,24 @@
 package com.example.virusgame
 
+import android.content.Context
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity(){
+    init {
+        instance = this
+    }
+
+    companion object {
+        private var instance: MainActivity? = null
+
+        fun applicationContext(): Context {
+            return instance!!.applicationContext
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setFullScreen()

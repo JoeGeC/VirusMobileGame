@@ -3,6 +3,7 @@ package com.example.virusgame.game.zombie
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import com.example.virusgame.Clock.Clock
+import com.example.virusgame.game.events.ZombieAttackEvent
 import kotlin.random.Random
 
 class AliveZombie(private var zombie: Zombie) : ZombieState {
@@ -16,7 +17,7 @@ class AliveZombie(private var zombie: Zombie) : ZombieState {
     }
 
     override fun getAnimationFrame() : Bitmap {
-        if(Clock.millisecondsHavePassed(lastFrameUpdateTime, 100)){
+        if(Clock.millisecondsHavePassedSince(lastFrameUpdateTime, 100)){
             lastFrameUpdateTime = System.nanoTime()
             frameNum++
             if(frameNum > animation.size - 1) frameNum = 0
@@ -29,8 +30,9 @@ class AliveZombie(private var zombie: Zombie) : ZombieState {
     }
 
     override fun update() {
-        if(Random.nextInt(0, 350) == 1){
+        if(Random.nextInt(0, 350) == 1 && zombie.entityHandler.zombieKillCount > 3){
             zombie.state = PreAttackZombie(zombie)
+            ZombieAttackEvent.trigger()
         }
     }
 }

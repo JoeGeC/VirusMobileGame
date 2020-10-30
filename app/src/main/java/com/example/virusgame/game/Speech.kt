@@ -6,9 +6,11 @@ import android.graphics.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.virusgame.Clock.Clock
+import com.example.virusgame.MainActivity
 import com.example.virusgame.R
 
-class Speech(private var context: Context) {
+object Speech {
+    private val context: Context = MainActivity.applicationContext()
     private val sprite: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.knight)
     private val screenHeight = Resources.getSystem().displayMetrics.heightPixels
     private val screenWidth = Resources.getSystem().displayMetrics.widthPixels
@@ -17,20 +19,21 @@ class Speech(private var context: Context) {
     private var speechBubbleRect = Rect((x + sprite.width / 2.5f).toInt(), y + sprite.height / 4, x + sprite.width, y + sprite.height)
     var fullRect = Rect(x, y, x + sprite.width, y + sprite.height)
     var lineLength = 23
-    private val amountOfLines = 4
+    private const val amountOfLines = 4
     private val textSize = screenHeight / 60.0f
     private val linePosY = floatArrayOf(
         speechBubbleRect.top + speechBubbleRect.height() / 5.0f,
         speechBubbleRect.top + speechBubbleRect.height() / 5.0f * 2,
         speechBubbleRect.top + speechBubbleRect.height() / 5.0f * 3,
         speechBubbleRect.top + speechBubbleRect.height() / 5.0f * 4)
-    private val namePaint: Paint = Paint()
-    private val speechPaint: Paint = Paint()
     var messageToDisplay = mutableListOf<String>()
     var active = false
     private var currentChar = intArrayOf(0, 0, 0, 0, 0)
     private var messageSetTime = longArrayOf(0, 0, 0, 0, 0)
     private var messageTyped = booleanArrayOf(false, false, false, false)
+    private val namePaint: Paint = Paint()
+    private val speechPaint: Paint = Paint()
+    private val tapPaint: Paint = Paint()
 
     init{
         namePaint.color = ContextCompat.getColor(context, R.color.blue)
@@ -40,11 +43,17 @@ class Speech(private var context: Context) {
         speechPaint.color = ContextCompat.getColor(context, R.color.white)
         speechPaint.textSize = textSize
         speechPaint.typeface =  ResourcesCompat.getFont(context, R.font.unispace)
+
+        tapPaint.color = ContextCompat.getColor(context, R.color.white)
+        tapPaint.textSize = screenHeight / 100.0f
+        tapPaint.typeface =  ResourcesCompat.getFont(context, R.font.unispace)
+        tapPaint.textAlign = Paint.Align.RIGHT
     }
 
     fun draw(canvas: Canvas){
         if(!active) return
         canvas.drawBitmap(sprite, x.toFloat(), y.toFloat(), null)
+        canvas.drawText("[tap]", speechBubbleRect.right.toFloat() - speechBubbleRect.width() / 15, speechBubbleRect.top.toFloat(), tapPaint)
         canvas.drawText(context.getString(R.string.knight), speechBubbleRect.left.toFloat(), speechBubbleRect.top.toFloat(), namePaint)
         for(i in 0..3) drawLine(canvas, i)
     }
@@ -57,7 +66,7 @@ class Speech(private var context: Context) {
         if(lineNum >= messageToDisplay.size) messageTyped[lineNum] = true
         if(messageSetTime[lineNum] < messageSetTime[0] || lineNum >= messageToDisplay.size) return ""
         if(messageTyped[lineNum]) return messageToDisplay[lineNum]
-        if(Clock.millisecondsHavePassed(messageSetTime[lineNum], 200))
+        if(Clock.millisecondsHavePassedSince(messageSetTime[lineNum], 200))
             typeNextCharacter(lineNum)
         var result = ""
         for(i in 0..currentChar[lineNum])
@@ -80,7 +89,7 @@ class Speech(private var context: Context) {
 
     private fun displayNextPartOfMessage() {
         if(!messageTyped[3]) {
-            skipMessage()
+            skipMessageTyping()
             return
         }
         resetMessageTyper()
@@ -90,7 +99,7 @@ class Speech(private var context: Context) {
             active = false
     }
 
-    private fun skipMessage() {
+    private fun skipMessageTyping() {
         messageSetTime = longArrayOf(0, 0, 0, 0, 0)
         currentChar = intArrayOf(messageToDisplay[0].length, messageToDisplay[1].length, messageToDisplay[2].length, messageToDisplay[3].length, 0)
         messageTyped = booleanArrayOf(true, true, true, true)
@@ -103,6 +112,7 @@ class Speech(private var context: Context) {
     }
 
     fun setSpeechText(message: String) {
+        resetMessageTyper()
         messageToDisplay = setMessageToDisplay(message)
         active = true
         messageSetTime[0] = System.nanoTime()

@@ -3,6 +3,8 @@ package com.example.virusgame.game.zombie
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import com.example.virusgame.Clock.Clock
+import com.example.virusgame.game.events.FirstKillEvent
+import com.example.virusgame.game.events.FirstTimePlayingEvent
 
 class DeadZombie(var zombie: Zombie) : ZombieState {
     private var frameNum: Int = 0
@@ -14,10 +16,10 @@ class DeadZombie(var zombie: Zombie) : ZombieState {
     }
 
     override fun getAnimationFrame(): Bitmap {
-        if(Clock.millisecondsHavePassed(lastFrameUpdateTime, 20)){
+        if(Clock.millisecondsHavePassedSince(lastFrameUpdateTime, 20)){
             lastFrameUpdateTime = System.nanoTime()
             frameNum++
-            if(frameNum > animation.size - 1) die()
+            if(frameNum >= animation.size - 1) die()
         }
         return animation[frameNum]
     }
@@ -27,6 +29,8 @@ class DeadZombie(var zombie: Zombie) : ZombieState {
         zombie.entityHandler.takeExp(zombie.exp)
         zombie.entityHandler.spawnNewZombie()
         zombie.entityHandler.incrementZombieKillCount()
+        FirstTimePlayingEvent.complete = true
+        FirstKillEvent.trigger()
     }
 
     override fun onSuccessfulSwipe() {}
