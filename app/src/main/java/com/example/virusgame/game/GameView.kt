@@ -1,26 +1,21 @@
 package com.example.virusgame.game
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.BitmapFactory.decodeResource
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import androidx.core.content.ContextCompat
-import com.example.virusgame.R
 import com.example.virusgame.SaveManager
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
+import com.example.virusgame.game.ui.Ui
 import com.example.virusgame.game.zombie.PreAttackZombie
 import com.example.virusgame.game.zombie.Zombie
 import com.example.virusgame.game.zombie.ZombieDamageCalculator
 import com.example.virusgame.game.zombie.ZombieMaker
-import kotlinx.android.synthetic.main.main_menu.view.*
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback,
     EntityHandler {
@@ -88,11 +83,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         background.draw(canvas)
         zombie!!.draw(canvas)
         sword.draw(canvas)
-        ui.drawHealth(canvas, player.health, player.maxHealth)
-        ui.drawBorder(canvas)
-        ui.drawWave(canvas, gameStats.wave)
-        ui.drawGold(canvas, player.gold)
-        ui.drawLevel(canvas, player.level)
+        ui.draw(canvas, player, gameStats)
         speech.draw(canvas)
     }
 

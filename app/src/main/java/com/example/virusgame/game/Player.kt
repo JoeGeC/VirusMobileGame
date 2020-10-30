@@ -3,7 +3,7 @@ package com.example.virusgame.game
 class Player(){
     var gold = 0
     var maxHealth = 10
-    var health = maxHealth
+    var currentHealth = maxHealth
     private var exp = 0
     var level = 1
     var attack = 1
@@ -13,9 +13,9 @@ class Player(){
     }
 
     fun takeDamage(damage: Int){
-        health -= damage
-        if(health <= 0){
-            health = 0
+        currentHealth -= damage
+        if(currentHealth <= 0){
+            currentHealth = 0
             die()
         }
     }
@@ -33,7 +33,7 @@ class Player(){
     private fun levelUp() {
         level++
         maxHealth = (10 + level * 1.5).toInt()
-        health = maxHealth
+        currentHealth = maxHealth
         attack = (level * 1.5).toInt()
     }
 }
