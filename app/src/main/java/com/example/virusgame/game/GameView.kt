@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
@@ -17,6 +18,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     EntityHandler {
     private val thread: GameThread
     private val ui: Ui = Ui(context)
+    private val speech: Speech = Speech(context)
     private var zombie: Zombie? = null
     private var player: Player = Player(context)
     private var sword: Sword = Sword(context)
@@ -37,6 +39,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
+        EventManager.setupEvents(speech)
         spawnNewZombie()
         thread.setRunning(true)
         thread.start()
@@ -79,7 +82,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         ui.drawWave(canvas, wave)
         ui.drawGold(canvas, player.gold)
         ui.drawLevel(canvas, player.level)
-        Speech.draw(canvas)
+        speech.draw(canvas)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -103,7 +106,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private fun releaseTouch() {
         touched = false
         swipeState = StartSwipeState()
-        Speech.onTouch(xStartTouch, yStartTouch)
+        speech.onTouch(xStartTouch, yStartTouch)
     }
 
     override fun takeGold(gold: Int) {

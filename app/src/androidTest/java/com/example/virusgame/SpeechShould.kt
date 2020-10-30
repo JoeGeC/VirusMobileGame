@@ -47,9 +47,10 @@ class SpeechShould {
     }
 
     @Test
-    fun deactivateWhenSpeechTouched(){
+    fun deactivateWhenSpeechTouchedAndFinishedTyping(){
         speech.setSpeechText("Hello!")
         speech.fullRect = Rect(0, 0, 10, 10)
+        speech.skipMessageTyping()
         speech.onTouch(5, 5)
         assertEquals(false, speech.active)
     }
@@ -66,6 +67,7 @@ class SpeechShould {
     fun moveOntoNextPartOfMessageWhenTouchedAndStillMessageLeft(){
         speech.setSpeechText("Hello world! I'm here to tell you a story about a really great guy called Joe!")
         speech.fullRect = Rect(0, 0, 10, 10)
+        speech.skipMessageTyping()
         speech.onTouch(5, 5)
         val secondPartOfMessage = mutableListOf("story ", "about a ", "really ", "great guy ", "called ", "Joe! ")
         assertEquals(secondPartOfMessage, speech.messageToDisplay)
@@ -76,9 +78,7 @@ class SpeechShould {
     fun deactivateAfterFinishingLongMessage() {
         speech.setSpeechText("Hello world! I'm here to tell you a story about a really great guy called Joe!")
         speech.fullRect = Rect(0, 0, 10, 10)
-        speech.onTouch(5, 5)
-        speech.onTouch(5, 5)
-        speech.onTouch(5, 5)
+        repeat(6){ speech.onTouch(5, 5) }
         assertEquals(false, speech.active)
     }
 }

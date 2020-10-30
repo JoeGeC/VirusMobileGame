@@ -6,11 +6,9 @@ import android.graphics.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.virusgame.Clock.Clock
-import com.example.virusgame.MainActivity
 import com.example.virusgame.R
 
-object Speech {
-    private val context: Context = MainActivity.applicationContext()
+class Speech(private var context: Context) {
     private val sprite: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.knight)
     private val screenHeight = Resources.getSystem().displayMetrics.heightPixels
     private val screenWidth = Resources.getSystem().displayMetrics.widthPixels
@@ -19,7 +17,7 @@ object Speech {
     private var speechBubbleRect = Rect((x + sprite.width / 2.5f).toInt(), y + sprite.height / 4, x + sprite.width, y + sprite.height)
     var fullRect = Rect(x, y, x + sprite.width, y + sprite.height)
     var lineLength = 23
-    private const val amountOfLines = 4
+    private val amountOfLines = 4
     private val textSize = screenHeight / 60.0f
     private val linePosY = floatArrayOf(
         speechBubbleRect.top + speechBubbleRect.height() / 5.0f,
@@ -99,10 +97,15 @@ object Speech {
             active = false
     }
 
-    private fun skipMessageTyping() {
+    fun skipMessageTyping() {
         messageSetTime = longArrayOf(0, 0, 0, 0, 0)
-        currentChar = intArrayOf(messageToDisplay[0].length, messageToDisplay[1].length, messageToDisplay[2].length, messageToDisplay[3].length, 0)
+        currentChar = intArrayOf(getLineLength(0), getLineLength(1), getLineLength(2), getLineLength(3), 0)
         messageTyped = booleanArrayOf(true, true, true, true)
+    }
+
+    private fun getLineLength(lineNum: Int): Int {
+        if(messageToDisplay.size <= lineNum) return 0
+        return messageToDisplay[lineNum].length
     }
 
     private fun resetMessageTyper() {
