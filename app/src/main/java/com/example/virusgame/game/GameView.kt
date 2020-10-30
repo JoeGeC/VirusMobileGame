@@ -11,6 +11,7 @@ import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
+import com.example.virusgame.game.zombie.PreAttackZombie
 import com.example.virusgame.game.zombie.Zombie
 import com.example.virusgame.game.zombie.ZombieDamageCalculator
 import com.example.virusgame.game.zombie.ZombieMaker
@@ -68,7 +69,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     fun update(){
-        if(touched){
+        if(touched && zombie!!.state !is PreAttackZombie){
             swipeState = swipeState.onTouch(xTouch, yTouch, zombie!!)
             sword.update(xTouch.toFloat(), yTouch.toFloat())
         } else sword.deactivate()
