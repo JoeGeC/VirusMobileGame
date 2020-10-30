@@ -5,7 +5,7 @@ import android.content.res.Resources
 import android.graphics.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.example.virusgame.Clock.Clock
+import com.example.virusgame.clock.Clock
 import com.example.virusgame.R
 
 class Speech(private var context: Context) {

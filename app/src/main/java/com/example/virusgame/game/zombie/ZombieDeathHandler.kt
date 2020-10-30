@@ -5,5 +5,4 @@ interface ZombieDeathHandler {
     fun takeExp(exp: Int)
     fun spawnNewZombie()
     fun incrementZombieKillCount()
-    val zombieKillCount: Int
 }

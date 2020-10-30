@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.hardware.Sensor
 import android.hardware.SensorManager
-import com.example.virusgame.Clock.Clock
+import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.ShakeSensor
 import com.example.virusgame.game.events.FirstDefenceEvent
 import com.example.virusgame.game.events.ZombieAttackEvent

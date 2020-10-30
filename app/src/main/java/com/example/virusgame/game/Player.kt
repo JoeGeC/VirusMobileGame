@@ -1,8 +1,6 @@
 package com.example.virusgame.game
 
-import android.content.Context
-
-class Player(var context: Context){
+class Player(){
     var gold = 0
     var maxHealth = 10
     var health = maxHealth

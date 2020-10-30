@@ -2,7 +2,7 @@ package com.example.virusgame.game.zombie
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import com.example.virusgame.Clock.Clock
+import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.FirstKillEvent
 import com.example.virusgame.game.events.FirstTimePlayingEvent
 
@@ -25,12 +25,12 @@ class DeadZombie(var zombie: Zombie) : ZombieState {
     }
 
     private fun die() {
+        FirstTimePlayingEvent.complete = true
+        FirstKillEvent.trigger()
         zombie.entityHandler.takeGold(zombie.gold)
         zombie.entityHandler.takeExp(zombie.exp)
         zombie.entityHandler.spawnNewZombie()
         zombie.entityHandler.incrementZombieKillCount()
-        FirstTimePlayingEvent.complete = true
-        FirstKillEvent.trigger()
     }
 
     override fun onSuccessfulSwipe() {}

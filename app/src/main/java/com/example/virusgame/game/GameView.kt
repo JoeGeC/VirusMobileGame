@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.example.virusgame.SaveManager
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent
 import com.example.virusgame.game.swipestates.StartSwipeState
@@ -17,13 +18,13 @@ import com.example.virusgame.game.zombie.ZombieMaker
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback,
     EntityHandler {
     private val thread: GameThread
-    private val ui: Ui = Ui(context)
-    private val speech: Speech = Speech(context)
+    private val gameStats = SaveManager.loadGameStats()
+    private val eventManager = EventManager()
+    private val ui = Ui(context)
+    private val speech = Speech(context)
     private var zombie: Zombie? = null
-    private var player: Player = Player(context)
-    private var sword: Sword = Sword(context)
-    private var wave: Int = 1
-    override var zombieKillCount = 0
+    private var player = SaveManager.loadPlayer()
+    private var sword = Sword(context)
 
     private var touched: Boolean = false
     private var xTouch: Int = 0
@@ -39,7 +40,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        EventManager.setupEvents(speech)
+        SaveManager.loadEventManager(eventManager)
+        eventManager.setupEvents(speech)
         spawnNewZombie()
         thread.setRunning(true)
         thread.start()
@@ -79,7 +81,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         sword.draw(canvas)
         ui.drawHealth(canvas, player.health, player.maxHealth)
         ui.drawBorder(canvas)
-        ui.drawWave(canvas, wave)
+        ui.drawWave(canvas, gameStats.wave)
         ui.drawGold(canvas, player.gold)
         ui.drawLevel(canvas, player.level)
         speech.draw(canvas)
@@ -118,13 +120,12 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun spawnNewZombie() {
-        zombie = ZombieMaker().makeZombie(context, this, sword.offset, wave)
+        zombie = ZombieMaker().makeZombie(context, this, sword.offset, gameStats.wave)
     }
 
     override fun incrementZombieKillCount() {
-        zombieKillCount++
-        if(zombieKillCount % 10 == 0)
-            wave++
+        gameStats.incrementZombieKillCount()
+        SaveManager.saveGame(player, gameStats, eventManager)
     }
 
     override fun inflictPlayerDamage(damage: Int) {

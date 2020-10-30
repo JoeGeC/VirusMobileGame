@@ -2,7 +2,7 @@ package com.example.virusgame.game.zombie
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import com.example.virusgame.Clock.Clock
+import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.FirstDamageTaken
 
 class AttackZombie(private val zombie: Zombie) : ZombieState {
