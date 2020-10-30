@@ -25,4 +25,9 @@ class Sword(context: Context) {
         if(position.size > 3) position.remove()
         active = true
     }
+
+    fun deactivate() {
+        active = false
+        position.clear()
+    }
 }

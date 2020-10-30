@@ -66,7 +66,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         if(touched){
             swipeState = swipeState.onTouch(xTouch, yTouch, zombie!!)
             sword.update(xTouch.toFloat(), yTouch.toFloat())
-        } else sword.active = false
+        } else sword.deactivate()
         zombie!!.update()
     }
 
