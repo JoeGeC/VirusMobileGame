@@ -1,11 +1,16 @@
 package com.example.virusgame.game
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.BitmapFactory.decodeResource
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import androidx.core.content.ContextCompat
+import com.example.virusgame.R
 import com.example.virusgame.SaveManager
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent
@@ -15,6 +20,7 @@ import com.example.virusgame.game.zombie.PreAttackZombie
 import com.example.virusgame.game.zombie.Zombie
 import com.example.virusgame.game.zombie.ZombieDamageCalculator
 import com.example.virusgame.game.zombie.ZombieMaker
+import kotlinx.android.synthetic.main.main_menu.view.*
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback,
     EntityHandler {
@@ -26,6 +32,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private var zombie: Zombie? = null
     private var player = SaveManager.loadPlayer()
     private var sword = Sword(context)
+    private val background = Background(context)
 
     private var touched: Boolean = false
     private var xTouch: Int = 0
@@ -78,6 +85,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
+        background.draw(canvas)
         zombie!!.draw(canvas)
         sword.draw(canvas)
         ui.drawHealth(canvas, player.health, player.maxHealth)
