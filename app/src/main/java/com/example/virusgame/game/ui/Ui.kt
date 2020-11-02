@@ -19,10 +19,10 @@ class Ui (context: Context){
     private val level = LevelUi(context, screenDimensions, border.bottom)
 
     fun draw(canvas: Canvas, player: Player, gameStats: GameStats){
-        health.draw(canvas, player.currentHealth, player.maxHealth)
         border.draw(canvas)
         wave.draw(canvas, gameStats.wave)
         gold.draw(canvas, player.gold)
+        health.draw(canvas, player.currentHealth, player.maxHealth)
         level.draw(canvas, player.level)
     }
 }
