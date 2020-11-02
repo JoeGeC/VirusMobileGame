@@ -16,6 +16,6 @@ class LevelUi(context: Context, private var screenDimensions: Vector2, private v
     }
 
     fun draw(canvas: Canvas, level: Int){
-        canvas.drawText("Level: $level", screenDimensions.x / 1.5f, borderBottom - borderBottom / 4.0f, levelPaint)
+//        canvas.drawText("Level: $level", screenDimensions.x / 1.5f, borderBottom - borderBottom / 4.0f, levelPaint)
     }
 }
