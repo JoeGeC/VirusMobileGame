@@ -5,9 +5,9 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import androidx.core.content.ContextCompat
 import com.example.virusgame.R
-import com.example.virusgame.game.Vector2
+import com.example.virusgame.game.vector2.FloatVector2
 
-class LevelUi(context: Context, private var screenDimensions: Vector2, private var borderBottom: Float) {
+class LevelUi(context: Context, private var screenDimensions: FloatVector2, private var borderBottom: Float) {
     private val levelPaint: Paint = Paint()
 
     init {

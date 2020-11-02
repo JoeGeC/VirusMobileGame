@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.R
+import com.example.virusgame.game.vector2.IntVector2
 
 class Speech(private var context: Context) {
     private val sprite: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.knight)
@@ -80,8 +81,8 @@ class Speech(private var context: Context) {
         }
     }
 
-    fun onTouch(xTouch: Int, yTouch: Int) {
-        if(xTouch > fullRect.left && xTouch < fullRect.right && yTouch > fullRect.top && yTouch < fullRect.bottom)
+    fun onTouch(touchPos: IntVector2) {
+        if(touchPos.isInside(fullRect))
             displayNextPartOfMessage()
     }
 

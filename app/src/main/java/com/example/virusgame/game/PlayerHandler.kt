@@ -1,5 +1,6 @@
 package com.example.virusgame.game
 
-interface PlayerHealthHandler {
+interface PlayerHandler {
     fun inflictPlayerDamage(damage: Int)
+    fun onPlayerDeath()
 }

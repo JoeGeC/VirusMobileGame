@@ -4,13 +4,13 @@ import android.content.Context
 import android.graphics.*
 import androidx.core.content.ContextCompat
 import com.example.virusgame.R
-import com.example.virusgame.game.Vector2
+import com.example.virusgame.game.vector2.FloatVector2
 
-class HealthUi (context: Context, private val screenDimensions: Vector2, private val borderBottom: Float){
+class HealthUi (context: Context, private val screenDimensions: FloatVector2, private val borderBottom: Float){
     private val healthPaint: Paint = Paint()
     private val healthLabelPaint: Paint = Paint()
     private val healthBorder: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.health_border)
-    private val healthBorderPos: Vector2 = Vector2(screenDimensions.x / 1.55f, borderBottom - borderBottom / 2.4f - healthBorder.height)
+    private val healthBorderPos: FloatVector2 = FloatVector2(screenDimensions.x / 1.55f, borderBottom - borderBottom / 2.4f - healthBorder.height)
     private val healthRect: Rect = Rect(
         (healthBorderPos.x + healthBorder.width / 2.7f).toInt(),
         (healthBorderPos.y + healthBorder.height / 4.0f).toInt(),

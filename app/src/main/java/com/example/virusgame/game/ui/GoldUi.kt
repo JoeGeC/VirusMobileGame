@@ -5,16 +5,16 @@ import android.graphics.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.virusgame.R
-import com.example.virusgame.game.Vector2
+import com.example.virusgame.game.vector2.FloatVector2
 
-class GoldUi(context: Context, screenDimensions: Vector2, borderBottom: Float) {
+class GoldUi(context: Context, screenDimensions: FloatVector2, borderBottom: Float) {
     private val paint: Paint = Paint()
     private val goldBorder: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.gold_border)
-    private val goldBorderPos: Vector2 = Vector2(
+    private val goldBorderPos: FloatVector2 = FloatVector2(
         screenDimensions.x / 1.55f,
         borderBottom - borderBottom / 18.0f - goldBorder.height
     )
-    private val goldPos: Vector2 = Vector2(
+    private val goldPos: FloatVector2 = FloatVector2(
         goldBorderPos.x + goldBorder.width / 1.6f,
         goldBorderPos.y + goldBorder.height / 1.5f
     )

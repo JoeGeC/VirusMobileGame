@@ -7,10 +7,11 @@ import androidx.core.content.ContextCompat
 import com.example.virusgame.R
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.SwipeTaker
-import com.example.virusgame.game.Vector2
+import com.example.virusgame.game.vector2.FloatVector2
 import kotlin.random.Random
 
-class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOffset: Vector2) : SwipeTaker {
+class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOffset: FloatVector2) : SwipeTaker {
+    var active: Boolean = true
     internal var state: ZombieState = AliveZombie(this)
     private var screenWidth = Resources.getSystem().displayMetrics.widthPixels
     private var screenHeight = Resources.getSystem().displayMetrics.heightPixels
@@ -22,7 +23,6 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
     private var currentHealth = maxHealth
     internal var gold = 5
     internal var attack = 1
-    internal var exp: Int = 0
     internal var canAttack = false
 
     private var fullRect: Rect get(){
@@ -59,7 +59,7 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
     }
 
     fun update() {
-        state.update()
+        if(active) state.update()
     }
 
     internal fun drawHealthBar(canvas: Canvas) {
@@ -79,7 +79,6 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
         currentHealth = maxHealth
         gold = maxHealth
         attack = Random.nextInt(wave, (wave * 1.5 + 1).toInt())
-        exp = maxHealth + attack + wave
         canAttack = wave > 1
     }
 }

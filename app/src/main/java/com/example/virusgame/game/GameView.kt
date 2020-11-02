@@ -6,12 +6,15 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.example.virusgame.R
 import com.example.virusgame.SaveManager
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 import com.example.virusgame.game.ui.Ui
+import com.example.virusgame.game.vector2.FloatVector2
+import com.example.virusgame.game.vector2.IntVector2
 import com.example.virusgame.game.zombie.PreAttackZombie
 import com.example.virusgame.game.zombie.Zombie
 import com.example.virusgame.game.zombie.ZombieDamageCalculator
@@ -25,15 +28,13 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     private val ui = Ui(context)
     private val speech = Speech(context)
     private var zombie: Zombie? = null
-    private var player = SaveManager.loadPlayer()
+    private var player = SaveManager.loadPlayer(this)
     private var sword = Sword(context)
     private val background = Background(context)
 
     private var touched: Boolean = false
-    private var xTouch: Int = 0
-    private var yTouch: Int = 0
-    private var xStartTouch: Int = 0
-    private var yStartTouch: Int = 0
+    private var touchPos: IntVector2 = IntVector2(0, 0)
+    private var startTouchPos: IntVector2 = IntVector2(0, 0)
     private var swipeState: SwipeState = StartSwipeState()
 
     init {
@@ -72,8 +73,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     fun update(){
         if(touched && zombie!!.state !is PreAttackZombie){
-            swipeState = swipeState.onTouch(xTouch, yTouch, zombie!!)
-            sword.update(xTouch.toFloat(), yTouch.toFloat())
+            swipeState = swipeState.onTouch(touchPos, zombie!!)
+            sword.update(touchPos)
         } else sword.deactivate()
         zombie!!.update()
     }
@@ -88,8 +89,8 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        xTouch = event.x.toInt()
-        yTouch = event.y.toInt()
+        touchPos.x = event.x.toInt()
+        touchPos.y = event.y.toInt()
 
         when(event.action){
             MotionEvent.ACTION_DOWN -> updateTouchStartPos()
@@ -100,23 +101,19 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     private fun updateTouchStartPos() {
-        xStartTouch = xTouch
-        yStartTouch = yTouch
+        startTouchPos = touchPos
         touched = true
     }
 
     private fun releaseTouch() {
         touched = false
         swipeState = StartSwipeState()
-        speech.onTouch(xStartTouch, yStartTouch)
+        speech.onTouch(startTouchPos)
+        ui.onTouch(startTouchPos, touchPos)
     }
 
     override fun takeGold(gold: Int) {
         player.increaseGold(gold)
-    }
-
-    override fun takeExp(exp: Int){
-        player.earnExp(exp)
     }
 
     override fun spawnNewZombie() {
@@ -130,6 +127,18 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     override fun inflictPlayerDamage(damage: Int) {
         player.takeDamage(damage)
+    }
+
+    override fun onPlayerDeath() {
+        speech.setSpeechText(context.getString(R.string.death_message))
+        sword.active = false
+        zombie!!.active = false
+        showDeathUi()
+    }
+
+    private fun showDeathUi() {
+        ui.death.active = true
+
     }
 }
 

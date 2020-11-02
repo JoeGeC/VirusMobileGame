@@ -5,9 +5,9 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import androidx.core.content.ContextCompat
 import com.example.virusgame.R
-import com.example.virusgame.game.Vector2
+import com.example.virusgame.game.vector2.FloatVector2
 
-class WaveUi (context: Context, private val screenDimensions: Vector2, private val borderBottom: Float) {
+class WaveUi (context: Context, private val screenDimensions: FloatVector2, private val borderBottom: Float) {
     private val waveLabelPaint: Paint = Paint()
     private val wavePaint: Paint = Paint()
 
