@@ -6,52 +6,19 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import com.example.virusgame.R
-import com.example.virusgame.SaveManager
-import com.example.virusgame.game.events.EventManager
-import com.example.virusgame.game.events.FirstTimePlayingEvent
-import com.example.virusgame.game.swipestates.StartSwipeState
-import com.example.virusgame.game.swipestates.SwipeState
-import com.example.virusgame.game.ui.DeathHandler
-import com.example.virusgame.game.ui.Ui
-import com.example.virusgame.game.vector2.FloatVector2
-import com.example.virusgame.game.vector2.IntVector2
-import com.example.virusgame.game.zombie.PreAttackZombie
-import com.example.virusgame.game.zombie.Zombie
-import com.example.virusgame.game.zombie.ZombieDamageCalculator
-import com.example.virusgame.game.zombie.ZombieMaker
 
-class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback,
-    EntityHandler, DeathHandler {
+class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
-    private val gameStats = SaveManager.loadGameStats()
-    private val eventManager = EventManager()
-    private val ui = Ui(context)
-    private val speech = Speech(context)
-    private var zombie: Zombie? = null
-    private var player = Player(this)
-    private var sword = Sword(context)
-    private val background = Background(context)
-
-    private var touched: Boolean = false
-    private var touchPos: IntVector2 = IntVector2(0, 0)
-    private var startTouchPos: IntVector2 = IntVector2(0, 0)
-    private var swipeState: SwipeState = StartSwipeState()
+    private val gameLoop: GameLoop = GameLoop(context)
 
     init {
         holder.addCallback(this)
         thread = GameThread(holder, this)
-        player = SaveManager.loadPlayer(this)
-        ZombieDamageCalculator.player = player
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        SaveManager.loadEventManager(eventManager)
-        eventManager.setupEvents(speech)
-        spawnNewZombie()
         thread.setRunning(true)
         thread.start()
-        FirstTimePlayingEvent.trigger()
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {}
@@ -74,88 +41,22 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     fun update(){
-        if(touched && zombie!!.state !is PreAttackZombie){
-            swipeState = swipeState.onTouch(touchPos, zombie!!)
-            sword.update(touchPos)
-        } else sword.deactivate()
-        zombie!!.update()
+        gameLoop.update()
     }
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
-        background.draw(canvas)
-        zombie!!.draw(canvas)
-        sword.draw(canvas)
-        ui.draw(canvas, player, gameStats)
-        speech.draw(canvas)
+        gameLoop.draw(canvas)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        touchPos.x = event.x.toInt()
-        touchPos.y = event.y.toInt()
+        gameLoop.updateTouchPos(event)
 
         when(event.action){
-            MotionEvent.ACTION_DOWN -> updateTouchStartPos()
-            MotionEvent.ACTION_MOVE -> touched = true
-            MotionEvent.ACTION_UP -> releaseTouch()
+            MotionEvent.ACTION_DOWN -> gameLoop.updateTouchStartPos()
+            MotionEvent.ACTION_UP -> gameLoop.releaseTouch()
         }
         return true
-    }
-
-    private fun updateTouchStartPos() {
-        startTouchPos = touchPos
-        touched = true
-    }
-
-    private fun releaseTouch() {
-        touched = false
-        swipeState = StartSwipeState()
-        speech.onTouch(startTouchPos)
-        ui.onTouch(startTouchPos, touchPos, this)
-    }
-
-    override fun takeGold(gold: Int) {
-        player.increaseGold(gold)
-    }
-
-    override fun spawnNewZombie() {
-        zombie = ZombieMaker().makeZombie(context, this, sword.offset, gameStats.wave, player.maxHealth + player.attack)
-    }
-
-    override fun incrementZombieKillCount() {
-        gameStats.incrementZombieKillCount()
-        SaveManager.saveGame(player, gameStats, eventManager)
-    }
-
-    override fun inflictPlayerDamage(damage: Int) {
-        player.takeDamage(damage)
-    }
-
-    override fun onPlayerDeath() {
-        speech.setSpeechText(context.getString(R.string.death_message))
-        sword.active = false
-        zombie!!.active = false
-        ui.death.active = true
-    }
-
-    override fun upgradeAttack() {
-        if(!player.upgradeAttack())
-            speech.setSpeechText(context.getString(R.string.not_enough_gold))
-    }
-
-    override fun upgradeHealth() {
-        if(!player.upgradeHealth())
-            speech.setSpeechText(context.getString(R.string.not_enough_gold))
-    }
-
-    override fun revive() {
-        gameStats.wave = 1
-        gameStats.zombieWaveKillCount = 0
-        player.restoreHealthToMax()
-        spawnNewZombie()
-        sword.active = true
-        zombie!!.active = true
-        ui.death.active = false
     }
 }
 
