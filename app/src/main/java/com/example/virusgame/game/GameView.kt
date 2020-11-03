@@ -138,9 +138,15 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         ui.death.active = true
     }
 
-    override fun increaseAttack() { player.attack++ }
+    override fun upgradeAttack() {
+        if(!player.upgradeAttack())
+            speech.setSpeechText(context.getString(R.string.not_enough_gold))
+    }
 
-    override fun increaseHealth() { player.maxHealth++ }
+    override fun upgradeHealth() {
+        if(!player.upgradeHealth())
+            speech.setSpeechText(context.getString(R.string.not_enough_gold))
+    }
 
     override fun revive() {
         gameStats.wave = 1

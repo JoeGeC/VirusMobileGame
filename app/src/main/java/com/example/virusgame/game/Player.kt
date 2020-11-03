@@ -5,6 +5,12 @@ class Player(private var playerHandler: PlayerHandler){
     var maxHealth = 10
     var currentHealth = maxHealth
     var attack = 1
+    var attackBuyValue: Int
+        get(){ return ((attack + 9) * 2.5f).toInt() }
+        set(value) {}
+    var maxHealthBuyValue: Int
+        get(){ return (maxHealth * 2.5f).toInt() }
+        set(value) {}
 
     fun increaseGold(goldToAdd: Int){
         gold += goldToAdd
@@ -24,5 +30,23 @@ class Player(private var playerHandler: PlayerHandler){
 
     fun restoreHealthToMax() {
         currentHealth = maxHealth
+    }
+
+    fun upgradeAttack(): Boolean {
+        if(gold >= attackBuyValue){
+            gold -= attackBuyValue
+            attack++
+            return true
+        }
+        return false
+    }
+
+    fun upgradeHealth(): Boolean {
+        if(gold >= maxHealthBuyValue){
+            gold -= maxHealthBuyValue
+            maxHealth++
+            return true
+        }
+        return false
     }
 }
