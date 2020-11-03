@@ -8,6 +8,7 @@ import com.example.virusgame.R
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.SwipeTaker
 import com.example.virusgame.game.vector2.FloatVector2
+import kotlin.math.pow
 import kotlin.random.Random
 
 class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOffset: FloatVector2) : SwipeTaker {
@@ -24,6 +25,9 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
     internal var gold = 5
     internal var attack = 1
     internal var canAttack = false
+    internal var attackSpeed = 3000
+    internal var attackTime: Int = 3000
+    internal var lastAttackTime: Long = 0
 
     private var fullRect: Rect get(){
         return Rect(x, y, x + state.animation[0].width, y + state.animation[0].height)
@@ -74,11 +78,20 @@ class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOff
         canvas.drawLine(healthBarStartPos, healthBarHeight, healthBarStopPos, healthBarHeight, zombieHealthPaint)
     }
 
-    fun setStats(wave: Int){
-        maxHealth = Random.nextInt(wave * 3, wave * 5)
+    fun setStats(wave: Int, playerStrength: Int){
+        val healthVal = wave.toFloat().pow(1.5f) * 3
+        maxHealth = Random.nextInt((healthVal * 0.8).toInt(), (healthVal * 1.2).toInt())
         currentHealth = maxHealth
         gold = maxHealth
-        attack = Random.nextInt(wave, (wave * 1.5 + 1).toInt())
+        val attackVal = wave.toFloat().pow(1.5f) + 1
+        attack = Random.nextInt((attackVal * 0.8).toInt(), (attackVal * 1.2).toInt())
         canAttack = wave > 1
+        attackSpeed = (playerStrength * 300) / wave
+        setNextAttackTime()
+        lastAttackTime = System.nanoTime()
+    }
+
+    fun setNextAttackTime(){
+        attackTime = Random.nextInt((attackSpeed * 0.8).toInt(), (attackSpeed * 1.2).toInt())
     }
 }

@@ -119,7 +119,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun spawnNewZombie() {
-        zombie = ZombieMaker().makeZombie(context, this, sword.offset, gameStats.wave)
+        zombie = ZombieMaker().makeZombie(context, this, sword.offset, gameStats.wave, player.maxHealth + player.attack)
     }
 
     override fun incrementZombieKillCount() {

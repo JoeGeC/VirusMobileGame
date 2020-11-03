@@ -46,8 +46,9 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     override fun onSuccessfulSwipe() { }
 
     override fun update() {
-        if(Clock.millisecondsHavePassedSince(startTime, 3000)){
+        if(Clock.millisecondsHavePassedSince(startTime, zombie.attackTime)){
             sensorManager.unregisterListener(shakeSensor)
+            zombie.setNextAttackTime()
             zombie.state = AttackZombie(zombie)
         }
     }

@@ -31,7 +31,8 @@ class AliveZombie(private var zombie: Zombie) : ZombieState {
     }
 
     override fun update() {
-        if(Random.nextInt(0, 350) == 1 && zombie.canAttack){
+        if(zombie.canAttack && Clock.millisecondsHavePassedSince(zombie.lastAttackTime, zombie.attackTime * 5)){
+            zombie.lastAttackTime = System.nanoTime()
             zombie.state = PreAttackZombie(zombie)
             ZombieAttackEvent.trigger()
         }

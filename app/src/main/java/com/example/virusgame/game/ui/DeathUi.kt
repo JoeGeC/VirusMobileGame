@@ -10,7 +10,7 @@ import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
 
 class DeathUi(context: Context, screenDimensions: FloatVector2) {
-    var active = true
+    var active = false
     private val deathScreen: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.death_border)
     private val gold: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.gold)
     private val deathScreenPos = FloatVector2(screenDimensions.x / 2 - deathScreen.width / 2, screenDimensions.y / 2 - deathScreen.height / 1.7f)
