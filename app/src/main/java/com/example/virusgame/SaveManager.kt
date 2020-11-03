@@ -3,6 +3,7 @@ package com.example.virusgame
 import android.content.Context
 import com.example.virusgame.game.GameStats
 import com.example.virusgame.game.Player
+import com.example.virusgame.game.PlayerHandler
 import com.example.virusgame.game.events.EventManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -24,9 +25,9 @@ object SaveManager {
         }
     }
 
-    fun loadPlayer(): Player{
+    fun loadPlayer(playerHandler: PlayerHandler): Player{
         val playerJson = sharedPref.getString(context.getString(R.string.playerPreferenceId), "")
-        if(playerJson!!.isEmpty()) return Player()
+        if(playerJson!!.isEmpty()) return Player(playerHandler)
         return gson.fromJson(playerJson, Player::class.java)
     }
 

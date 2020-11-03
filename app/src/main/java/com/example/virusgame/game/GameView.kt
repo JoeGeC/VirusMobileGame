@@ -12,6 +12,7 @@ import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
+import com.example.virusgame.game.ui.DeathHandler
 import com.example.virusgame.game.ui.Ui
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
@@ -21,14 +22,14 @@ import com.example.virusgame.game.zombie.ZombieDamageCalculator
 import com.example.virusgame.game.zombie.ZombieMaker
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback,
-    EntityHandler {
+    EntityHandler, DeathHandler {
     private val thread: GameThread
     private val gameStats = SaveManager.loadGameStats()
     private val eventManager = EventManager()
     private val ui = Ui(context)
     private val speech = Speech(context)
     private var zombie: Zombie? = null
-    private var player = SaveManager.loadPlayer(this)
+    private var player = Player(this)
     private var sword = Sword(context)
     private val background = Background(context)
 
@@ -40,6 +41,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     init {
         holder.addCallback(this)
         thread = GameThread(holder, this)
+        player = SaveManager.loadPlayer(this)
         ZombieDamageCalculator.player = player
     }
 
@@ -109,7 +111,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         touched = false
         swipeState = StartSwipeState()
         speech.onTouch(startTouchPos)
-        ui.onTouch(startTouchPos, touchPos)
+        ui.onTouch(startTouchPos, touchPos, this)
     }
 
     override fun takeGold(gold: Int) {
@@ -133,12 +135,21 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         speech.setSpeechText(context.getString(R.string.death_message))
         sword.active = false
         zombie!!.active = false
-        showDeathUi()
+        ui.death.active = true
     }
 
-    private fun showDeathUi() {
-        ui.death.active = true
+    override fun increaseAttack() { player.attack++ }
 
+    override fun increaseHealth() { player.maxHealth++ }
+
+    override fun revive() {
+        gameStats.wave = 1
+        gameStats.zombieWaveKillCount = 0
+        player.restoreHealthToMax()
+        spawnNewZombie()
+        sword.active = true
+        zombie!!.active = true
+        ui.death.active = false
     }
 }
 

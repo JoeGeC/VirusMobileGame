@@ -1,11 +1,9 @@
 package com.example.virusgame.game
 
-class Player(){
+class Player(private var playerHandler: PlayerHandler){
     var gold = 0
     var maxHealth = 10
     var currentHealth = maxHealth
-    private var exp = 0
-    var level = 1
     var attack = 1
 
     fun increaseGold(goldToAdd: Int){
@@ -21,19 +19,10 @@ class Player(){
     }
 
     private fun die(){
-        //TODO
+        playerHandler.onPlayerDeath()
     }
 
-    fun earnExp(expEarned: Int) {
-        exp += expEarned
-        while(exp >= level * 50)
-            levelUp()
-    }
-
-    private fun levelUp() {
-        level++
-        maxHealth = (10 + level * 1.5).toInt()
+    fun restoreHealthToMax() {
         currentHealth = maxHealth
-        attack = (level * 1.5).toInt()
     }
 }

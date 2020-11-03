@@ -2,5 +2,5 @@ package com.example.virusgame.game
 
 import com.example.virusgame.game.zombie.ZombieDeathHandler
 
-interface EntityHandler : PlayerHealthHandler, ZombieDeathHandler {
+interface EntityHandler : PlayerHandler, ZombieDeathHandler {
 }
