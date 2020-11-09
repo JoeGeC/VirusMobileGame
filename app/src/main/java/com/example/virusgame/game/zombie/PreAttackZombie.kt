@@ -28,7 +28,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
             accelerometer,
             SensorManager.SENSOR_DELAY_UI
         )
-        Vibrator(zombie.context).vibrate(zombie.attackTime.toLong());
+        Vibrator(zombie.context).vibrate(400);
     }
 
     override fun draw(canvas: Canvas, x: Float, y: Float) {

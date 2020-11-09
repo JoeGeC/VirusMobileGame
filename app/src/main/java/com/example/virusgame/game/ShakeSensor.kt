@@ -6,7 +6,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 
 class ShakeSensor : SensorEventListener {
-    private val shakeThresholdGravity = 2.7f
+    private val shakeThresholdGravity = 1.4f
     private var shakeListener: OnShakeListener? = null
     private var shakeCount = 0
 
