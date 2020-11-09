@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.hardware.Sensor
 import android.hardware.SensorManager
+import com.example.virusgame.Vibrator
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.ShakeSensor
 import com.example.virusgame.game.events.FirstDefenceEvent
@@ -27,6 +28,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
             accelerometer,
             SensorManager.SENSOR_DELAY_UI
         )
+        Vibrator(zombie.context).vibrate(zombie.attackTime.toLong());
     }
 
     override fun draw(canvas: Canvas, x: Float, y: Float) {
