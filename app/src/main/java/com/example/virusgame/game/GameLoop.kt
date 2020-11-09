@@ -87,6 +87,7 @@ class GameLoop(private var context: Context) : EntityHandler, DeathHandler {
 
     override fun incrementZombieKillCount() {
         gameStats.incrementZombieKillCount()
+        SaveManager.saveGame(player, gameStats, eventManager)
     }
 
     override fun inflictPlayerDamage(damage: Int) {

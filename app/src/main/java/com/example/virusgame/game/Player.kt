@@ -1,6 +1,6 @@
 package com.example.virusgame.game
 
-class Player(private var playerHandler: PlayerHandler){
+class Player(@Transient private var playerHandler: PlayerHandler){
     var gold = 0
     var maxHealth = 10
     var currentHealth = maxHealth

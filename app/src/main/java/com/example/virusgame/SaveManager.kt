@@ -13,11 +13,11 @@ object SaveManager {
     private val gson = Gson()
     private val sharedPref = context.getSharedPreferences(context.getString(R.string.game_name_id), Context.MODE_PRIVATE)
 
-    fun saveGame(player: Player, gameStats: GameStats, eventManager: EventManager){
+    fun saveGame(player: Player, gameStats: GameStats, eventManager: EventManager) {
         val playerJson = gson.toJson(player)
         val statsJson = gson.toJson(gameStats)
         val eventsJson = gson.toJson(eventManager.saveEvents())
-        with (sharedPref.edit()) {
+        with(sharedPref.edit()) {
             putString(context.getString(R.string.playerPreferenceId), playerJson)
             putString(context.getString(R.string.statsPreferenceId), statsJson)
             putString(context.getString(R.string.eventPreferenceId), eventsJson)
@@ -25,21 +25,21 @@ object SaveManager {
         }
     }
 
-    fun loadPlayer(playerHandler: PlayerHandler): Player{
+    fun loadPlayer(playerHandler: PlayerHandler): Player {
         val playerJson = sharedPref.getString(context.getString(R.string.playerPreferenceId), "")
-        if(playerJson!!.isEmpty()) return Player(playerHandler)
+        if (playerJson!!.isEmpty()) return Player(playerHandler)
         return gson.fromJson(playerJson, Player::class.java)
     }
 
-    fun loadGameStats(): GameStats{
+    fun loadGameStats(): GameStats {
         val statsJson = sharedPref.getString(context.getString(R.string.statsPreferenceId), "")
-        if(statsJson!!.isEmpty()) return GameStats()
+        if (statsJson!!.isEmpty()) return GameStats()
         return gson.fromJson(statsJson, GameStats::class.java)
     }
 
     fun loadEventManager(eventManager: EventManager) {
         val eventJson = sharedPref.getString(context.getString(R.string.eventPreferenceId), "")
-        if(eventJson!!.isEmpty()) return
+        if (eventJson!!.isEmpty()) return
         eventManager.loadEvents(gson.fromJson(eventJson, object : TypeToken<Map<String, Any>>() {}.type))
     }
 }
