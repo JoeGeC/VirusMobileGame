@@ -23,7 +23,7 @@ class GameLoop(private var context: Context) : EntityHandler, DeathHandler {
     private val ui = Ui(context)
     private val speech = Speech(context)
     private var zombie: Zombie? = null
-    private var player = Player(this)
+    private var player = Player()
     private var sword = Sword(context)
     private val background = Background(context)
 
@@ -33,7 +33,8 @@ class GameLoop(private var context: Context) : EntityHandler, DeathHandler {
     private var swipeState: SwipeState = StartSwipeState()
 
     init {
-        player = SaveManager.loadPlayer(this)
+        player = SaveManager.loadPlayer()
+        player.setPlayerHandler(this)
         ZombieDamageCalculator.player = player
         SaveManager.loadEventManager(eventManager)
         eventManager.setupEvents(speech)

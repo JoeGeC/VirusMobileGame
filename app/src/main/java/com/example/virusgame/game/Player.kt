@@ -1,6 +1,7 @@
 package com.example.virusgame.game
 
-class Player(@Transient private var playerHandler: PlayerHandler){
+class Player(){
+    @Transient private lateinit var playerHandler: PlayerHandler
     var gold = 0
     var maxHealth = 10
     var currentHealth = maxHealth
@@ -11,6 +12,10 @@ class Player(@Transient private var playerHandler: PlayerHandler){
     var maxHealthBuyValue: Int
         get(){ return (maxHealth * 2.5f).toInt() }
         set(value) {}
+
+    fun setPlayerHandler(handler: PlayerHandler){
+        playerHandler = handler
+    }
 
     fun increaseGold(goldToAdd: Int){
         gold += goldToAdd

@@ -25,9 +25,9 @@ object SaveManager {
         }
     }
 
-    fun loadPlayer(playerHandler: PlayerHandler): Player {
+    fun loadPlayer(): Player {
         val playerJson = sharedPref.getString(context.getString(R.string.playerPreferenceId), "")
-        if (playerJson!!.isEmpty()) return Player(playerHandler)
+        if (playerJson!!.isEmpty()) return Player()
         return gson.fromJson(playerJson, Player::class.java)
     }
 
