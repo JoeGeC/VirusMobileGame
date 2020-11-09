@@ -20,10 +20,10 @@ class Ui (context: Context){
     val death = DeathUi(context, screenDimensions)
 
     fun draw(canvas: Canvas, player: Player, gameStats: GameStats){
-        health.draw(canvas, player.currentHealth, player.maxHealth)
         border.draw(canvas)
         wave.draw(canvas, gameStats.wave)
         gold.draw(canvas, player.gold)
+        health.draw(canvas, player.currentHealth, player.maxHealth)
         death.draw(canvas, player)
     }
 
