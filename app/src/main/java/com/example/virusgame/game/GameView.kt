@@ -51,7 +51,6 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         gameLoop.updateTouchPos(event)
-
         when(event.action){
             MotionEvent.ACTION_DOWN -> gameLoop.updateTouchStartPos()
             MotionEvent.ACTION_UP -> gameLoop.releaseTouch()

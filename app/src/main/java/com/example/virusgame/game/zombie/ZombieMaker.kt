@@ -10,4 +10,10 @@ class ZombieMaker {
         zombie.setStats(wave, playerStrength)
         return zombie
     }
+
+    fun makeBossZombie(context: Context, entityHandler: EntityHandler, offset: FloatVector2, wave: Int, playerStrength: Int): Zombie?{
+        val zombie = ZombieBoss(context, entityHandler, offset)
+        zombie.setStats(wave, playerStrength)
+        return zombie
+    }
 }

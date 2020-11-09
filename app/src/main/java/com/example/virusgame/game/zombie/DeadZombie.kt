@@ -28,8 +28,8 @@ class DeadZombie(var zombie: Zombie) : ZombieState {
         FirstTimePlayingEvent.complete = true
         FirstKillEvent.trigger()
         zombie.entityHandler.takeGold(zombie.gold)
-        zombie.entityHandler.spawnNewZombie()
         zombie.entityHandler.incrementZombieKillCount()
+        zombie.entityHandler.spawnNewZombie()
     }
 
     override fun onSuccessfulSwipe() {}

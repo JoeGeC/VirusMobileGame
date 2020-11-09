@@ -79,12 +79,14 @@ class GameLoop(private var context: Context) : EntityHandler, DeathHandler {
     }
 
     override fun spawnNewZombie() {
-        zombie = ZombieMaker().makeZombie(context, this, sword.offset, gameStats.wave, player.maxHealth + player.attack)
+        zombie = when (gameStats.zombieWaveKillCount) {
+            gameStats.waveAmount - 1 -> ZombieMaker().makeBossZombie(context, this, sword.offset, gameStats.wave, player.maxHealth + player.attack)
+            else -> ZombieMaker().makeZombie(context, this, sword.offset, gameStats.wave, player.maxHealth + player.attack)
+        }
     }
 
     override fun incrementZombieKillCount() {
         gameStats.incrementZombieKillCount()
-        SaveManager.saveGame(player, gameStats, eventManager)
     }
 
     override fun inflictPlayerDamage(damage: Int) {
