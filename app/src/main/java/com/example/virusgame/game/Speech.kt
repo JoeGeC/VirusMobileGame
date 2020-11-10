@@ -58,7 +58,7 @@ class Speech(private var context: Context) {
     }
 
     private fun drawLine(canvas: Canvas, lineNum: Int){
-        canvas.drawText(messageToDisplay[lineNum], speechBubbleRect.left.toFloat(), linePosY[lineNum], speechPaint)
+        canvas.drawText(typedLine(lineNum), speechBubbleRect.left.toFloat(), linePosY[lineNum], speechPaint)
     }
 
     private fun typedLine(lineNum: Int): String{
