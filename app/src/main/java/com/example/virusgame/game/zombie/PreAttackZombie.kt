@@ -23,8 +23,21 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
 
     init {
         setupShakeSensor()
-        sensorManager.registerListener(shakeSensor, accelerometer, SensorManager.SENSOR_DELAY_UI)
         Vibrator(zombie.context).vibrate(400);
+    }
+
+    private fun setupShakeSensor() {
+        sensorManager = zombie.context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        accelerometer  = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+        shakeSensor.setOnShakeListener(object : ShakeSensor.OnShakeListener {
+            override fun onShake() {
+                sensorManager.unregisterListener(shakeSensor)
+                zombie.state = AliveZombie(zombie)
+                ZombieAttackEvent.complete = true
+                FirstDefenceEvent.trigger()
+            }
+        })
+        sensorManager.registerListener(shakeSensor, accelerometer, SensorManager.SENSOR_DELAY_UI)
     }
 
     override fun draw(canvas: Canvas, x: Float, y: Float) {
@@ -49,18 +62,5 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
             zombie.setNextAttackTime()
             zombie.state = AttackZombie(zombie)
         }
-    }
-
-    private fun setupShakeSensor() {
-        sensorManager = zombie.context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        accelerometer  = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        shakeSensor.setOnShakeListener(object : ShakeSensor.OnShakeListener {
-            override fun onShake(count: Int) {
-                sensorManager.unregisterListener(shakeSensor)
-                zombie.state = AliveZombie(zombie)
-                ZombieAttackEvent.complete = true
-                FirstDefenceEvent.trigger()
-            }
-        })
     }
 }

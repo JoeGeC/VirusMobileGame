@@ -2,22 +2,25 @@ package com.example.virusgame.game
 
 import android.content.Context
 import android.graphics.Canvas
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import android.view.MotionEvent
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
 import com.example.virusgame.game.abilities.DoubleDamageAbility
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent
+import com.example.virusgame.game.rotation.RotationHandler
+import com.example.virusgame.game.rotation.RotationReceiver
+import com.example.virusgame.game.rotation.RotationSensor
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 import com.example.virusgame.game.ui.Ui
 import com.example.virusgame.game.vector2.IntVector2
-import com.example.virusgame.game.zombie.PreAttackZombie
-import com.example.virusgame.game.zombie.Zombie
-import com.example.virusgame.game.zombie.ZombieDamageCalculator
-import com.example.virusgame.game.zombie.ZombieMaker
+import com.example.virusgame.game.zombie.*
 
-class GameLoop(override var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler {
+class GameLoop(override var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler,
+    RotationHandler {
     private val gameStats = SaveManager.loadGameStats()
     private val eventManager = EventManager()
     private val ui = Ui(context)
@@ -31,6 +34,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     private var touchPos: IntVector2 = IntVector2(0, 0)
     private var startTouchPos: IntVector2 = IntVector2(0, 0)
     private var swipeState: SwipeState = StartSwipeState()
+    private var rotationReceiver: RotationReceiver = RotationReceiver(context, this)
 
     init {
         player = SaveManager.loadPlayer()
@@ -140,5 +144,9 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
 
     override fun onSuccessfulDoubleSwipe() {
         player.useAbility()
+    }
+
+    override fun onRotate(pitch: Double, tilt: Double, azimuth: Double) {
+        
     }
 }

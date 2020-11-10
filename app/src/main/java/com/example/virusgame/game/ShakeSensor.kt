@@ -15,7 +15,7 @@ class ShakeSensor : SensorEventListener {
     }
 
     interface OnShakeListener {
-        fun onShake(count: Int)
+        fun onShake()
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
@@ -33,7 +33,7 @@ class ShakeSensor : SensorEventListener {
             // gForce will be close to 1 when there is no movement.
             val gForce: Float = kotlin.math.sqrt(gX * gX + gY * gY + gZ * gZ)
             if (gForce > shakeThresholdGravity) {
-                shakeListener!!.onShake(shakeCount)
+                shakeListener!!.onShake()
             }
         }
     }
