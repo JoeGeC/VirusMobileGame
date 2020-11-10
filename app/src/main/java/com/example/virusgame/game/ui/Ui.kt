@@ -18,6 +18,7 @@ class Ui (context: Context){
     private val gold = GoldUi(context, screenDimensions, border.bottom)
     internal val death = DeathUi(context, screenDimensions)
     private val shop = ShopUi(context, screenDimensions, border.bottom)
+    private val ability = AbilityUi(context, screenDimensions, border.bottom)
 
     fun draw(canvas: Canvas, player: Player, gameStats: GameStats){
         shop.draw(canvas)
@@ -25,6 +26,7 @@ class Ui (context: Context){
         wave.draw(canvas, gameStats.wave)
         gold.draw(canvas, player.gold)
         health.draw(canvas, player.currentHealth, player.maxHealth)
+        ability.draw(canvas, player.ability!!)
         death.draw(canvas, player)
     }
 

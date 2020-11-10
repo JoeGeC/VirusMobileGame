@@ -62,6 +62,7 @@ class Player(){
     }
 
     fun useAbility(){
-        ability?.use()
+        if(ability != null && ability!!.use())
+            playerHandler.abilityUsed()
     }
 }

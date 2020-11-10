@@ -1,5 +1,6 @@
 package com.example.virusgame.clock
 
 object Clock {
-    fun millisecondsHavePassedSince(since: Long, milliseconds: Int): Boolean = (System.nanoTime() - since) / 1000000 > milliseconds
+    fun haveMillisecondsPassedSince(since: Long, milliseconds: Int): Boolean = millisecondsPassedSince(since) > milliseconds
+    fun millisecondsPassedSince(since: Long): Long = (System.nanoTime() - since) / 1000000
 }

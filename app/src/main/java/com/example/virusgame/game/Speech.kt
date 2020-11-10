@@ -65,7 +65,7 @@ class Speech(private var context: Context) {
         if(lineNum >= messageToDisplay.size) messageTyped[lineNum] = true
         if(messageSetTime[lineNum] < messageSetTime[0] || lineNum >= messageToDisplay.size) return ""
         if(messageTyped[lineNum]) return messageToDisplay[lineNum]
-        if(Clock.millisecondsHavePassedSince(messageSetTime[lineNum], 200))
+        if(Clock.haveMillisecondsPassedSince(messageSetTime[lineNum], 200))
             typeNextCharacter(lineNum)
         var result = ""
         for(i in 0..currentChar[lineNum])
