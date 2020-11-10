@@ -23,11 +23,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
 
     init {
         setupShakeSensor()
-        sensorManager.registerListener(
-            shakeSensor,
-            accelerometer,
-            SensorManager.SENSOR_DELAY_UI
-        )
+        sensorManager.registerListener(shakeSensor, accelerometer, SensorManager.SENSOR_DELAY_UI)
         Vibrator(zombie.context).vibrate(400);
     }
 

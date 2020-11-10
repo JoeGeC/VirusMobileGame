@@ -9,7 +9,6 @@ import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
-import com.example.virusgame.game.ui.DeathHandler
 import com.example.virusgame.game.ui.Ui
 import com.example.virusgame.game.vector2.IntVector2
 import com.example.virusgame.game.zombie.PreAttackZombie
@@ -17,7 +16,7 @@ import com.example.virusgame.game.zombie.Zombie
 import com.example.virusgame.game.zombie.ZombieDamageCalculator
 import com.example.virusgame.game.zombie.ZombieMaker
 
-class GameLoop(private var context: Context) : EntityHandler, DeathHandler {
+class GameLoop(private var context: Context) : EntityHandler, UiHandler {
     private val gameStats = SaveManager.loadGameStats()
     private val eventManager = EventManager()
     private val ui = Ui(context)
@@ -53,9 +52,9 @@ class GameLoop(private var context: Context) : EntityHandler, DeathHandler {
     fun draw(canvas: Canvas) {
         background.draw(canvas)
         zombie!!.draw(canvas)
-        sword.draw(canvas)
         ui.draw(canvas, player, gameStats)
         speech.draw(canvas)
+        sword.draw(canvas)
     }
 
     fun updateTouchPos(event: MotionEvent) {
@@ -100,6 +99,9 @@ class GameLoop(private var context: Context) : EntityHandler, DeathHandler {
         sword.active = false
         zombie!!.active = false
         ui.death.active = true
+    }
+
+    override fun openShop() {
     }
 
     override fun upgradeAttack() {

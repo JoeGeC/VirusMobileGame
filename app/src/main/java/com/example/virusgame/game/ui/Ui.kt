@@ -3,8 +3,7 @@ package com.example.virusgame.game.ui
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Canvas
-import com.example.virusgame.game.GameStats
-import com.example.virusgame.game.Player
+import com.example.virusgame.game.*
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
 
@@ -17,9 +16,11 @@ class Ui (context: Context){
     private val wave = WaveUi(context, screenDimensions, border.bottom)
     private val health = HealthUi(context, screenDimensions, border.bottom)
     private val gold = GoldUi(context, screenDimensions, border.bottom)
-    val death = DeathUi(context, screenDimensions)
+    internal val death = DeathUi(context, screenDimensions)
+    private val shop = ShopUi(context, screenDimensions, border.bottom)
 
     fun draw(canvas: Canvas, player: Player, gameStats: GameStats){
+        shop.draw(canvas)
         border.draw(canvas)
         wave.draw(canvas, gameStats.wave)
         gold.draw(canvas, player.gold)
@@ -27,9 +28,10 @@ class Ui (context: Context){
         death.draw(canvas, player)
     }
 
-    fun onTouch(startTouchPos: IntVector2, touchPos: IntVector2, deathHandler: DeathHandler) {
-        if(death.hasTappedAttack(startTouchPos, touchPos)) deathHandler.upgradeAttack()
-        if(death.hasTappedHealth(startTouchPos, touchPos)) deathHandler.upgradeHealth()
-        if(death.hasTappedTryAgain(startTouchPos, touchPos)) deathHandler.revive()
+    fun onTouch(startTouchPos: IntVector2, touchPos: IntVector2, uiHandler: UiHandler) {
+        if(death.hasTappedAttack(startTouchPos, touchPos)) uiHandler.upgradeAttack()
+        if(death.hasTappedHealth(startTouchPos, touchPos)) uiHandler.upgradeHealth()
+        if(death.hasTappedTryAgain(startTouchPos, touchPos)) uiHandler.revive()
+        if(shop.tapped(startTouchPos, touchPos)) uiHandler.openShop()
     }
 }
