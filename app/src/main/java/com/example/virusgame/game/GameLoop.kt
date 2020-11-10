@@ -16,7 +16,7 @@ import com.example.virusgame.game.zombie.Zombie
 import com.example.virusgame.game.zombie.ZombieDamageCalculator
 import com.example.virusgame.game.zombie.ZombieMaker
 
-class GameLoop(private var context: Context) : EntityHandler, UiHandler {
+class GameLoop(private var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler {
     private val gameStats = SaveManager.loadGameStats()
     private val eventManager = EventManager()
     private val ui = Ui(context)
@@ -122,5 +122,9 @@ class GameLoop(private var context: Context) : EntityHandler, UiHandler {
         sword.active = true
         zombie!!.active = true
         ui.death.active = false
+    }
+
+    override fun onSuccessfulDoubleSwipe() {
+        speech.setSpeechText("Double swipe!")
     }
 }

@@ -6,10 +6,13 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import com.example.virusgame.DoubleSwipeListener
+
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private val thread: GameThread
     private val gameLoop: GameLoop = GameLoop(context)
+    private val doubleSwipeListener = DoubleSwipeListener(gameLoop)
 
     init {
         holder.addCallback(this)
@@ -54,6 +57,11 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         when(event.action){
             MotionEvent.ACTION_DOWN -> gameLoop.updateTouchStartPos()
             MotionEvent.ACTION_UP -> gameLoop.releaseTouch()
+        }
+        when(event.action and MotionEvent.ACTION_MASK){
+            MotionEvent.ACTION_POINTER_DOWN -> doubleSwipeListener.startDoubleSwipe(event)
+            MotionEvent.ACTION_POINTER_UP -> doubleSwipeListener.endDoubleSwipe()
+            MotionEvent.ACTION_MOVE -> doubleSwipeListener.moveDoubleSwipe(event)
         }
         return true
     }
