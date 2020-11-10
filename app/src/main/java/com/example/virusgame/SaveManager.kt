@@ -3,7 +3,9 @@ package com.example.virusgame
 import android.content.Context
 import com.example.virusgame.game.GameStats
 import com.example.virusgame.game.Player
-import com.example.virusgame.game.PlayerHandler
+import com.example.virusgame.game.ZombieDamageHandler
+import com.example.virusgame.game.abilities.Ability
+import com.example.virusgame.game.abilities.AbilityFactory
 import com.example.virusgame.game.events.EventManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -19,6 +21,7 @@ object SaveManager {
         val eventsJson = gson.toJson(eventManager.saveEvents())
         with(sharedPref.edit()) {
             putString(context.getString(R.string.playerPreferenceId), playerJson)
+            putString(context.getString(R.string.abilityPreferenceId), player.ability?.name)
             putString(context.getString(R.string.statsPreferenceId), statsJson)
             putString(context.getString(R.string.eventPreferenceId), eventsJson)
             apply()
@@ -29,6 +32,11 @@ object SaveManager {
         val playerJson = sharedPref.getString(context.getString(R.string.playerPreferenceId), "")
         if (playerJson!!.isEmpty()) return Player()
         return gson.fromJson(playerJson, Player::class.java)
+    }
+
+    fun loadAbility(zombieDamageHandler: ZombieDamageHandler): Ability? {
+        val abilityName = sharedPref.getString(context.getString(R.string.abilityPreferenceId), "")
+        return abilityName?.let { AbilityFactory().createAbility(it, zombieDamageHandler) }
     }
 
     fun loadGameStats(): GameStats {

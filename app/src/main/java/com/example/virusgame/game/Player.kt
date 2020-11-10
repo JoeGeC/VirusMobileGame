@@ -1,11 +1,15 @@
 package com.example.virusgame.game
 
+import com.example.virusgame.SaveManager
+import com.example.virusgame.game.abilities.Ability
+
 class Player(){
     @Transient private lateinit var playerHandler: PlayerHandler
     var gold = 0
     var maxHealth = 10
     var currentHealth = maxHealth
     var attack = 1
+    @Transient var ability: Ability? = null
     var attackBuyValue: Int
         get(){ return ((attack + 9) * 2.5f).toInt() }
         set(value) {}
@@ -13,8 +17,10 @@ class Player(){
         get(){ return (maxHealth * 2.5f).toInt() }
         set(value) {}
 
-    fun setPlayerHandler(handler: PlayerHandler){
-        playerHandler = handler
+    fun setupPlayer(entityHandler: EntityHandler){
+        playerHandler = entityHandler
+        ability = SaveManager.loadAbility(entityHandler)
+        ability?.zombieDamageHandler = entityHandler
     }
 
     fun increaseGold(goldToAdd: Int){
@@ -53,5 +59,9 @@ class Player(){
             return true
         }
         return false
+    }
+
+    fun useAbility(){
+        ability?.use()
     }
 }

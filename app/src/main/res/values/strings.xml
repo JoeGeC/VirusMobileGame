@@ -21,4 +21,6 @@
     <string name="game_name">Virus Game</string>
     <string name="death_message">Oh no! You died! Never mind, upgrade your health and attack and try again!</string>
     <string name="not_enough_gold">You don\'t have enough gold!</string>
+    <string name="abilityPreferenceId">ability</string>
+    <string name="doubleDamage">DoubleDamage</string>
 </resources>

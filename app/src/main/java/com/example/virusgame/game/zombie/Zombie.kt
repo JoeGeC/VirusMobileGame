@@ -51,7 +51,8 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
     }
 
     internal fun takeDamage(damage: Int) {
-        currentHealth -= damage
+        if(active)
+            currentHealth -= damage
         if(currentHealth <= 0){
             currentHealth = 0
             state = DeadZombie(this)

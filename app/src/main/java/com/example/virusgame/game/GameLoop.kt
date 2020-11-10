@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.view.MotionEvent
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
+import com.example.virusgame.game.abilities.DoubleDamageAbility
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent
 import com.example.virusgame.game.swipestates.StartSwipeState
@@ -16,7 +17,7 @@ import com.example.virusgame.game.zombie.Zombie
 import com.example.virusgame.game.zombie.ZombieDamageCalculator
 import com.example.virusgame.game.zombie.ZombieMaker
 
-class GameLoop(private var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler {
+class GameLoop(override var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler {
     private val gameStats = SaveManager.loadGameStats()
     private val eventManager = EventManager()
     private val ui = Ui(context)
@@ -33,7 +34,8 @@ class GameLoop(private var context: Context) : EntityHandler, UiHandler, DoubleS
 
     init {
         player = SaveManager.loadPlayer()
-        player.setPlayerHandler(this)
+        player.setupPlayer(this)
+        player.ability = DoubleDamageAbility(this)
         ZombieDamageCalculator.player = player
         SaveManager.loadEventManager(eventManager)
         eventManager.setupEvents(speech)
@@ -90,6 +92,14 @@ class GameLoop(private var context: Context) : EntityHandler, UiHandler, DoubleS
         SaveManager.saveGame(player, gameStats, eventManager)
     }
 
+    override fun inflictZombieDamage(damage: Int) {
+        zombie!!.takeDamage(damage)
+    }
+
+    override fun getPlayerAttack(): Int {
+        return player.attack
+    }
+
     override fun inflictPlayerDamage(damage: Int) {
         player.takeDamage(damage)
     }
@@ -99,6 +109,10 @@ class GameLoop(private var context: Context) : EntityHandler, UiHandler, DoubleS
         sword.active = false
         zombie!!.active = false
         ui.death.active = true
+    }
+
+    override fun abilityUsed() {
+        speech.setSpeechText("Double damage!")
     }
 
     override fun openShop() {
@@ -125,6 +139,6 @@ class GameLoop(private var context: Context) : EntityHandler, UiHandler, DoubleS
     }
 
     override fun onSuccessfulDoubleSwipe() {
-        speech.setSpeechText("Double swipe!")
+        player.useAbility()
     }
 }
