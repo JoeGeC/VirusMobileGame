@@ -1,4 +1,4 @@
-package com.example.virusgame.game
+package com.example.virusgame.game.uiHandlers
 
 interface DeathHandler {
     fun upgradeAttack()

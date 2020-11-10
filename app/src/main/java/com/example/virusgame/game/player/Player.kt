@@ -1,7 +1,8 @@
-package com.example.virusgame.game
+package com.example.virusgame.game.player
 
 import com.example.virusgame.SaveManager
 import com.example.virusgame.game.abilities.Ability
+import com.example.virusgame.game.EntityHandler
 
 class Player(){
     @Transient private lateinit var playerHandler: PlayerHandler

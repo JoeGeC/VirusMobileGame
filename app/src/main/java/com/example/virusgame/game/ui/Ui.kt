@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Canvas
 import com.example.virusgame.game.*
+import com.example.virusgame.game.player.Player
+import com.example.virusgame.game.uiHandlers.UiHandler
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
 

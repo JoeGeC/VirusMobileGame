@@ -2,8 +2,8 @@ package com.example.virusgame
 
 import android.content.Context
 import com.example.virusgame.game.GameStats
-import com.example.virusgame.game.Player
-import com.example.virusgame.game.ZombieDamageHandler
+import com.example.virusgame.game.player.Player
+import com.example.virusgame.game.zombie.ZombieDamageHandler
 import com.example.virusgame.game.abilities.Ability
 import com.example.virusgame.game.abilities.AbilityFactory
 import com.example.virusgame.game.events.EventManager

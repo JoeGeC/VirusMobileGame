@@ -2,7 +2,7 @@ package com.example.virusgame.game.abilities
 
 import android.graphics.Bitmap
 import com.example.virusgame.clock.Clock
-import com.example.virusgame.game.ZombieDamageHandler
+import com.example.virusgame.game.zombie.ZombieDamageHandler
 
 abstract class Ability(@Transient var zombieDamageHandler: ZombieDamageHandler) {
     val context = zombieDamageHandler.context

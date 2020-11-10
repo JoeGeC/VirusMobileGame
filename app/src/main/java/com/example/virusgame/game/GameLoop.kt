@@ -2,22 +2,25 @@ package com.example.virusgame.game
 
 import android.content.Context
 import android.graphics.Canvas
-import android.hardware.Sensor
-import android.hardware.SensorManager
 import android.view.MotionEvent
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
 import com.example.virusgame.game.abilities.DoubleDamageAbility
+import com.example.virusgame.game.doubleSwipe.DoubleSwipeHandler
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent
+import com.example.virusgame.game.player.Player
 import com.example.virusgame.game.rotation.RotationHandler
 import com.example.virusgame.game.rotation.RotationReceiver
-import com.example.virusgame.game.rotation.RotationSensor
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 import com.example.virusgame.game.ui.Ui
+import com.example.virusgame.game.uiHandlers.UiHandler
 import com.example.virusgame.game.vector2.IntVector2
-import com.example.virusgame.game.zombie.*
+import com.example.virusgame.game.zombie.PreAttackZombie
+import com.example.virusgame.game.zombie.Zombie
+import com.example.virusgame.game.zombie.ZombieDamageCalculator
+import com.example.virusgame.game.zombie.ZombieMaker
 
 class GameLoop(override var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler,
     RotationHandler {
@@ -147,6 +150,6 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     }
 
     override fun onRotate(pitch: Double, tilt: Double, azimuth: Double) {
-        
+
     }
 }

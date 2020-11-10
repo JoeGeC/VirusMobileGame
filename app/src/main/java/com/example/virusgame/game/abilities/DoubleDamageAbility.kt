@@ -3,7 +3,7 @@ package com.example.virusgame.game.abilities
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.example.virusgame.R
-import com.example.virusgame.game.ZombieDamageHandler
+import com.example.virusgame.game.zombie.ZombieDamageHandler
 
 class DoubleDamageAbility(zombieDamageHandler: ZombieDamageHandler) : Ability(zombieDamageHandler) {
     override val name: String = context.getString(R.string.doubleDamage)

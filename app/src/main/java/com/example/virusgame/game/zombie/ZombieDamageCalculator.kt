@@ -1,6 +1,6 @@
 package com.example.virusgame.game.zombie
 
-import com.example.virusgame.game.Player
+import com.example.virusgame.game.player.Player
 import kotlin.random.Random
 
 object ZombieDamageCalculator{

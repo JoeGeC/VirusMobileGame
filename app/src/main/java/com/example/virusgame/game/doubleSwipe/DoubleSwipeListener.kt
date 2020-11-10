@@ -1,13 +1,7 @@
-package com.example.virusgame
+package com.example.virusgame.game.doubleSwipe
 
 import android.view.MotionEvent
-import com.example.virusgame.game.DoubleSwipeHandler
 import kotlin.math.abs
-
-private enum class SwipeMode{
-    NONE,
-    SWIPE
-}
 
 class DoubleSwipeListener(private var swipeHandler: DoubleSwipeHandler) {
     private var swipeMode = SwipeMode.NONE
