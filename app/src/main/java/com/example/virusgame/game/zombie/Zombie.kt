@@ -8,6 +8,7 @@ import com.example.virusgame.R
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.SwipeTaker
 import com.example.virusgame.game.vector2.FloatVector2
+import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.random.Random
 
@@ -16,7 +17,8 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
     internal var state: ZombieState = AliveZombie(this)
     private var screenWidth = Resources.getSystem().displayMetrics.widthPixels
     protected var screenHeight = Resources.getSystem().displayMetrics.heightPixels
-    private var x: Int = screenWidth / 2 - state.animation[0].width / 2
+    private var location: Int = 0
+    private var x: Int = 0
     private var y: Int = (screenHeight / 1.8f - state.animation[0].height / 2).toInt()
 
     private val zombieHealthPaint: Paint = Paint()
@@ -63,8 +65,14 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
         state.onSuccessfulSwipe()
     }
 
-    fun update() {
+    fun update(azimuth: Double) {
         if(active) state.update()
+        setPositionOnScreen(azimuth)
+    }
+
+    private fun setPositionOnScreen(azimuth: Double) {
+        val distanceToZombie = azimuth - location
+        x = (distanceToZombie * (screenWidth / 180)).toInt()
     }
 
     internal fun drawHealthBar(canvas: Canvas) {
@@ -90,6 +98,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
         attackSpeed = (playerStrength * 300) / wave
         setNextAttackTime()
         lastAttackTime = System.nanoTime()
+        location = Random.nextInt(-180, 180)
     }
 
     fun setNextAttackTime(){

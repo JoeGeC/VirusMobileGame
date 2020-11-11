@@ -24,6 +24,7 @@ import com.example.virusgame.game.zombie.ZombieMaker
 
 class GameLoop(override var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler,
     RotationHandler {
+    private var location: Double = 0.0
     private val gameStats = SaveManager.loadGameStats()
     private val eventManager = EventManager()
     private val ui = Ui(context)
@@ -55,7 +56,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
             swipeState = swipeState.onTouch(touchPos, zombie!!)
             sword.update(touchPos)
         } else sword.deactivate()
-        zombie!!.update()
+        zombie!!.update(location)
     }
 
     fun draw(canvas: Canvas) {
@@ -150,6 +151,6 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     }
 
     override fun onRotate(pitch: Double, tilt: Double, azimuth: Double) {
-
+        location = azimuth
     }
 }
