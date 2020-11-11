@@ -133,6 +133,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     override fun purchase(shopItem: ShopItem): Boolean {
         if(player.gold >= shopItem.price){
             player.gold -= shopItem.price
+            shopItem.use(player, this)
             return true
         }
         return false

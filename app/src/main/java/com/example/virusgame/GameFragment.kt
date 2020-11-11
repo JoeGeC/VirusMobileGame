@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,22 +18,19 @@ import com.example.virusgame.shop.ShopListAdapter
 import com.example.virusgame.shop.items.FireAbilityItem
 import com.example.virusgame.shop.items.ShopItem
 
-class GameFragment : Fragment(), ShopHandler {
+class GameFragment : Fragment(), ShopHandler, View.OnClickListener {
     private lateinit var gameView: GameView
-    private lateinit var shopView: LinearLayout
+    private lateinit var shopView: ConstraintLayout
     private lateinit var notEnoughGoldText: TextView
     private lateinit var shopRecyclerView: RecyclerView
     private lateinit var shopAdapter: RecyclerView.Adapter<*>
     private lateinit var shopViewManager: RecyclerView.LayoutManager
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) : View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View? {
         val view = inflater.inflate(R.layout.game, container, false)
         gameView = view.findViewById(R.id.gameView)
         notEnoughGoldText = view.findViewById(R.id.notEnoughGold)
+        view.findViewById<TextView>(R.id.closeShopButton).setOnClickListener(this)
         setupShop(view)
         return view
     }
@@ -65,5 +63,13 @@ class GameFragment : Fragment(), ShopHandler {
         Handler(Looper.getMainLooper()).postDelayed({
             notEnoughGoldText.visibility = View.GONE
         }, 1000)
+    }
+
+    override fun onClick(view: View?) {
+        if(view!!.id == R.id.closeShopButton) closeShop()
+    }
+
+    private fun closeShop() {
+        shopView.visibility = View.GONE
     }
 }
