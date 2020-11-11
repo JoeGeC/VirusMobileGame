@@ -15,6 +15,7 @@ import com.example.virusgame.game.rotation.RotationReceiver
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 import com.example.virusgame.game.ui.Ui
+import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.game.uiHandlers.UiHandler
 import com.example.virusgame.game.vector2.IntVector2
 import com.example.virusgame.game.zombie.PreAttackZombie
@@ -33,6 +34,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     private var player = Player()
     private var sword = Sword(context)
     private val background = Background(context)
+    lateinit var shopHandler: ShopHandler
 
     private var touched: Boolean = false
     private var touchPos: IntVector2 = IntVector2(0, 0)
@@ -124,6 +126,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     }
 
     override fun openShop() {
+        shopHandler.openShop()
     }
 
     override fun upgradeAttack() {

@@ -7,16 +7,19 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.example.virusgame.game.doubleSwipe.DoubleSwipeListener
+import com.example.virusgame.game.uiHandlers.ShopHandler
 
 
-class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
+class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback, ShopHandler {
     private val thread: GameThread
     private val gameLoop: GameLoop = GameLoop(context)
     private val doubleSwipeListener = DoubleSwipeListener(gameLoop)
+    lateinit var shopHandler: ShopHandler
 
     init {
         holder.addCallback(this)
         thread = GameThread(holder, this)
+        gameLoop.shopHandler = this
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -62,6 +65,10 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
             MotionEvent.ACTION_MOVE -> doubleSwipeListener.moveDoubleSwipe(event)
         }
         return true
+    }
+
+    override fun openShop() {
+        shopHandler.openShop()
     }
 }
 
