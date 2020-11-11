@@ -16,6 +16,8 @@ import com.example.virusgame.game.GameView
 import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.ShopListAdapter
 import com.example.virusgame.shop.items.FireAbilityItem
+import com.example.virusgame.shop.items.IceAbilityItem
+import com.example.virusgame.shop.items.LightningAbilityItem
 import com.example.virusgame.shop.items.ShopItem
 
 class GameFragment : Fragment(), ShopHandler, View.OnClickListener {
@@ -39,7 +41,7 @@ class GameFragment : Fragment(), ShopHandler, View.OnClickListener {
         view.findViewById<GameView>(R.id.gameView).shopHandler = this
         shopView = view.findViewById(R.id.shop)
         shopViewManager = LinearLayoutManager(context)
-        val items : Array<ShopItem> = arrayOf(FireAbilityItem(context!!))
+        val items : Array<ShopItem> = arrayOf(FireAbilityItem(context!!), LightningAbilityItem(context!!), IceAbilityItem(context!!))
         shopAdapter = ShopListAdapter(items, this)
         shopRecyclerView = view.findViewById<RecyclerView>(R.id.shopList).apply {
             setHasFixedSize(true)

@@ -26,4 +26,6 @@
     <string name="shop">Shop</string>
     <string name="bought">BOUGHT</string>
     <string name="x">X</string>
+    <string name="lightningAbility">Lightning Attack</string>
+    <string name="iceAbility">Ice Attack</string>
 </resources>

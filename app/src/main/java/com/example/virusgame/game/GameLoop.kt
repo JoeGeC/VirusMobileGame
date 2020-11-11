@@ -120,7 +120,6 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     }
 
     override fun abilityUsed() {
-        speech.setSpeechText("Double damage!")
     }
 
     override fun openShop() {
