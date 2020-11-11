@@ -60,6 +60,10 @@ class GameFragment : Fragment(), ShopHandler, View.OnClickListener {
         return false
     }
 
+    override fun equip(shopItem: ShopItem) {
+        gameView.equip(shopItem)
+    }
+
     private fun showNotEnoughGoldText() {
         notEnoughGoldText.visibility = View.VISIBLE
         Handler(Looper.getMainLooper()).postDelayed({

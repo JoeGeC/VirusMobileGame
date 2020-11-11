@@ -79,5 +79,9 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     override fun purchase(shopItem: ShopItem): Boolean {
         return gameLoop.purchase(shopItem)
     }
+
+    override fun equip(shopItem: ShopItem) {
+        gameLoop.equip(shopItem)
+    }
 }
 

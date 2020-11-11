@@ -40,4 +40,8 @@ class ShopListAdapter (private val items: Array<ShopItem>, internal val shopHand
     }
 
     override fun getItemCount() = items.size
+
+    fun unequipAll() {
+        items.forEach { item -> item.equipped = false }
+    }
 }

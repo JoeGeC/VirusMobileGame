@@ -6,4 +6,5 @@ interface ShopHandler {
     fun openShop()
     fun closeShop()
     fun purchase(shopItem: ShopItem): Boolean
+    fun equip(shopItem: ShopItem)
 }
