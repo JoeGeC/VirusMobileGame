@@ -69,7 +69,8 @@ class GameFragment : Fragment(), ShopHandler, View.OnClickListener {
         if(view!!.id == R.id.closeShopButton) closeShop()
     }
 
-    private fun closeShop() {
+    override fun closeShop() {
         shopView.visibility = View.GONE
+        gameView.closeShop()
     }
 }

@@ -30,6 +30,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
     internal var attackSpeed = 3000
     internal var attackTime: Int = 3000
     internal var lastAttackTime: Long = 0
+    var deactivatedTime: Long = 0
 
     protected var fullRect: Rect get(){
         return Rect(x, y, x + state.animation[0].width, y + state.animation[0].height)
@@ -105,5 +106,9 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
 
     fun setNextAttackTime(){
         attackTime = Random.nextInt((attackSpeed * 0.8).toInt(), (attackSpeed * 1.2).toInt())
+    }
+
+    fun adjustLastAttackTimeForDeactivation() {
+        lastAttackTime += System.nanoTime() - deactivatedTime
     }
 }

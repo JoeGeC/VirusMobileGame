@@ -19,10 +19,7 @@ import com.example.virusgame.game.ui.Ui
 import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.game.uiHandlers.UiHandler
 import com.example.virusgame.game.vector2.IntVector2
-import com.example.virusgame.game.zombie.PreAttackZombie
-import com.example.virusgame.game.zombie.Zombie
-import com.example.virusgame.game.zombie.ZombieDamageCalculator
-import com.example.virusgame.game.zombie.ZombieMaker
+import com.example.virusgame.game.zombie.*
 import com.example.virusgame.shop.items.ShopItem
 
 class GameLoop(override var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler,
@@ -127,7 +124,18 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     }
 
     override fun openShop() {
-        shopHandler.openShop()
+        if(zombie!!.state !is PreAttackZombie && zombie!!.state !is AttackZombie){
+            zombie!!.active = false
+            zombie!!.deactivatedTime = System.nanoTime()
+            sword.active = false
+            shopHandler.openShop()
+        }
+    }
+
+    override fun closeShop(){
+        zombie!!.active = true
+        sword.active = true
+        zombie!!.adjustLastAttackTimeForDeactivation()
     }
 
     override fun purchase(shopItem: ShopItem): Boolean {
