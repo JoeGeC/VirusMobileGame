@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.virusgame.game.GameView
 import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.ShopListAdapter
+import com.example.virusgame.shop.items.FireAbility
+import com.example.virusgame.shop.items.ShopItem
 
 class GameFragment : Fragment(), ShopHandler {
     private lateinit var shopView: LinearLayout
@@ -28,7 +30,8 @@ class GameFragment : Fragment(), ShopHandler {
         view.findViewById<GameView>(R.id.gameView).shopHandler = this
         shopView = view.findViewById(R.id.shop)
         shopViewManager = LinearLayoutManager(context)
-        shopAdapter = ShopListAdapter(arrayOf("Hello", "hello1", "hello2"))
+        var items : Array<ShopItem> = arrayOf(FireAbility(context!!))
+        shopAdapter = ShopListAdapter(items)
         shopRecyclerView = view.findViewById<RecyclerView>(R.id.shopList).apply {
             setHasFixedSize(true)
             layoutManager = shopViewManager
