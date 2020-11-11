@@ -30,7 +30,7 @@ class GameFragment : Fragment(), ShopHandler {
         view.findViewById<GameView>(R.id.gameView).shopHandler = this
         shopView = view.findViewById(R.id.shop)
         shopViewManager = LinearLayoutManager(context)
-        var items : Array<ShopItem> = arrayOf(FireAbility(context!!))
+        val items : Array<ShopItem> = arrayOf(FireAbility(context!!))
         shopAdapter = ShopListAdapter(items)
         shopRecyclerView = view.findViewById<RecyclerView>(R.id.shopList).apply {
             setHasFixedSize(true)

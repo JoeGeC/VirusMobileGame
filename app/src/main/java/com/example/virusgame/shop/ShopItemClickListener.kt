@@ -1,12 +1,11 @@
 package com.example.virusgame.shop
 
 import android.view.View
-import android.widget.ImageView
-import com.example.virusgame.R
+import com.example.virusgame.shop.items.ShopItem
 
-class ShopItemClickListener : View.OnClickListener {
+class ShopItemClickListener(private val shopItem: ShopItem, private val adapter: ShopListAdapter) : View.OnClickListener {
     override fun onClick(view: View?) {
-        view!!.findViewById<ImageView>(R.id.bought).visibility = View.VISIBLE
+        shopItem.bought = true
+        adapter.notifyDataSetChanged()
     }
-
 }

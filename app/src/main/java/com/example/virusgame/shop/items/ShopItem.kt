@@ -8,4 +8,5 @@ abstract class ShopItem {
     abstract val itemName: String
     abstract val description: String
     abstract val price: Int
+    var bought: Boolean = false
 }

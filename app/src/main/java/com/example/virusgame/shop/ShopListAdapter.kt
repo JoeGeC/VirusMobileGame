@@ -12,19 +12,21 @@ import com.example.virusgame.shop.items.ShopItem
 
 class ShopListAdapter (private val items: Array<ShopItem>) : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>(){
     class ShopItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
-    var clickListener: View.OnClickListener = ShopItemClickListener()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.shop_item, parent, false) as ConstraintLayout
-        view.setOnClickListener(clickListener)
         return ShopItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
+        val clickListener: View.OnClickListener = ShopItemClickListener(items[position], this)
+        holder.itemView.setOnClickListener(clickListener)
         holder.itemView.findViewById<ImageView>(R.id.itemImage).setImageResource(items[position].imageResource)
         holder.itemView.findViewById<TextView>(R.id.itemName).text = items[position].itemName
         holder.itemView.findViewById<TextView>(R.id.itemDescription).text = items[position].description
         holder.itemView.findViewById<TextView>(R.id.price).text = items[position].price.toString()
+        if(items[position].bought)
+            holder.itemView.findViewById<ImageView>(R.id.bought).visibility = View.VISIBLE
     }
 
     override fun getItemCount() = items.size
