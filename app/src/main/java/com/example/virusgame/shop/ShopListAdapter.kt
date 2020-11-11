@@ -12,9 +12,11 @@ import com.example.virusgame.shop.items.ShopItem
 
 class ShopListAdapter (private val items: Array<ShopItem>) : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>(){
     class ShopItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    var clickListener: View.OnClickListener = ShopItemClickListener()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.shop_item, parent, false) as ConstraintLayout
+        view.setOnClickListener(clickListener)
         return ShopItemViewHolder(view)
     }
 
@@ -26,5 +28,4 @@ class ShopListAdapter (private val items: Array<ShopItem>) : RecyclerView.Adapte
     }
 
     override fun getItemCount() = items.size
-
 }

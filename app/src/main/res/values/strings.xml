@@ -24,4 +24,5 @@
     <string name="abilityPreferenceId">ability</string>
     <string name="doubleDamage">DoubleDamage</string>
     <string name="shop">Shop</string>
+    <string name="bought">BOUGHT</string>
 </resources>

@@ -63,4 +63,11 @@
         app:layout_constraintTop_toTopOf="@id/gold"
         app:layout_constraintBottom_toBottomOf="@id/gold"
         app:layout_constraintEnd_toEndOf="parent" />
+    <ImageView
+        android:id="@+id/bought"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/shop_item_bought"
+        android:alpha=".8"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
