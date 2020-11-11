@@ -71,7 +71,9 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
     }
 
     private fun setPositionOnScreen(azimuth: Double) {
-        val distanceToZombie = azimuth - location
+        var distanceToZombie = azimuth - location
+        if(distanceToZombie < -180) distanceToZombie += 360
+        else if(distanceToZombie > 180) distanceToZombie -= 360
         x = (distanceToZombie * (screenWidth / 180)).toInt()
     }
 
