@@ -5,7 +5,8 @@ import android.graphics.Canvas
 import android.view.MotionEvent
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
-import com.example.virusgame.game.abilities.DoubleDamageAbility
+import com.example.virusgame.game.abilities.AbilityFactory
+import com.example.virusgame.game.abilities.FireAbility
 import com.example.virusgame.game.doubleSwipe.DoubleSwipeHandler
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent
@@ -22,6 +23,7 @@ import com.example.virusgame.game.zombie.PreAttackZombie
 import com.example.virusgame.game.zombie.Zombie
 import com.example.virusgame.game.zombie.ZombieDamageCalculator
 import com.example.virusgame.game.zombie.ZombieMaker
+import com.example.virusgame.shop.items.ShopItem
 
 class GameLoop(override var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler,
     RotationHandler {
@@ -45,7 +47,6 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     init {
         player = SaveManager.loadPlayer()
         player.setupPlayer(this)
-        player.ability = DoubleDamageAbility(this)
         ZombieDamageCalculator.player = player
         SaveManager.loadEventManager(eventManager)
         eventManager.setupEvents(speech)
@@ -127,6 +128,14 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
 
     override fun openShop() {
         shopHandler.openShop()
+    }
+
+    override fun purchase(shopItem: ShopItem): Boolean {
+        if(player.gold >= shopItem.price){
+            player.gold -= shopItem.price
+            return true
+        }
+        return false
     }
 
     override fun upgradeAttack() {

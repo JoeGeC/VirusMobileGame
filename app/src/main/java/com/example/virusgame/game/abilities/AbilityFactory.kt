@@ -4,8 +4,8 @@ import com.example.virusgame.game.zombie.ZombieDamageHandler
 
 class AbilityFactory {
     fun createAbility(abilityName: String, zombieDamageHandler: ZombieDamageHandler): Ability? {
-        if(abilityName == "DoubleDamage")
-            return DoubleDamageAbility(zombieDamageHandler)
+        if(abilityName == "Fire Attack")
+            return FireAbility(zombieDamageHandler)
         return null
     }
 }

@@ -19,7 +19,8 @@ class AbilityUi(context: Context, screenDimensions: FloatVector2, borderBottom: 
         coolDownPaint.textSize = screenDimensions.y / 30.0f
     }
 
-    fun draw(canvas: Canvas, ability: Ability){
+    fun draw(canvas: Canvas, ability: Ability?){
+        if(ability == null) return
         setIconRect(ability.iconBitmap)
         canvas.drawBitmap(ability.iconBitmap, abilityIconPos.x, abilityIconPos.y, null)
         canvas.drawRect(iconRect!!.left.toFloat(), coolDownBarPos(ability), iconRect!!.right.toFloat(), iconRect!!.bottom.toFloat(), coolDownPaint)

@@ -5,8 +5,8 @@ import android.graphics.BitmapFactory
 import com.example.virusgame.R
 import com.example.virusgame.game.zombie.ZombieDamageHandler
 
-class DoubleDamageAbility(zombieDamageHandler: ZombieDamageHandler) : Ability(zombieDamageHandler) {
-    override val name: String = context.getString(R.string.doubleDamage)
+class FireAbility(private val zombieDamageHandler: ZombieDamageHandler) : Ability(zombieDamageHandler.context) {
+    override val name: String = context.getString(R.string.fireAbility)
     override val iconBitmap: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.fireball_ability_icon)
     override val coolDownTime: Int = 10000
 

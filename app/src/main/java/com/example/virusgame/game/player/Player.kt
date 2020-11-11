@@ -21,7 +21,6 @@ class Player(){
     fun setupPlayer(entityHandler: EntityHandler){
         playerHandler = entityHandler
         ability = SaveManager.loadAbility(entityHandler)
-        ability?.zombieDamageHandler = entityHandler
     }
 
     fun increaseGold(goldToAdd: Int){

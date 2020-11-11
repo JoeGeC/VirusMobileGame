@@ -22,7 +22,7 @@
     <string name="death_message">Oh no! You died! Never mind, upgrade your health and attack and try again!</string>
     <string name="not_enough_gold">You don\'t have enough gold!</string>
     <string name="abilityPreferenceId">ability</string>
-    <string name="doubleDamage">DoubleDamage</string>
+    <string name="fireAbility">Fire Ability</string>
     <string name="shop">Shop</string>
     <string name="bought">BOUGHT</string>
 </resources>

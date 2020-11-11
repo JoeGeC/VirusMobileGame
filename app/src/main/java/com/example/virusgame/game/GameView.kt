@@ -8,6 +8,7 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.example.virusgame.game.doubleSwipe.DoubleSwipeListener
 import com.example.virusgame.game.uiHandlers.ShopHandler
+import com.example.virusgame.shop.items.ShopItem
 
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback, ShopHandler {
@@ -69,6 +70,10 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     override fun openShop() {
         shopHandler.openShop()
+    }
+
+    override fun purchase(shopItem: ShopItem): Boolean {
+        return gameLoop.purchase(shopItem)
     }
 }
 

@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.virusgame.R
+import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.items.ShopItem
 
-class ShopListAdapter (private val items: Array<ShopItem>) : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>(){
+class ShopListAdapter (private val items: Array<ShopItem>, internal val shopHandler: ShopHandler) : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>(){
     class ShopItemViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
@@ -24,9 +25,18 @@ class ShopListAdapter (private val items: Array<ShopItem>) : RecyclerView.Adapte
         holder.itemView.findViewById<ImageView>(R.id.itemImage).setImageResource(items[position].imageResource)
         holder.itemView.findViewById<TextView>(R.id.itemName).text = items[position].itemName
         holder.itemView.findViewById<TextView>(R.id.itemDescription).text = items[position].description
-        holder.itemView.findViewById<TextView>(R.id.price).text = items[position].price.toString()
-        if(items[position].bought)
-            holder.itemView.findViewById<ImageView>(R.id.bought).visibility = View.VISIBLE
+        holder.itemView.findViewById<TextView>(R.id.price).text = getPrice(items[position])
+        holder.itemView.findViewById<ImageView>(R.id.equipped).visibility = getEquippedVisibility(items[position])
+    }
+
+    private fun getPrice(shopItem: ShopItem): String {
+        if(shopItem.bought) return "0"
+        return shopItem.price.toString()
+    }
+
+    private fun getEquippedVisibility(shopItem: ShopItem): Int {
+        if(shopItem.equipped) return View.VISIBLE
+        return View.GONE
     }
 
     override fun getItemCount() = items.size
