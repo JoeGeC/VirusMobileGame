@@ -3,8 +3,11 @@ package com.example.virusgame.game.zombie
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Paint
 import android.hardware.Sensor
 import android.hardware.SensorManager
+import androidx.core.content.ContextCompat
+import com.example.virusgame.R
 import com.example.virusgame.Vibrator
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.ShakeSensor
@@ -16,6 +19,8 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     private var lastFrameUpdateTime: Long = 0
     override val animation: List<Bitmap> = ZombieAnimations(zombie.context).preAttackAnimation1()
     private val startTime: Long = System.nanoTime()
+    private var shakeHealth: Int = zombie.maxHealth
+    private val zombieAttackMeterPaint: Paint = Paint()
 
     private lateinit var sensorManager: SensorManager
     private lateinit var accelerometer: Sensor
@@ -23,7 +28,8 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
 
     init {
         setupShakeSensor()
-        Vibrator(zombie.context).vibrate(400);
+        Vibrator(zombie.context).vibrate(400)
+        zombieAttackMeterPaint.color = ContextCompat.getColor(zombie.context, R.color.blue)
     }
 
     private fun setupShakeSensor() {
@@ -42,7 +48,8 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
 
     override fun draw(canvas: Canvas, x: Float, y: Float) {
         canvas.drawBitmap(getAnimationFrame(), x, y, null)
-        zombie.drawHealthBar(canvas)
+        zombie.drawHealth(canvas)
+        canvas.drawRect(zombie.getBarRect(shakeHealth, zombie.maxHealth, zombie.healthBarYOffset + 20), zombieAttackMeterPaint)
     }
 
     override fun getAnimationFrame(): Bitmap {

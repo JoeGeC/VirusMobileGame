@@ -12,7 +12,7 @@ class AliveZombie(private var zombie: Zombie) : ZombieState {
 
     override fun draw(canvas: Canvas, x: Float, y: Float){
         canvas.drawBitmap(getAnimationFrame(), x, y, null)
-        zombie.drawHealthBar(canvas)
+        zombie.drawHealth(canvas)
     }
 
     override fun getAnimationFrame() : Bitmap {

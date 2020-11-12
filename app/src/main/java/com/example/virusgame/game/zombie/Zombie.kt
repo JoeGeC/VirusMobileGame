@@ -8,7 +8,6 @@ import com.example.virusgame.R
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.SwipeTaker
 import com.example.virusgame.game.vector2.FloatVector2
-import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.random.Random
 
@@ -20,9 +19,10 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
     private var location: Int = 0
     private var x: Int = 0
     private var y: Int = (screenHeight / 1.8f - state.animation[0].height / 2).toInt()
+    internal val healthBarYOffset = 30
 
     private val zombieHealthPaint: Paint = Paint()
-    protected var maxHealth = 0
+    internal var maxHealth = 0
     protected var currentHealth = maxHealth
     internal var gold = 5
     internal var attack = 1
@@ -46,7 +46,6 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
 
     init {
         zombieHealthPaint.color = ContextCompat.getColor(context, R.color.red)
-        zombieHealthPaint.strokeWidth = 20.0f
     }
 
     open fun draw(canvas: Canvas){
@@ -78,16 +77,21 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
         x = (distanceToZombie * (screenWidth / 180)).toInt()
     }
 
-    internal fun drawHealthBar(canvas: Canvas) {
-        val healthBarStartPos = rect.left - 10.0f
-        val maxHealthBarStopPos = rect.right + 10.0f
-        val healthBarStopPos: Float = try {
-            (maxHealthBarStopPos - healthBarStartPos) / maxHealth * currentHealth + healthBarStartPos
+    fun drawHealth(canvas: Canvas){
+        canvas.drawRect(getBarRect(maxHealth, currentHealth, healthBarYOffset), zombieHealthPaint)
+    }
+
+    internal fun getBarRect(maxValue: Int, currentValue: Int,  yOffset: Int) : Rect {
+        val startPos = rect.left - 10.0f
+        val endPos = rect.right + 10.0f
+        val currentEndPos: Float = try {
+            (endPos - startPos) / maxValue * currentValue + startPos
         } catch (e: Exception) {
-            healthBarStartPos
+            startPos
         }
-        val healthBarHeight = y - 50.0f
-        canvas.drawLine(healthBarStartPos, healthBarHeight, healthBarStopPos, healthBarHeight, zombieHealthPaint)
+        val bottom = y - yOffset
+        val top = bottom - 20
+        return Rect(startPos.toInt(), top, currentEndPos.toInt(), bottom)
     }
 
     open fun setStats(wave: Int, playerStrength: Int){
