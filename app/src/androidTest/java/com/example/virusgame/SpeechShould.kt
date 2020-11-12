@@ -4,6 +4,7 @@ import android.graphics.Rect
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.virusgame.game.Speech
+import com.example.virusgame.game.vector2.IntVector2
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.Assert.*
@@ -51,7 +52,7 @@ class SpeechShould {
         speech.setSpeechText("Hello!")
         speech.fullRect = Rect(0, 0, 10, 10)
         speech.skipMessageTyping()
-        speech.onTouch(5, 5)
+        speech.onTouch(IntVector2(5, 5))
         assertEquals(false, speech.active)
     }
 
@@ -59,7 +60,7 @@ class SpeechShould {
     fun notDeactivateWhenTouchedOutsideOfSpeech(){
         speech.setSpeechText("Hello!")
         speech.fullRect = Rect(0, 0, 10, 10)
-        speech.onTouch(11, 11)
+        speech.onTouch(IntVector2(11, 11))
         assertEquals(true, speech.active)
     }
 
@@ -68,7 +69,7 @@ class SpeechShould {
         speech.setSpeechText("Hello world! I'm here to tell you a story about a really great guy called Joe!")
         speech.fullRect = Rect(0, 0, 10, 10)
         speech.skipMessageTyping()
-        speech.onTouch(5, 5)
+        speech.onTouch(IntVector2(5, 5))
         val secondPartOfMessage = mutableListOf("story ", "about a ", "really ", "great guy ", "called ", "Joe! ")
         assertEquals(secondPartOfMessage, speech.messageToDisplay)
         assertEquals(true, speech.active)
@@ -78,7 +79,7 @@ class SpeechShould {
     fun deactivateAfterFinishingLongMessage() {
         speech.setSpeechText("Hello world! I'm here to tell you a story about a really great guy called Joe!")
         speech.fullRect = Rect(0, 0, 10, 10)
-        repeat(6){ speech.onTouch(5, 5) }
+        repeat(6){ speech.onTouch(IntVector2(5, 5)) }
         assertEquals(false, speech.active)
     }
 }
