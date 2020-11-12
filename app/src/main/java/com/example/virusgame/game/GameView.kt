@@ -9,6 +9,7 @@ import android.view.SurfaceView
 import com.example.virusgame.game.doubleSwipe.DoubleSwipeListener
 import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.items.ShopItem
+import kotlinx.android.synthetic.main.game.view.*
 
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback, ShopHandler {
@@ -78,6 +79,10 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     override fun purchase(shopItem: ShopItem): Boolean {
         return gameLoop.purchase(shopItem)
+    }
+
+    override fun canPurchase(shopItem: ShopItem): Boolean {
+        return gameLoop.canPurchase(shopItem)
     }
 
     override fun use(shopItem: ShopItem) {

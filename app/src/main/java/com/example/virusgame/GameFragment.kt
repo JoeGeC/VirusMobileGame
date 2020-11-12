@@ -60,6 +60,10 @@ class GameFragment : Fragment(), ShopHandler, View.OnClickListener {
         return false
     }
 
+    override fun canPurchase(shopItem: ShopItem): Boolean {
+        return gameView.canPurchase(shopItem)
+    }
+
     override fun use(shopItem: ShopItem) {
         gameView.use(shopItem)
     }

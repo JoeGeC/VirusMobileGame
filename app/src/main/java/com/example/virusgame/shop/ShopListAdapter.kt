@@ -27,6 +27,7 @@ class ShopListAdapter (private val items: Array<ShopItem>, internal val shopHand
         holder.itemView.findViewById<TextView>(R.id.itemDescription).text = items[position].description
         holder.itemView.findViewById<TextView>(R.id.price).text = getPrice(items[position])
         holder.itemView.findViewById<ImageView>(R.id.equipped).visibility = getEquippedVisibility(items[position])
+        holder.itemView.findViewById<ImageView>(R.id.itemDuller).visibility = getDullerVisibility(items[position])
     }
 
     private fun getPrice(shopItem: ShopItem): String {
@@ -36,6 +37,11 @@ class ShopListAdapter (private val items: Array<ShopItem>, internal val shopHand
     private fun getEquippedVisibility(shopItem: ShopItem): Int {
         if(shopItem.isEquipped()) return View.VISIBLE
         return View.GONE
+    }
+
+    private fun getDullerVisibility(shopItem: ShopItem): Int {
+        if(shopHandler.canPurchase(shopItem)) return View.GONE
+        return View.VISIBLE
     }
 
     override fun getItemCount() = items.size
