@@ -115,4 +115,8 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
     fun adjustLastAttackTimeForDeactivation() {
         lastAttackTime += System.nanoTime() - deactivatedTime
     }
+
+    fun onShake(damage: Int) {
+        if(state is PreAttackZombie) (state as PreAttackZombie).onShake(damage)
+    }
 }

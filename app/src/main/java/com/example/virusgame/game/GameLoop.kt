@@ -38,6 +38,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     private var startTouchPos: IntVector2 = IntVector2(0, 0)
     private var swipeState: SwipeState = StartSwipeState()
     private var rotationReceiver: RotationReceiver = RotationReceiver(context, this)
+    private var shakeReceiver: ShakeReceiver = ShakeReceiver(context, this)
 
     init {
         player = SaveManager.loadPlayer()
@@ -104,6 +105,10 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
 
     override fun getPlayerAttack(): Int {
         return player.attack
+    }
+
+    override fun shakeZombie() {
+        zombie!!.onShake(player.attack)
     }
 
     override fun inflictPlayerDamage(damage: Int) {
