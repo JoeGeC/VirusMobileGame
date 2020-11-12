@@ -15,7 +15,6 @@ abstract class Ability(@Transient val context: Context) {
     private var lastFrameUpdateTime: Long = 0
     private var lastMoveTime: Long = 0
     private var frameNum = 0
-    private var xPos = 0f
     private var active = false
     abstract fun effect()
 
@@ -29,34 +28,29 @@ abstract class Ability(@Transient val context: Context) {
         return false
     }
 
-    fun draw(canvas: Canvas){
-        if(active){
+    fun draw(canvas: Canvas) {
+        if (active) {
             canvas.drawBitmap(getAnimationFrame(), getXPos(), getYPos(), null)
-            if(xPos > ScreenDimensions.width) finishAnimation()
         }
     }
 
-    private fun finishAnimation() {
-        xPos = 0f - animationFrames[0].width
-        active = false
-    }
+    private fun getYPos(): Float = ScreenDimensions.height / 1.8f - animationFrames[0].height / 2f
 
-    private fun getYPos(): Float = ScreenDimensions.height / 2.2f
+    private fun getXPos(): Float = ScreenDimensions.width / 2f - animationFrames[0].width / 2f
 
-    private fun getXPos(): Float {
-        if (Clock.haveMillisecondsPassedSince(lastMoveTime, 1)) {
-            xPos += 50
-            lastMoveTime = System.nanoTime()
-        }
-        return xPos
-    }
 
     private fun getAnimationFrame() : Bitmap {
-        if(Clock.haveMillisecondsPassedSince(lastFrameUpdateTime, 100)){
+        if(Clock.haveMillisecondsPassedSince(lastFrameUpdateTime, 200)){
             lastFrameUpdateTime = System.nanoTime()
             frameNum++
-            if(frameNum >= animationFrames.size) frameNum = 0
+            if(frameNum >= animationFrames.size) finishAnimation()
         }
         return animationFrames[frameNum]
+    }
+
+
+    private fun finishAnimation() {
+        frameNum = 0
+        active = false
     }
 }

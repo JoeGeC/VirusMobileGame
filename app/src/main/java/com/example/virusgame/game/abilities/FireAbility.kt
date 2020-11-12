@@ -11,7 +11,11 @@ class FireAbility(zombieDamageHandler: ZombieDamageHandler) : AttackAbility(zomb
     override val coolDownTime: Int = 10000
     override val attackModifier: Float = 4.0f
     override val animationFrames = arrayOf(
-        BitmapFactory.decodeResource(context.resources, R.drawable.fireblast1),
-        BitmapFactory.decodeResource(context.resources, R.drawable.fireblast2)
+        BitmapFactory.decodeResource(context.resources, R.drawable.fire_ability_frame1),
+        BitmapFactory.decodeResource(context.resources, R.drawable.fire_ability_frame2),
+        BitmapFactory.decodeResource(context.resources, R.drawable.fire_ability_frame3),
+        BitmapFactory.decodeResource(context.resources, R.drawable.fire_ability_frame4),
+        BitmapFactory.decodeResource(context.resources, R.drawable.fire_ability_frame5),
+        BitmapFactory.decodeResource(context.resources, R.drawable.fire_ability_frame6)
     )
 }

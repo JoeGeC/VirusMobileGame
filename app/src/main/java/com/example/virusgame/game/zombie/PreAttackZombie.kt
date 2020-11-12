@@ -68,4 +68,8 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
         ZombieAttackEvent.complete = true
         FirstDefenceEvent.trigger()
     }
+
+    fun finalize(){
+        vibrator.stop()
+    }
 }
