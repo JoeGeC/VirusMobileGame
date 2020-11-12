@@ -5,8 +5,6 @@ import android.graphics.Canvas
 import android.view.MotionEvent
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
-import com.example.virusgame.game.abilities.AbilityFactory
-import com.example.virusgame.game.abilities.FireAbility
 import com.example.virusgame.game.doubleSwipe.DoubleSwipeHandler
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent

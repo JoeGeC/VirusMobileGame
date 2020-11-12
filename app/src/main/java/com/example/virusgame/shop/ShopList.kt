@@ -48,7 +48,7 @@ object ShopList {
         return result
     }
 
-    private fun createItem(item: ShopItem, saveData: ShopItemSaveData) : ShopItem{
+    private fun createItem(item: ShopItem, saveData: ShopItemSaveData) : ShopItem {
         item.saveData = saveData
         return item
     }
