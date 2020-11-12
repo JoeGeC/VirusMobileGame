@@ -6,7 +6,7 @@ import com.example.virusgame.game.EntityHandler
 
 class Player(){
     @Transient private lateinit var playerHandler: PlayerHandler
-    var gold = 0
+    var gold = 10000
     var maxHealth = 10
     var currentHealth = maxHealth
     var attack = 1

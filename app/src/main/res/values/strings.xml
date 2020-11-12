@@ -28,4 +28,9 @@
     <string name="x">X</string>
     <string name="lightningAbility">Lightning Attack</string>
     <string name="iceAbility">Ice Attack</string>
+    <string name="shopPreferenceId">shop</string>
+    <string name="smallHealthPotion">Small Potion</string>
+    <string name="healthPotion">Health Potion</string>
+    <string name="hugeHealthPotion">Huge Health Potion</string>
+    <string name="largeHealthPotion">Large Health Potion</string>
 </resources>

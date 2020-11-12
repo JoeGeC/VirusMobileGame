@@ -135,6 +135,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         zombie!!.active = true
         sword.active = true
         zombie!!.adjustLastAttackTimeForDeactivation()
+        SaveManager.saveGame(player, gameStats, eventManager)
     }
 
     override fun purchase(shopItem: ShopItem): Boolean {

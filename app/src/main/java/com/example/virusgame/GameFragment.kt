@@ -16,17 +16,13 @@ import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.ShopList
 import com.example.virusgame.shop.ShopListAdapter
 import com.example.virusgame.shop.items.*
-import com.example.virusgame.shop.items.abilities.FireAbilityItem
-import com.example.virusgame.shop.items.abilities.IceAbilityItem
-import com.example.virusgame.shop.items.abilities.LightningAbilityItem
-import com.example.virusgame.shop.items.healthPotions.SmallHealthPotion
 
 class GameFragment : Fragment(), ShopHandler, View.OnClickListener {
     private lateinit var gameView: GameView
     private lateinit var shopView: ConstraintLayout
     private lateinit var notEnoughGoldText: TextView
     private lateinit var shopRecyclerView: RecyclerView
-    private lateinit var shopAdapter: RecyclerView.Adapter<*>
+    private lateinit var shopAdapter: ShopListAdapter
     private lateinit var shopViewManager: RecyclerView.LayoutManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View? {
@@ -82,5 +78,6 @@ class GameFragment : Fragment(), ShopHandler, View.OnClickListener {
     override fun closeShop() {
         shopView.visibility = View.GONE
         gameView.closeShop()
+        SaveManager.saveShop(shopAdapter.items.map { it.saveData })
     }
 }

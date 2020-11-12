@@ -5,28 +5,27 @@ import com.example.virusgame.game.player.Player
 import com.example.virusgame.game.zombie.ZombieDamageHandler
 import com.example.virusgame.shop.ShopListAdapter
 import com.example.virusgame.shop.items.ShopItem
+import com.example.virusgame.shop.items.ShopItemSaveData
 
 abstract class AbilityItem: ShopItem() {
-    private var bought: Boolean = false
-
     override fun use(player: Player, zombieDamageHandler: ZombieDamageHandler) {
-        equipped = true
-        player.ability = AbilityFactory().createAbility(itemName, zombieDamageHandler)
+        setEquipped(true)
+        player.ability = AbilityFactory().createAbility(saveData.itemName, zombieDamageHandler)
     }
 
     override fun isEquipped(): Boolean {
-        return equipped
+        return saveData.equipped
     }
 
     override fun getPriceAsString(): String {
-        if(bought) return "0"
+        if(isBought()) return "0"
         return price.toString()
     }
 
     override fun onClick(adapter: ShopListAdapter) {
-        if(bought) equipItem(adapter)
+        if(isBought()) equipItem(adapter)
         else if(adapter.shopHandler.purchase(this)){
-            bought = true
+            setBought(true)
             equipItem(adapter)
         }
     }
@@ -34,6 +33,6 @@ abstract class AbilityItem: ShopItem() {
     private fun equipItem(adapter: ShopListAdapter) {
         adapter.unequipAll()
         adapter.shopHandler.use(this)
-        equipped = true
+        setEquipped(true)
     }
 }
