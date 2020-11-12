@@ -145,7 +145,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         return false
     }
 
-    override fun equip(shopItem: ShopItem) {
+    override fun use(shopItem: ShopItem) {
         shopItem.use(player, this)
     }
 

@@ -6,7 +6,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -15,10 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.virusgame.game.GameView
 import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.ShopListAdapter
-import com.example.virusgame.shop.items.FireAbilityItem
-import com.example.virusgame.shop.items.IceAbilityItem
-import com.example.virusgame.shop.items.LightningAbilityItem
-import com.example.virusgame.shop.items.ShopItem
+import com.example.virusgame.shop.items.*
 
 class GameFragment : Fragment(), ShopHandler, View.OnClickListener {
     private lateinit var gameView: GameView
@@ -41,7 +37,7 @@ class GameFragment : Fragment(), ShopHandler, View.OnClickListener {
         view.findViewById<GameView>(R.id.gameView).shopHandler = this
         shopView = view.findViewById(R.id.shop)
         shopViewManager = LinearLayoutManager(context)
-        val items : Array<ShopItem> = arrayOf(FireAbilityItem(context!!), LightningAbilityItem(context!!), IceAbilityItem(context!!))
+        val items : Array<ShopItem> = arrayOf(FireAbilityItem(context!!), LightningAbilityItem(context!!), IceAbilityItem(context!!), SmallHealthPotion(context!!))
         shopAdapter = ShopListAdapter(items, this)
         shopRecyclerView = view.findViewById<RecyclerView>(R.id.shopList).apply {
             setHasFixedSize(true)
@@ -60,8 +56,8 @@ class GameFragment : Fragment(), ShopHandler, View.OnClickListener {
         return false
     }
 
-    override fun equip(shopItem: ShopItem) {
-        gameView.equip(shopItem)
+    override fun use(shopItem: ShopItem) {
+        gameView.use(shopItem)
     }
 
     private fun showNotEnoughGoldText() {

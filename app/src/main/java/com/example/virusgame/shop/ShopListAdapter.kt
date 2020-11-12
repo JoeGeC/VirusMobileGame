@@ -30,12 +30,11 @@ class ShopListAdapter (private val items: Array<ShopItem>, internal val shopHand
     }
 
     private fun getPrice(shopItem: ShopItem): String {
-        if(shopItem.bought) return "0"
-        return shopItem.price.toString()
+        return shopItem.getPriceAsString()
     }
 
     private fun getEquippedVisibility(shopItem: ShopItem): Int {
-        if(shopItem.equipped) return View.VISIBLE
+        if(shopItem.isEquipped()) return View.VISIBLE
         return View.GONE
     }
 

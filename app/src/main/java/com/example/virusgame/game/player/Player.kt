@@ -65,4 +65,9 @@ class Player(){
         if(ability != null && ability!!.use())
             playerHandler.abilityUsed()
     }
+
+    fun restoreHealth(healthToRestore: Int) {
+        currentHealth += healthToRestore
+        if(currentHealth > maxHealth) currentHealth = maxHealth
+    }
 }
