@@ -1,4 +1,4 @@
-package com.example.virusgame.shop.items
+package com.example.virusgame.shop.items.healthPotions
 
 import android.content.Context
 import com.example.virusgame.R
