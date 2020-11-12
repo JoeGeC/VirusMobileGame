@@ -9,6 +9,7 @@ import com.example.virusgame.Vibrator
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.FirstDefenceEvent
 import com.example.virusgame.game.events.ZombieAttackEvent
+import kotlin.concurrent.thread
 
 class PreAttackZombie(var zombie: Zombie) : ZombieState {
     private var frameNum: Int = 0
@@ -17,9 +18,10 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     private val startTime: Long = System.nanoTime()
     private var shakeHealth: Int = zombie.maxHealth
     private val zombieAttackMeterPaint: Paint = Paint()
+    private var vibrator = Vibrator(zombie.context)
 
     init {
-        Vibrator(zombie.context).vibrate(400)
+        vibrator.vibrate(longArrayOf(0, 200, 200), 0)
         zombieAttackMeterPaint.color = ContextCompat.getColor(zombie.context, R.color.blue)
     }
 
@@ -42,6 +44,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
 
     override fun update() {
         if(Clock.haveMillisecondsPassedSince(startTime, zombie.attackTime)){
+            vibrator.vibrate(600)
             zombie.setNextAttackTime()
             zombie.state = AttackZombie(zombie)
         }
@@ -60,6 +63,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     }
 
     private fun successfulDefense() {
+        vibrator.stop()
         zombie.state = AliveZombie(zombie)
         ZombieAttackEvent.complete = true
         FirstDefenceEvent.trigger()
