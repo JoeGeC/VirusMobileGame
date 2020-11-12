@@ -38,7 +38,7 @@ class DeathUi(context: Context, screenDimensions: FloatVector2) {
         paint.textAlign = Paint.Align.CENTER
         paint.color = ContextCompat.getColor(context, R.color.white)
         paint.typeface = ResourcesCompat.getFont(context, R.font.unispace)
-        paint.textSize = 35.0f
+        paint.textSize = screenDimensions.y / 40.0f
     }
 
     fun draw(canvas: Canvas, player: Player){
