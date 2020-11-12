@@ -64,6 +64,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         ui.draw(canvas, player, gameStats)
         speech.draw(canvas)
         sword.draw(canvas)
+        player.ability?.draw(canvas)
     }
 
     fun updateTouchPos(event: MotionEvent) {

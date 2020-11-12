@@ -5,15 +5,16 @@ import android.graphics.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.virusgame.R
+import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.game.player.Player
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
 
-class DeathUi(context: Context, screenDimensions: FloatVector2) {
+class DeathUi(context: Context) {
     var active = false
     private val deathScreen: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.death_border)
     private val gold: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.gold)
-    private val deathScreenPos = FloatVector2(screenDimensions.x / 2 - deathScreen.width / 2, screenDimensions.y / 2 - deathScreen.height / 1.7f)
+    private val deathScreenPos = FloatVector2(ScreenDimensions.width / 2f - deathScreen.width / 2f, ScreenDimensions.height / 2f - deathScreen.height / 1.7f)
     private val attackRect = Rect(
         (deathScreenPos.x + deathScreen.width / 10).toInt(),
         (deathScreenPos.y + deathScreen.height / 11.5).toInt(),
@@ -38,7 +39,7 @@ class DeathUi(context: Context, screenDimensions: FloatVector2) {
         paint.textAlign = Paint.Align.CENTER
         paint.color = ContextCompat.getColor(context, R.color.white)
         paint.typeface = ResourcesCompat.getFont(context, R.font.unispace)
-        paint.textSize = screenDimensions.y / 40.0f
+        paint.textSize = ScreenDimensions.height / 40.0f
     }
 
     fun draw(canvas: Canvas, player: Player){

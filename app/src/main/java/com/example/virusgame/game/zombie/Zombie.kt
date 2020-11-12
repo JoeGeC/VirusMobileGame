@@ -5,6 +5,7 @@ import android.content.res.Resources
 import android.graphics.*
 import androidx.core.content.ContextCompat
 import com.example.virusgame.R
+import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.SwipeTaker
 import com.example.virusgame.game.vector2.FloatVector2
@@ -14,11 +15,9 @@ import kotlin.random.Random
 open class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOffset: FloatVector2) : SwipeTaker {
     var active: Boolean = true
     internal var state: ZombieState = AliveZombie(this)
-    private var screenWidth = Resources.getSystem().displayMetrics.widthPixels
-    protected var screenHeight = Resources.getSystem().displayMetrics.heightPixels
     private var location: Int = 0
     private var x: Int = 0
-    private var y: Int = (screenHeight / 1.8f - state.animation[0].height / 2).toInt()
+    var y: Int = (ScreenDimensions.height / 1.8f - state.animation[0].height / 2).toInt()
     internal val healthBarYOffset = 30
 
     private val zombieHealthPaint: Paint = Paint()
@@ -74,7 +73,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
         var distanceToZombie = azimuth - location
         if(distanceToZombie < -180) distanceToZombie += 360
         else if(distanceToZombie > 180) distanceToZombie -= 360
-        x = (distanceToZombie * (screenWidth / 180)).toInt()
+        x = (distanceToZombie * (ScreenDimensions.width / 180)).toInt()
     }
 
     fun drawHealth(canvas: Canvas){

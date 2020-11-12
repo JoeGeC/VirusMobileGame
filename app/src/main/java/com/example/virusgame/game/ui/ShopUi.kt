@@ -6,12 +6,13 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Rect
 import com.example.virusgame.R
+import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
 
-class ShopUi(context: Context, screenDimensions: FloatVector2, borderBottom: Float) {
+class ShopUi(context: Context, borderBottom: Float) {
     private val shopIcon: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.shop)
-    private val shopIconPos = FloatVector2(screenDimensions.x / 4 - shopIcon.width / 2, borderBottom - borderBottom / 5 - shopIcon.height)
+    private val shopIconPos = FloatVector2(ScreenDimensions.width / 4f - shopIcon.width / 2f, borderBottom - borderBottom / 5 - shopIcon.height)
     private val rect = Rect(
         shopIconPos.x.toInt(),
         shopIconPos.y.toInt(),

@@ -6,6 +6,7 @@ import android.graphics.Paint
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.virusgame.R
+import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.vector2.FloatVector2
 import kotlin.math.pow
@@ -13,10 +14,10 @@ import kotlin.random.Random
 
 class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: FloatVector2) :
     Zombie(context, entityHandler, rectOffset) {
-    var bossPaint = Paint();
+    private var bossPaint = Paint();
 
     init {
-        bossPaint.textSize = screenHeight / 40.0f
+        bossPaint.textSize = ScreenDimensions.height / 40.0f
         bossPaint.textAlign = Paint.Align.CENTER
         bossPaint.typeface = ResourcesCompat.getFont(context, R.font.unispace)
         bossPaint.color = ContextCompat.getColor(context, R.color.white)

@@ -4,11 +4,12 @@ import android.content.Context
 import android.graphics.*
 import androidx.core.content.ContextCompat
 import com.example.virusgame.R
+import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.abilities.Ability
 import com.example.virusgame.game.vector2.FloatVector2
 
-class AbilityUi(context: Context, screenDimensions: FloatVector2, borderBottom: Float) {
+class AbilityUi(context: Context, borderBottom: Float) {
     private val coolDownPaint: Paint = Paint()
     private val abilityIconPos: FloatVector2 = FloatVector2(50f, borderBottom + 150f)
     private var iconRect: Rect? = null
@@ -16,7 +17,7 @@ class AbilityUi(context: Context, screenDimensions: FloatVector2, borderBottom: 
     init{
         coolDownPaint.color = ContextCompat.getColor(context, R.color.transparentBlue)
         coolDownPaint.textAlign = Paint.Align.CENTER
-        coolDownPaint.textSize = screenDimensions.y / 30.0f
+        coolDownPaint.textSize = ScreenDimensions.height / 30.0f
     }
 
     fun draw(canvas: Canvas, ability: Ability?){
