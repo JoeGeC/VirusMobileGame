@@ -12,10 +12,9 @@ abstract class Ability(@Transient val context: Context) {
     abstract val animationFrames: Array<Bitmap>
     abstract val coolDownTime: Int
     var lastAbilityUseTime: Long = 0
-    private var lastFrameUpdateTime: Long = 0
-    private var lastMoveTime: Long = 0
-    private var frameNum = 0
-    private var active = false
+    protected var lastFrameUpdateTime: Long = 0
+    protected var frameNum = 0
+    protected var active = false
     abstract fun effect()
 
     fun use(): Boolean {
@@ -28,15 +27,15 @@ abstract class Ability(@Transient val context: Context) {
         return false
     }
 
-    fun draw(canvas: Canvas) {
+    open fun draw(canvas: Canvas) {
         if (active) {
             canvas.drawBitmap(getAnimationFrame(), getXPos(), getYPos(), null)
         }
     }
 
-    private fun getYPos(): Float = ScreenDimensions.height / 1.8f - animationFrames[0].height / 2f
+    protected fun getYPos(): Float = ScreenDimensions.height / 1.8f - animationFrames[0].height / 2f
 
-    private fun getXPos(): Float = ScreenDimensions.width / 2f - animationFrames[0].width / 2f
+    protected fun getXPos(): Float = ScreenDimensions.width / 2f - animationFrames[0].width / 2f
 
 
     private fun getAnimationFrame() : Bitmap {
@@ -48,8 +47,7 @@ abstract class Ability(@Transient val context: Context) {
         return animationFrames[frameNum]
     }
 
-
-    private fun finishAnimation() {
+    protected fun finishAnimation() {
         frameNum = 0
         active = false
     }
