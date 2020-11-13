@@ -33,4 +33,6 @@
     <string name="healthPotion">Health Potion</string>
     <string name="hugeHealthPotion">Huge Health Potion</string>
     <string name="largeHealthPotion">Large Health Potion</string>
+    <string name="karl">Karl</string>
+    <string name="tap">[tap]</string>
 </resources>

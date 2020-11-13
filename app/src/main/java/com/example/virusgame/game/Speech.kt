@@ -10,7 +10,7 @@ import com.example.virusgame.R
 import com.example.virusgame.game.vector2.IntVector2
 
 class Speech(private var context: Context) {
-    private val sprite: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.knight)
+    private val sprite: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.speech_bubble)
     private val screenHeight = Resources.getSystem().displayMetrics.heightPixels
     private val screenWidth = Resources.getSystem().displayMetrics.widthPixels
     private val x : Int = screenWidth / 2 - sprite.width / 2
@@ -52,8 +52,8 @@ class Speech(private var context: Context) {
     fun draw(canvas: Canvas){
         if(!active) return
         canvas.drawBitmap(sprite, x.toFloat(), y.toFloat(), null)
-        canvas.drawText("[tap]", speechBubbleRect.right.toFloat() - speechBubbleRect.width() / 15, speechBubbleRect.top.toFloat(), tapPaint)
-        canvas.drawText(context.getString(R.string.knight), speechBubbleRect.left.toFloat(), speechBubbleRect.top.toFloat(), namePaint)
+        canvas.drawText(context.getString(R.string.tap), speechBubbleRect.right.toFloat() - speechBubbleRect.width() / 15, speechBubbleRect.top.toFloat(), tapPaint)
+        canvas.drawText(context.getString(R.string.karl), speechBubbleRect.left.toFloat(), speechBubbleRect.top.toFloat(), namePaint)
         for(i in 0..3) drawLine(canvas, i)
     }
 
