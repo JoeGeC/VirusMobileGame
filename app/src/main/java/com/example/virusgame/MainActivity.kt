@@ -48,4 +48,6 @@ class MainActivity : AppCompatActivity(){
         super.onResume()
         SoundManager.resume()
     }
+
+    override fun onBackPressed() {}
 }
