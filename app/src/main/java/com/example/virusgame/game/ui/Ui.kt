@@ -18,7 +18,7 @@ class Ui (context: Context){
     private val ability = AbilityUi(context, border.bottom)
 
     fun draw(canvas: Canvas, player: Player, gameStats: GameStats){
-        shop.draw(canvas)
+//        shop.draw(canvas)
         border.draw(canvas)
         wave.draw(canvas, gameStats.wave)
         health.draw(canvas, player.currentHealth, player.maxHealth)

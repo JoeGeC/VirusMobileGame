@@ -9,19 +9,16 @@ import android.view.SurfaceView
 import com.example.virusgame.game.doubleSwipe.DoubleSwipeListener
 import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.items.ShopItem
-import kotlinx.android.synthetic.main.game.view.*
 
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback, ShopHandler {
     private val thread: GameThread
     private val gameLoop: GameLoop = GameLoop(context)
     private val doubleSwipeListener = DoubleSwipeListener(gameLoop)
-    lateinit var shopHandler: ShopHandler
 
     init {
         holder.addCallback(this)
         thread = GameThread(holder, this)
-        gameLoop.shopHandler = this
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -70,7 +67,7 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     }
 
     override fun openShop() {
-        shopHandler.openShop()
+        gameLoop.openShop()
     }
 
     override fun closeShop() {

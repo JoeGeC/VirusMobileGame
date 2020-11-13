@@ -21,4 +21,8 @@ class MainMenu : Fragment() {
         transaction.replace(R.id.fragmentContainer, GameFragment())
         transaction.commit()
     }
+
+    private fun openSettings(){
+
+    }
 }

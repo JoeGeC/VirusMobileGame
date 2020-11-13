@@ -19,7 +19,7 @@ class AliveZombie(private var zombie: Zombie) : ZombieState {
         if(Clock.haveMillisecondsPassedSince(lastFrameUpdateTime, 100)){
             lastFrameUpdateTime = System.nanoTime()
             frameNum++
-            if(frameNum > animation.size - 1) frameNum = 0
+            if(frameNum >= animation.size) frameNum = 0
         }
         return animation[frameNum]
     }
