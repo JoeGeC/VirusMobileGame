@@ -2,7 +2,7 @@ package com.example.virusgame.game.events
 
 import com.example.virusgame.R
 
-object FirstTimePlayingEvent : Event() {
+object IntroEvent : Event() {
     override val name = context.getString(R.string.first_time_playing_event_name)
 
     override fun trigger(){

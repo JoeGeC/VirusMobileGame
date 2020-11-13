@@ -5,21 +5,21 @@ import android.content.res.Resources
 import android.graphics.*
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import com.example.virusgame.clock.Clock
 import com.example.virusgame.R
+import com.example.virusgame.ScreenDimensions
+import com.example.virusgame.SoundManager
+import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.vector2.IntVector2
 
 class Speech(private var context: Context) {
     private val sprite: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.speech_bubble)
-    private val screenHeight = Resources.getSystem().displayMetrics.heightPixels
-    private val screenWidth = Resources.getSystem().displayMetrics.widthPixels
-    private val x : Int = screenWidth / 2 - sprite.width / 2
-    private val y : Int = (screenHeight - sprite.height * 1.3f).toInt()
+    private val x : Int = ScreenDimensions.width / 2 - sprite.width / 2
+    private var y : Int = (ScreenDimensions.height - sprite.height * 1.3f).toInt()
     private var speechBubbleRect = Rect((x + sprite.width / 2.5f).toInt(), y + sprite.height / 4, x + sprite.width, y + sprite.height)
     var fullRect = Rect(x, y, x + sprite.width, y + sprite.height)
     var lineLength = 23
     private val amountOfLines = 4
-    private val textSize = screenHeight / 60.0f
+    private val textSize = ScreenDimensions.height / 60.0f
     private val linePosY = floatArrayOf(
         speechBubbleRect.top + speechBubbleRect.height() / 5.0f,
         speechBubbleRect.top + speechBubbleRect.height() / 5.0f * 2,
@@ -44,7 +44,7 @@ class Speech(private var context: Context) {
         speechPaint.typeface =  ResourcesCompat.getFont(context, R.font.unispace)
 
         tapPaint.color = ContextCompat.getColor(context, R.color.white)
-        tapPaint.textSize = screenHeight / 100.0f
+        tapPaint.textSize = ScreenDimensions.height / 100.0f
         tapPaint.typeface =  ResourcesCompat.getFont(context, R.font.unispace)
         tapPaint.textAlign = Paint.Align.RIGHT
     }
@@ -94,8 +94,11 @@ class Speech(private var context: Context) {
         resetMessageTyper()
         if(messageToDisplay.size > amountOfLines)
             repeat(amountOfLines){ messageToDisplay.removeAt(0) }
-        else
-            active = false
+        else dismissMessage()
+    }
+
+    private fun dismissMessage() {
+        active = false
     }
 
     fun skipMessageTyping() {

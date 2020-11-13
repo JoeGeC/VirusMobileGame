@@ -8,7 +8,7 @@ import com.example.virusgame.SaveManager
 import com.example.virusgame.SoundManager
 import com.example.virusgame.game.doubleSwipe.DoubleSwipeHandler
 import com.example.virusgame.game.events.EventManager
-import com.example.virusgame.game.events.FirstTimePlayingEvent
+import com.example.virusgame.game.events.IntroEvent
 import com.example.virusgame.game.player.Player
 import com.example.virusgame.game.rotation.RotationHandler
 import com.example.virusgame.game.rotation.RotationReceiver
@@ -47,7 +47,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         SaveManager.loadEventManager(eventManager)
         eventManager.setupEvents(speech)
         spawnNewZombie()
-        FirstTimePlayingEvent.trigger()
+        IntroEvent.trigger()
     }
 
     fun update(){
@@ -62,9 +62,9 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         background.draw(canvas)
         zombie!!.draw(canvas)
         ui.draw(canvas, player, gameStats)
-        speech.draw(canvas)
         sword.draw(canvas)
         player.ability?.draw(canvas)
+        speech.draw(canvas)
     }
 
     fun updateTouchPos(event: MotionEvent) {
@@ -128,12 +128,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         ui.death.active = true
     }
 
-    override fun abilityUsed() {
-    }
-
-    override fun openMenu() {
-        pause()
-    }
+    override fun openMenu() { pause() }
 
     override fun closeMenu(){
         resume()

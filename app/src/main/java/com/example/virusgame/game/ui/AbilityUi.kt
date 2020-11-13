@@ -2,8 +2,6 @@ package com.example.virusgame.game.ui
 
 import android.content.Context
 import android.graphics.*
-import androidx.core.content.ContextCompat
-import com.example.virusgame.R
 import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.abilities.Ability
@@ -15,7 +13,7 @@ class AbilityUi(context: Context, borderBottom: Float) {
     private var iconRect: Rect? = null
 
     init{
-        coolDownPaint.color = ContextCompat.getColor(context, R.color.transparentBlue)
+        coolDownPaint.color = Color.argb(60, 0, 0, 255)
         coolDownPaint.textAlign = Paint.Align.CENTER
         coolDownPaint.textSize = ScreenDimensions.height / 30.0f
     }

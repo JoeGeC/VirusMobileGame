@@ -10,7 +10,7 @@ class EventManager {
         FirstDamageTaken,
         FirstDefenceEvent,
         FirstKillEvent,
-        FirstTimePlayingEvent,
+        IntroEvent,
         ZombieAttackEvent
     )
 

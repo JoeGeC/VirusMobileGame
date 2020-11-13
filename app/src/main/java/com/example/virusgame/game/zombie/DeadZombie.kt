@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.FirstKillEvent
-import com.example.virusgame.game.events.FirstTimePlayingEvent
+import com.example.virusgame.game.events.IntroEvent
 
 class DeadZombie(var zombie: Zombie) : ZombieState {
     private var frameNum: Int = 0
@@ -25,7 +25,7 @@ class DeadZombie(var zombie: Zombie) : ZombieState {
     }
 
     private fun die() {
-        FirstTimePlayingEvent.complete = true
+        IntroEvent.complete = true
         FirstKillEvent.trigger()
         zombie.entityHandler.takeGold(zombie.gold)
         zombie.entityHandler.takeBossHearts(zombie.bossHearts)

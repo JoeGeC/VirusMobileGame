@@ -136,6 +136,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
     }
 
     fun resume() {
+        if(active) return
         active = true
         adjustTimesForDeactivation()
         if(state is PreAttackZombie) (state as PreAttackZombie).warningVibrate()

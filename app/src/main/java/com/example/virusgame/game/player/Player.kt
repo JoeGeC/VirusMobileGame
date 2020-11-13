@@ -66,8 +66,7 @@ class Player(){
     }
 
     fun useAbility(){
-        if(ability != null && ability!!.use())
-            playerHandler.abilityUsed()
+        ability?.use()
     }
 
     fun restoreHealth(healthToRestore: Int) {
