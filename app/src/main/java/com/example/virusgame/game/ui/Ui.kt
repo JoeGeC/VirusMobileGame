@@ -32,6 +32,6 @@ class Ui (context: Context){
         if(death.hasTappedAttack(startTouchPos, touchPos)) uiHandler.upgradeAttack()
         if(death.hasTappedHealth(startTouchPos, touchPos)) uiHandler.upgradeHealth()
         if(death.hasTappedTryAgain(startTouchPos, touchPos)) uiHandler.revive()
-        if(shop.tapped(startTouchPos, touchPos)) uiHandler.openShop()
+        if(shop.tapped(startTouchPos, touchPos)) uiHandler.openMenu()
     }
 }

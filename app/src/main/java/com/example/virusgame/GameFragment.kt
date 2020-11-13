@@ -23,7 +23,7 @@ class GameFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
         if(view.id == R.id.shopIcon) openFragment(ShopFragment(gameView.gameLoop))
-        if(view.id == R.id.settingsIcon) openFragment(SettingsFragment())
+        if(view.id == R.id.settingsIcon) openFragment(SettingsFragment(gameView.gameLoop))
     }
 
     private fun openFragment(fragment: Fragment) {
