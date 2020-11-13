@@ -13,7 +13,7 @@ class GoldUi(context: Context, borderBottom: Float) {
     private val goldBorder: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.gold_border)
     private val goldBorderPos: FloatVector2 = FloatVector2(
         ScreenDimensions.width / 1.55f,
-        borderBottom - borderBottom / 18.0f - goldBorder.height
+        borderBottom - borderBottom / 2.8f - goldBorder.height
     )
     private val goldPos: FloatVector2 = FloatVector2(
         goldBorderPos.x + goldBorder.width / 1.6f,

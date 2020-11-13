@@ -12,6 +12,7 @@ class Ui (context: Context){
     private val wave = WaveUi(context, border.bottom)
     private val health = HealthUi(context, border.bottom)
     private val gold = GoldUi(context, border.bottom)
+    private val zombieHeart = ZombieHeartUi(context, border.bottom)
     internal val death = DeathUi(context)
     private val shop = ShopUi(context, border.bottom)
     private val ability = AbilityUi(context, border.bottom)
@@ -20,8 +21,9 @@ class Ui (context: Context){
         shop.draw(canvas)
         border.draw(canvas)
         wave.draw(canvas, gameStats.wave)
-        gold.draw(canvas, player.gold)
         health.draw(canvas, player.currentHealth, player.maxHealth)
+        gold.draw(canvas, player.gold)
+        zombieHeart.draw(canvas, player.bossHearts)
         ability.draw(canvas, player.ability)
         death.draw(canvas, player)
     }

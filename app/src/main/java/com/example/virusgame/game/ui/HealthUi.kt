@@ -11,7 +11,10 @@ class HealthUi (context: Context, borderBottom: Float){
     private val healthPaint: Paint = Paint()
     private val healthLabelPaint: Paint = Paint()
     private val healthBorder: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.health_border)
-    private val healthBorderPos: FloatVector2 = FloatVector2(ScreenDimensions.width / 1.55f, borderBottom - borderBottom / 2.4f - healthBorder.height)
+    private val healthBorderPos: FloatVector2 = FloatVector2(
+        ScreenDimensions.width / 1.55f,
+        borderBottom - borderBottom / 18f - healthBorder.height
+    )
     private val healthRect: Rect = Rect(
         (healthBorderPos.x + healthBorder.width / 2.7f).toInt(),
         (healthBorderPos.y + healthBorder.height / 4.0f).toInt(),
