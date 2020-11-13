@@ -32,4 +32,9 @@ class GameFragment : Fragment(), View.OnClickListener {
         fragmentTransaction.add(R.id.subFragmentContainer, ShopFragment(gameView), getString(R.string.shop))
         fragmentTransaction.commit()
     }
+
+    override fun onResume() {
+        super.onResume()
+        gameView.newGameThread()
+    }
 }
