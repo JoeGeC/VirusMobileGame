@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.virusgame.R
 import com.example.virusgame.ScreenDimensions
+import com.example.virusgame.SoundManager
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.vector2.FloatVector2
 import kotlin.math.pow
@@ -22,6 +23,7 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Flo
         bossPaint.typeface = ResourcesCompat.getFont(context, R.font.unispace)
         bossPaint.color = ContextCompat.getColor(context, R.color.white)
         bossPaint.isFakeBoldText = true
+        SoundManager.play(context, R.raw.zombie_boss)
     }
 
     override fun draw(canvas: Canvas){

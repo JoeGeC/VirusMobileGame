@@ -48,6 +48,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
 
     init {
         zombieHealthPaint.color = ContextCompat.getColor(context, R.color.red)
+        SoundManager.playRandomOf(context, listOf(R.raw.zombie, R.raw.zombie2))
     }
 
     open fun draw(canvas: Canvas){

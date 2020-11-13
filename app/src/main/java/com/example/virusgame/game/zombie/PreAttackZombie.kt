@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import androidx.core.content.ContextCompat
 import com.example.virusgame.R
+import com.example.virusgame.SoundManager
 import com.example.virusgame.Vibrator
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.FirstDefenceEvent
@@ -23,6 +24,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     init {
         vibrator.vibrate(longArrayOf(0, 200, 200), 0)
         zombieAttackMeterPaint.color = ContextCompat.getColor(zombie.context, R.color.blue)
+        SoundManager.play(zombie.context, R.raw.zombie_attack)
     }
 
     override fun draw(canvas: Canvas, x: Float, y: Float) {
