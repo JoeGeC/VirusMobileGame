@@ -10,7 +10,6 @@ import com.example.virusgame.Vibrator
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.FirstDefenceEvent
 import com.example.virusgame.game.events.ZombieAttackEvent
-import kotlin.concurrent.thread
 
 class PreAttackZombie(var zombie: Zombie) : ZombieState {
     private var frameNum: Int = 0
@@ -24,7 +23,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     init {
         vibrator.vibrate(longArrayOf(0, 200, 200), 0)
         zombieAttackMeterPaint.color = ContextCompat.getColor(zombie.context, R.color.blue)
-        SoundManager.play(zombie.context, R.raw.zombie_attack)
+        SoundManager.playEffect(zombie.context, R.raw.zombie_attack)
     }
 
     override fun draw(canvas: Canvas, x: Float, y: Float) {

@@ -30,7 +30,7 @@ class AttackZombie(private val zombie: Zombie) : ZombieState {
         zombie.state = AliveZombie(zombie)
         zombie.entityHandler.inflictPlayerDamage(zombie.attack)
         FirstDamageTaken.trigger()
-        SoundManager.play(zombie.context, R.raw.damage)
+        SoundManager.playEffect(zombie.context, R.raw.damage)
     }
 
     override fun onSuccessfulSwipe() { }

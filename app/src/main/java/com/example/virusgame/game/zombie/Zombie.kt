@@ -1,9 +1,7 @@
 package com.example.virusgame.game.zombie
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.*
-import android.media.MediaPlayer
 import androidx.core.content.ContextCompat
 import com.example.virusgame.R
 import com.example.virusgame.ScreenDimensions
@@ -58,7 +56,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
     internal fun takeDamage(damage: Int) {
         if(active){
             currentHealth -= damage
-            SoundManager.play(context, R.raw.sword)
+            SoundManager.playEffect(context, R.raw.sword)
         }
         if(currentHealth <= 0){
             currentHealth = 0

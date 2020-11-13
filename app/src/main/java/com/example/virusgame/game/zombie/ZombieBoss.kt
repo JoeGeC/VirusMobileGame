@@ -23,7 +23,7 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Flo
         bossPaint.typeface = ResourcesCompat.getFont(context, R.font.unispace)
         bossPaint.color = ContextCompat.getColor(context, R.color.white)
         bossPaint.isFakeBoldText = true
-        SoundManager.play(context, R.raw.zombie_boss)
+        SoundManager.playEffect(context, R.raw.zombie_boss)
     }
 
     override fun draw(canvas: Canvas){

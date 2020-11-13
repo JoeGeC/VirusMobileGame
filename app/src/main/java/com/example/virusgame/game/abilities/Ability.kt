@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import com.example.virusgame.ScreenDimensions
+import com.example.virusgame.SoundManager
 import com.example.virusgame.clock.Clock
 
 abstract class Ability(@Transient val context: Context) {
@@ -11,6 +12,7 @@ abstract class Ability(@Transient val context: Context) {
     abstract val iconBitmap: Bitmap
     abstract val animationFrames: Array<Bitmap>
     abstract val coolDownTime: Int
+    abstract val soundEffectResource: Int
     var lastAbilityUseTime: Long = 0
     protected var lastFrameUpdateTime: Long = 0
     protected var frameNum = 0
@@ -22,6 +24,7 @@ abstract class Ability(@Transient val context: Context) {
             lastAbilityUseTime = System.nanoTime()
             effect()
             active = true
+            playSoundEffect()
             return true
         }
         return false
@@ -50,5 +53,9 @@ abstract class Ability(@Transient val context: Context) {
     protected fun finishAnimation() {
         frameNum = 0
         active = false
+    }
+
+    fun playSoundEffect(){
+        SoundManager.playEffect(context, soundEffectResource)
     }
 }

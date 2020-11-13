@@ -13,7 +13,7 @@ object SoundManager {
             activePlayers.remove(player)
         }
 
-    fun play(context: Context, soundResource: Int){
+    fun playEffect(context: Context, soundResource: Int){
         val player = MediaPlayer.create(context, soundResource)
         activePlayers.add(player)
         player.setOnCompletionListener(releaseOnFinishListener)
@@ -21,6 +21,13 @@ object SoundManager {
     }
 
     fun playRandomOf(context: Context, soundResources: List<Int>){
-        play(context, soundResources[Random.nextInt(soundResources.size)])
+        playEffect(context, soundResources[Random.nextInt(soundResources.size)])
+    }
+
+    fun playMusic(context: Context, soundResource: Int) {
+        val player = MediaPlayer.create(context, soundResource)
+        activePlayers.add(player)
+        player.isLooping = true
+        player.start()
     }
 }

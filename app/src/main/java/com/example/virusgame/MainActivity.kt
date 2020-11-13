@@ -27,6 +27,8 @@ class MainActivity : AppCompatActivity(){
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.add(R.id.fragmentContainer, MainMenu())
         fragmentTransaction.commit()
+
+        SoundManager.playMusic(applicationContext, R.raw.music_wind_and_tree)
     }
 
     private fun setFullScreen() {

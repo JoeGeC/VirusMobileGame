@@ -5,12 +5,12 @@ import com.example.virusgame.game.player.Player
 import com.example.virusgame.game.zombie.ZombieDamageHandler
 import com.example.virusgame.shop.ShopListAdapter
 import com.example.virusgame.shop.items.ShopItem
-import com.example.virusgame.shop.items.ShopItemSaveData
 
 abstract class AbilityItem: ShopItem() {
     override fun use(player: Player, zombieDamageHandler: ZombieDamageHandler) {
         setEquipped(true)
         player.ability = AbilityFactory().createAbility(saveData.itemName, zombieDamageHandler)
+        player.ability?.playSoundEffect()
     }
 
     override fun isEquipped(): Boolean {
