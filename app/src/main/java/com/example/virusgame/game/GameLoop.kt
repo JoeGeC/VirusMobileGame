@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.view.MotionEvent
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
+import com.example.virusgame.SoundManager
 import com.example.virusgame.game.doubleSwipe.DoubleSwipeHandler
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.FirstTimePlayingEvent

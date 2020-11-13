@@ -3,16 +3,18 @@ package com.example.virusgame.game.zombie
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.*
+import android.media.MediaPlayer
 import androidx.core.content.ContextCompat
 import com.example.virusgame.R
 import com.example.virusgame.ScreenDimensions
+import com.example.virusgame.SoundManager
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.SwipeTaker
 import com.example.virusgame.game.vector2.FloatVector2
 import kotlin.math.pow
 import kotlin.random.Random
 
-open class Zombie(var context: Context, var entityHandler: EntityHandler, var rectOffset: FloatVector2) : SwipeTaker {
+open class Zombie(var context: Context, var entityHandler: EntityHandler, private var rectOffset: FloatVector2) : SwipeTaker {
     var active: Boolean = true
     internal var state: ZombieState = AliveZombie(this)
     private var location: Int = 0
@@ -53,8 +55,10 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
     }
 
     internal fun takeDamage(damage: Int) {
-        if(active)
+        if(active){
             currentHealth -= damage
+            SoundManager.play(context, R.raw.sword)
+        }
         if(currentHealth <= 0){
             currentHealth = 0
             state = DeadZombie(this)
