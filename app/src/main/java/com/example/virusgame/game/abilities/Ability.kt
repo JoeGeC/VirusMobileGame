@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.SoundManager
 import com.example.virusgame.clock.Clock
+import com.example.virusgame.game.events.FirstAbilityEvent
 
 abstract class Ability(@Transient val context: Context) {
     abstract val name: String
@@ -25,6 +26,7 @@ abstract class Ability(@Transient val context: Context) {
             effect()
             active = true
             playSoundEffect()
+            FirstAbilityEvent.onComplete()
             return true
         }
         return false

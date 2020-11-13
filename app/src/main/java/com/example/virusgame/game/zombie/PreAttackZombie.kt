@@ -8,7 +8,6 @@ import com.example.virusgame.R
 import com.example.virusgame.SoundManager
 import com.example.virusgame.vibrator.Vibrator
 import com.example.virusgame.clock.Clock
-import com.example.virusgame.game.events.FirstDefenceEvent
 import com.example.virusgame.game.events.ZombieAttackEvent
 
 class PreAttackZombie(var zombie: Zombie) : ZombieState {
@@ -70,8 +69,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     private fun successfulDefense() {
         vibrator.stop()
         zombie.state = AliveZombie(zombie)
-        ZombieAttackEvent.complete = true
-        FirstDefenceEvent.trigger()
+        ZombieAttackEvent.onComplete()
     }
 
     fun finalize(){

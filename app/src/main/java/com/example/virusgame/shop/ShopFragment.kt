@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
+import com.example.virusgame.game.events.ShopOpensEvent
 import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.items.ShopItem
 
@@ -22,6 +23,10 @@ class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnCl
     private lateinit var shopRecyclerView: RecyclerView
     private lateinit var shopAdapter: ShopListAdapter
     private lateinit var shopViewManager: RecyclerView.LayoutManager
+
+    init {
+        ShopOpensEvent.onComplete()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.shop, container, false)

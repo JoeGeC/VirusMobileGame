@@ -1,5 +1,7 @@
 package com.example.virusgame.game
 
+import com.example.virusgame.game.events.ShopOpensEvent
+
 class GameStats {
     var wave: Int = 1
     var zombieKillCount = 0
@@ -13,5 +15,6 @@ class GameStats {
             wave++
             zombieWaveKillCount = 0
         }
+        if(wave >= 3) ShopOpensEvent.trigger()
     }
 }

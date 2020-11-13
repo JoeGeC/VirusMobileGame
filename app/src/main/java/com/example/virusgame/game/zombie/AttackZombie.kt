@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import com.example.virusgame.R
 import com.example.virusgame.SoundManager
 import com.example.virusgame.clock.Clock
-import com.example.virusgame.game.events.FirstDamageTaken
+import com.example.virusgame.game.events.ZombieAttackEvent
 
 class AttackZombie(private val zombie: Zombie) : ZombieState {
     private var frameNum: Int = 0
@@ -29,7 +29,7 @@ class AttackZombie(private val zombie: Zombie) : ZombieState {
     private fun attack() {
         zombie.state = AliveZombie(zombie)
         zombie.entityHandler.inflictPlayerDamage(zombie.attack)
-        FirstDamageTaken.trigger()
+        ZombieAttackEvent.onFail()
         SoundManager.playSfx(zombie.context, R.raw.damage)
     }
 

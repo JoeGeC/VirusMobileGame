@@ -1,6 +1,7 @@
 package com.example.virusgame.shop.items.abilities
 
 import com.example.virusgame.game.abilities.AbilityFactory
+import com.example.virusgame.game.events.FirstAbilityEvent
 import com.example.virusgame.game.player.Player
 import com.example.virusgame.game.zombie.ZombieDamageHandler
 import com.example.virusgame.shop.ShopListAdapter
@@ -11,6 +12,7 @@ abstract class AbilityItem: ShopItem() {
         setEquipped(true)
         player.ability = AbilityFactory().createAbility(saveData.itemName, zombieDamageHandler)
         player.ability?.playSoundEffect()
+        FirstAbilityEvent.trigger()
     }
 
     override fun isEquipped(): Boolean {

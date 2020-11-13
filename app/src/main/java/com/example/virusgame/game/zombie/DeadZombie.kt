@@ -3,7 +3,6 @@ package com.example.virusgame.game.zombie
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import com.example.virusgame.clock.Clock
-import com.example.virusgame.game.events.FirstKillEvent
 import com.example.virusgame.game.events.IntroEvent
 
 class DeadZombie(var zombie: Zombie) : ZombieState {
@@ -25,8 +24,7 @@ class DeadZombie(var zombie: Zombie) : ZombieState {
     }
 
     private fun die() {
-        IntroEvent.complete = true
-        FirstKillEvent.trigger()
+        IntroEvent.onComplete()
         zombie.entityHandler.takeGold(zombie.gold)
         zombie.entityHandler.takeBossHearts(zombie.bossHearts)
         zombie.entityHandler.incrementZombieKillCount()

@@ -9,6 +9,7 @@ import com.example.virusgame.R
 import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.SoundManager
 import com.example.virusgame.game.EntityHandler
+import com.example.virusgame.game.events.FirstBossEvent
 import com.example.virusgame.game.vector2.FloatVector2
 import kotlin.math.pow
 import kotlin.random.Random
@@ -24,6 +25,7 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Flo
         bossPaint.color = ContextCompat.getColor(context, R.color.white)
         bossPaint.isFakeBoldText = true
         SoundManager.playSfx(context, R.raw.zombie_boss)
+        FirstBossEvent.trigger()
     }
 
     override fun draw(canvas: Canvas){
@@ -46,6 +48,7 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Flo
 
     override fun die(){
         SoundManager.playQueuedSfx(context, R.raw.boss_defeat)
+        FirstBossEvent.onComplete()
         super.die()
     }
 }

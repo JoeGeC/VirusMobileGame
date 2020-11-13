@@ -4,8 +4,8 @@
     <string name="play">Play</string>
     <string name="knight">Knight:</string>
     <string name="first_kill">Good, keep on taking out those zombies!</string>
-    <string name="shake_advice">Quick! Shake your device to defend the zombie\'s attack!</string>
-    <string name="first_damage_advice">Ouch! Try to shake your device next time so you don\'t take damage. If your health hits 0, you\'ll die!</string>
+    <string name="shake_advice">Quick! Shake your device until the blue bar is gone to defend the zombie\'s attack!</string>
+    <string name="first_damage_advice">Ouch! Try to shake your device next time so you don\'t take damage!</string>
     <string name="intro">A virus has broken out! Quick, look around you using your device and swipe on the screen to take out zombies!</string>
     <string name="first_defence">Great! Remember, you can\'t attack while a zombie has a hold of you.</string>
     <string name="playerPreferenceId">player</string>
@@ -19,7 +19,7 @@
     <string name="zombie_attack_event_name">zombieAttack</string>
     <string name="welcome_back">Welcome back! Keep taking out those zombies!</string>
     <string name="game_name">Virus Game</string>
-    <string name="death_message">Oh no! You died! Never mind, upgrade your health and attack and try again!</string>
+    <string name="death_message">Oh no! You died! Never mind, upgrade your stats with those zombie hearts and try again!</string>
     <string name="not_enough_gold">You don\'t have enough gold!</string>
     <string name="abilityPreferenceId">ability</string>
     <string name="fireAbility">Fire Ability</string>
@@ -48,4 +48,13 @@
     <string name="vibratePreferenceId">vibrate</string>
     <string name="musicVolumePreferenceId">musicVolume</string>
     <string name="sfxVolumePreferenceId">sfxVolume</string>
+    <string name="firstBossEvent">First Boss</string>
+    <string name="firstBossEventMessage">Hoowee! He\'s a big one! Maybe if you beat him you\'ll get something good.</string>
+    <string name="firstHeartMessage">Woah! A zombie heart! They\'ll come in handy later, I\'m sure of it.</string>
+    <string name="shopOpensMessage">Ya know I run a shop around here. You can access it up the top and spend yer hard earned gold.</string>
+    <string name="shopOpensEventName">shopOpens</string>
+    <string name="firstTimeEnteringShopMessage">Buy an ability to deal some crazy damage, or indulge in some potions to recover health.</string>
+    <string name="firstAbilityEventName">FirstAbility</string>
+    <string name="firstAbilityMessage">Use two fingers to swipe at once to use your ability!</string>
+    <string name="firstAbilityUsedMessage">Awesome! You gotta wait for it to cooldown to use it again though.</string>
 </resources>

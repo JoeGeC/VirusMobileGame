@@ -7,11 +7,11 @@ class EventManager {
     var context = MainActivity.applicationContext()
 
     private var events = listOf(
-        FirstDamageTaken,
-        FirstDefenceEvent,
-        FirstKillEvent,
         IntroEvent,
-        ZombieAttackEvent
+        ZombieAttackEvent,
+        FirstBossEvent,
+        ShopOpensEvent,
+        FirstAbilityEvent
     )
 
     fun setupEvents(speech: Speech){
@@ -21,14 +21,14 @@ class EventManager {
     }
 
     fun saveEvents(): Map<String, Boolean>{
-        return events.associateBy({it.name}, {it.complete})
+        return events.associateBy({it.name}, {it.isComplete()})
     }
 
     fun loadEvents(eventsStatus: Map<String, Boolean>){
         events.forEach{ event ->
             eventsStatus.forEach{ status ->
                 if(event.name == status.key){
-                    event.complete = status.value
+                    event.setComplete(status.value)
                 }
             }
         }

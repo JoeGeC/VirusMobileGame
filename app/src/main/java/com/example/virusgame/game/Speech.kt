@@ -143,4 +143,9 @@ class Speech(private var context: Context) {
     private fun nextWordWillGoOverLineLength(currentLine: String, nextWord: String) = currentLine.length + nextWord.length > lineLength
 
     private fun atEndOfMessage(i: Int, splitMessage: List<String>) = i == splitMessage.size - 1
+
+    fun setQuickSpeechText(message: String) {
+        setSpeechText(message)
+        skipMessageTyping()
+    }
 }

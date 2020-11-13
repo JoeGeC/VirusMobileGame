@@ -7,6 +7,14 @@ abstract class Event {
     abstract val name: String
     lateinit var speech: Speech
     val context = MainActivity.applicationContext()
-    var complete = false
+    private var complete = false
     abstract fun trigger()
+
+    open fun onComplete(){
+        complete = true
+    }
+
+    fun isComplete(): Boolean = complete
+
+    fun setComplete(value: Boolean) { complete = value }
 }
