@@ -20,12 +20,16 @@ class GameFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(view: View) {
-        openShop()
+        if(view.id == R.id.shopIcon && !shopIsOpen()) openShop()
+    }
+
+    private fun shopIsOpen(): Boolean {
+        return fragmentManager!!.findFragmentByTag(getString(R.string.shop)) != null
     }
 
     private fun openShop(){
         val fragmentTransaction = fragmentManager!!.beginTransaction()
-        fragmentTransaction.add(R.id.subFragmentContainer, ShopFragment(gameView))
+        fragmentTransaction.add(R.id.subFragmentContainer, ShopFragment(gameView), getString(R.string.shop))
         fragmentTransaction.commit()
     }
 }
