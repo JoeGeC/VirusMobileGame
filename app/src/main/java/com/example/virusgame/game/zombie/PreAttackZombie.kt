@@ -23,7 +23,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     init {
         warningVibrate()
         zombieAttackMeterPaint.color = ContextCompat.getColor(zombie.context, R.color.blue)
-        SoundManager.playEffect(zombie.context, R.raw.zombie_attack)
+        SoundManager.playSfx(zombie.context, R.raw.zombie_attack)
     }
 
     internal fun warningVibrate() {

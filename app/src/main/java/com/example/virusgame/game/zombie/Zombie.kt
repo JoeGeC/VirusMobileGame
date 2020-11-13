@@ -46,7 +46,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
 
     init {
         zombieHealthPaint.color = ContextCompat.getColor(context, R.color.red)
-        SoundManager.playRandomOf(context, listOf(R.raw.zombie, R.raw.zombie2, R.raw.zombie3, R.raw.zombie4, R.raw.zombie5, R.raw.zombie6, R.raw.zombie7))
+        SoundManager.playRandomSfxOf(context, listOf(R.raw.zombie, R.raw.zombie2, R.raw.zombie3, R.raw.zombie4, R.raw.zombie5, R.raw.zombie6, R.raw.zombie7))
     }
 
     open fun draw(canvas: Canvas){
@@ -56,7 +56,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
     internal fun takeDamage(damage: Int) {
         if(active){
             currentHealth -= damage
-            SoundManager.playEffect(context, R.raw.sword)
+            SoundManager.playSfx(context, R.raw.sword)
         }
         if(currentHealth <= 0) die()
     }

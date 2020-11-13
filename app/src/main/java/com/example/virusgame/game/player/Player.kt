@@ -48,7 +48,7 @@ class Player(){
         if(bossHearts >= attackBuyValue){
             bossHearts -= attackBuyValue
             attack++
-            SoundManager.playEffect(MainActivity.applicationContext(), R.raw.attack_upgrade)
+            SoundManager.playSfx(MainActivity.applicationContext(), R.raw.attack_upgrade)
             return true
         }
         return false
@@ -59,7 +59,7 @@ class Player(){
             bossHearts -= maxHealthBuyValue
             maxHealth++
             currentHealth++
-            SoundManager.playEffect(MainActivity.applicationContext(), R.raw.potion)
+            SoundManager.playSfx(MainActivity.applicationContext(), R.raw.potion)
             return true
         }
         return false
@@ -73,6 +73,6 @@ class Player(){
     fun restoreHealth(healthToRestore: Int) {
         currentHealth += healthToRestore
         if(currentHealth > maxHealth) currentHealth = maxHealth
-        SoundManager.playEffect(MainActivity.applicationContext(), R.raw.potion)
+        SoundManager.playSfx(MainActivity.applicationContext(), R.raw.potion)
     }
 }

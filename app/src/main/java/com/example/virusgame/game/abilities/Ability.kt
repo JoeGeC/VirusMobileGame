@@ -56,6 +56,6 @@ abstract class Ability(@Transient val context: Context) {
     }
 
     fun playSoundEffect(){
-        SoundManager.playEffect(context, soundEffectResource)
+        SoundManager.playSfx(context, soundEffectResource)
     }
 }

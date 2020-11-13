@@ -85,7 +85,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
 
     override fun takeGold(gold: Int) {
         player.gold += gold
-        SoundManager.playQueuedEffect(context, R.raw.gold)
+        SoundManager.playQueuedSfx(context, R.raw.gold)
     }
 
     override fun takeBossHearts(bossHearts: Int) {
