@@ -45,4 +45,13 @@ object SoundManager {
         player.start()
     }
 
+    fun pause() {
+        for(player in activePlayers) player.pause()
+        for(player in queuedPlayers) player.pause()
+    }
+
+    fun resume(){
+        for(player in activePlayers) player.start()
+        if(queuedPlayers.isNotEmpty()) queuedPlayers.elementAt(0).start()
+    }
 }

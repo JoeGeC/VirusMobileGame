@@ -37,4 +37,14 @@ class MainActivity : AppCompatActivity(){
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
     }
+
+    override fun onPause() {
+        super.onPause()
+        SoundManager.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        SoundManager.resume()
+    }
 }
