@@ -36,4 +36,5 @@
     <string name="karl">Karl</string>
     <string name="tap">[tap]</string>
     <string name="not_enough_boss_hearts">You don\'t have enough boss hearts!</string>
+    <string name="boss">BOSS</string>
 </resources>

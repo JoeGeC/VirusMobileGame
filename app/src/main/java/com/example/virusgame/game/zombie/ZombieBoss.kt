@@ -28,7 +28,7 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Flo
 
     override fun draw(canvas: Canvas){
         super.draw(canvas)
-        canvas.drawText("BOSS", fullRect.left + fullRect.width() / 2.0f, fullRect.top - 20.0f, bossPaint)
+        canvas.drawText(context.getString(R.string.boss), fullRect.left + fullRect.width() / 2.0f, fullRect.top - 20.0f, bossPaint)
     }
 
     override fun setStats(wave: Int, playerStrength: Int){
@@ -42,5 +42,10 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Flo
         setNextAttackTime()
         lastAttackTime = System.nanoTime()
         bossHearts = 1 + wave / 5
+    }
+
+    override fun die(){
+        SoundManager.playQueuedEffect(context, R.raw.boss_defeat)
+        super.die()
     }
 }

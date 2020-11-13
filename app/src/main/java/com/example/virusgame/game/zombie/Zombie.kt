@@ -58,10 +58,12 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
             currentHealth -= damage
             SoundManager.playEffect(context, R.raw.sword)
         }
-        if(currentHealth <= 0){
-            currentHealth = 0
-            state = DeadZombie(this)
-        }
+        if(currentHealth <= 0) die()
+    }
+
+    protected open fun die() {
+        currentHealth = 0
+        state = DeadZombie(this)
     }
 
     override fun onSuccessfulSwipe() {
