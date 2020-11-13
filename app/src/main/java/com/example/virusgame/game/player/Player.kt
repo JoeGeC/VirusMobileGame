@@ -1,6 +1,9 @@
 package com.example.virusgame.game.player
 
+import com.example.virusgame.MainActivity
+import com.example.virusgame.R
 import com.example.virusgame.SaveManager
+import com.example.virusgame.SoundManager
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.abilities.Ability
 import kotlin.math.pow
@@ -8,7 +11,7 @@ import kotlin.math.pow
 class Player(){
     @Transient private lateinit var playerHandler: PlayerHandler
     var gold = 10000
-    var bossHearts = 0
+    var bossHearts = 10000
     var maxHealth = 10
     var currentHealth = maxHealth
     var attack = 1
@@ -45,6 +48,7 @@ class Player(){
         if(bossHearts >= attackBuyValue){
             bossHearts -= attackBuyValue
             attack++
+            SoundManager.play(MainActivity.applicationContext(), R.raw.attack_upgrade)
             return true
         }
         return false
@@ -54,6 +58,8 @@ class Player(){
         if(bossHearts >= maxHealthBuyValue){
             bossHearts -= maxHealthBuyValue
             maxHealth++
+            currentHealth++
+            SoundManager.play(MainActivity.applicationContext(), R.raw.potion)
             return true
         }
         return false
@@ -67,5 +73,6 @@ class Player(){
     fun restoreHealth(healthToRestore: Int) {
         currentHealth += healthToRestore
         if(currentHealth > maxHealth) currentHealth = maxHealth
+        SoundManager.play(MainActivity.applicationContext(), R.raw.potion)
     }
 }
