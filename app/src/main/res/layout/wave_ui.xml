@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+    <include
+        android:id="@+id/icon1"
+        layout="@layout/wave_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:visibility="invisible"/>
+    <include
+        android:id="@+id/icon2"
+        layout="@layout/wave_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:visibility="invisible"/>
+    <include
+        android:id="@+id/icon3"
+        layout="@layout/wave_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"/>
+    <include
+        android:id="@+id/icon4"
+        layout="@layout/wave_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"/>
+    <include
+        android:id="@+id/icon5"
+        layout="@layout/wave_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"/>
+
+</LinearLayout>
