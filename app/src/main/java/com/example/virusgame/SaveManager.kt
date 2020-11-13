@@ -36,8 +36,8 @@ object SaveManager {
     }
 
     fun saveSettings() {
-        sharedPref.edit().putInt(context.getString(R.string.musicVolumePreferenceId), SoundManager.musicVolume).apply()
-        sharedPref.edit().putInt(context.getString(R.string.sfxVolumePreferenceId), SoundManager.sfxVolume).apply()
+        sharedPref.edit().putFloat(context.getString(R.string.musicVolumePreferenceId), SoundManager.musicVolume).apply()
+        sharedPref.edit().putFloat(context.getString(R.string.sfxVolumePreferenceId), SoundManager.sfxVolume).apply()
         sharedPref.edit().putBoolean(context.getString(R.string.vibratePreferenceId), VibrateManager.active).apply()
     }
 
@@ -71,8 +71,8 @@ object SaveManager {
     }
 
     fun loadSettings(){
-        SoundManager.musicVolume = sharedPref.getInt(context.getString(R.string.musicVolumePreferenceId), 70)
-        SoundManager.sfxVolume = sharedPref.getInt(context.getString(R.string.sfxVolumePreferenceId), 70)
+        SoundManager.musicVolume = sharedPref.getFloat(context.getString(R.string.musicVolumePreferenceId), 0.7f)
+        SoundManager.sfxVolume = sharedPref.getFloat(context.getString(R.string.sfxVolumePreferenceId), 0.7f)
         VibrateManager.active = sharedPref.getBoolean(context.getString(R.string.vibratePreferenceId), true)
     }
 }

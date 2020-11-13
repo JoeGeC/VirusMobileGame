@@ -44,10 +44,10 @@ class SettingsFragment() : Fragment(), View.OnClickListener {
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                SoundManager.musicVolume = seekBar.progress
+                SoundManager.musicVolume = seekBar.progress / 100f
             }
         })
-        musicSlider.progress = SoundManager.musicVolume
+        musicSlider.progress = (SoundManager.musicVolume * 100).toInt()
     }
 
     private fun setUpSfxSlider(view: View) {
@@ -60,10 +60,10 @@ class SettingsFragment() : Fragment(), View.OnClickListener {
             }
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                SoundManager.sfxVolume = seekBar.progress
+                SoundManager.sfxVolume = seekBar.progress / 100f
             }
         })
-        sfxSlider.progress = SoundManager.sfxVolume
+        sfxSlider.progress = (SoundManager.sfxVolume * 100).toInt()
     }
 
     override fun onClick(v: View?) {
