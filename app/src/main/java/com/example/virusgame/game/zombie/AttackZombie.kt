@@ -2,6 +2,8 @@ package com.example.virusgame.game.zombie
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import com.example.virusgame.R
+import com.example.virusgame.SoundManager
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.FirstDamageTaken
 
@@ -19,7 +21,7 @@ class AttackZombie(private val zombie: Zombie) : ZombieState {
         if(Clock.haveMillisecondsPassedSince(lastFrameUpdateTime, 100)){
             lastFrameUpdateTime = System.nanoTime()
             frameNum++
-            if(frameNum > animation.size - 1) attack()
+            if(frameNum >= animation.size) attack()
         }
         return animation[frameNum]
     }
@@ -28,6 +30,7 @@ class AttackZombie(private val zombie: Zombie) : ZombieState {
         zombie.state = AliveZombie(zombie)
         zombie.entityHandler.inflictPlayerDamage(zombie.attack)
         FirstDamageTaken.trigger()
+        SoundManager.play(zombie.context, R.raw.damage)
     }
 
     override fun onSuccessfulSwipe() { }
