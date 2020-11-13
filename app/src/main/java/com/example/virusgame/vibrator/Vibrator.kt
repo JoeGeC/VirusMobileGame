@@ -1,4 +1,4 @@
-package com.example.virusgame
+package com.example.virusgame.vibrator
 
 import android.content.Context
 import android.os.VibrationEffect
@@ -9,6 +9,7 @@ class Vibrator(context: Context) {
     private var vibrator: Vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
     fun vibrate(milliseconds: Long){
+        if(!VibrateManager.active) return
         stop()
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
             vibrator.vibrate(VibrationEffect.createOneShot(milliseconds, VibrationEffect.DEFAULT_AMPLITUDE))
@@ -25,6 +26,7 @@ class Vibrator(context: Context) {
     }
 
     fun vibrate(pattern: LongArray, repeat: Int){
+        if(!VibrateManager.active) return
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
             vibrator.vibrate(VibrationEffect.createWaveform(pattern, repeat))
         else

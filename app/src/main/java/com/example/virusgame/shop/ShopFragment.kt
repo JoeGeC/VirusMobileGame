@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
+import com.example.virusgame.game.GameLoop
 import com.example.virusgame.game.GameView
 import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.items.ShopItem
+import kotlinx.android.synthetic.main.shop.*
 
-class ShopFragment(private var gameView: GameView) : Fragment(), View.OnClickListener, ShopHandler {
+class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnClickListener, ShopHandler {
     private lateinit var shopView: ConstraintLayout
     private lateinit var notEnoughGoldText: TextView
     private lateinit var shopRecyclerView: RecyclerView
@@ -45,21 +47,21 @@ class ShopFragment(private var gameView: GameView) : Fragment(), View.OnClickLis
     }
 
     override fun openShop() {
-        gameView.openShop()
+        shopHandler.openShop()
     }
 
     override fun purchase(shopItem: ShopItem): Boolean {
-        if(gameView.purchase(shopItem)) return true
+        if(shopHandler.purchase(shopItem)) return true
         showNotEnoughGoldText()
         return false
     }
 
     override fun canPurchase(shopItem: ShopItem): Boolean {
-        return gameView.canPurchase(shopItem)
+        return shopHandler.canPurchase(shopItem)
     }
 
     override fun use(shopItem: ShopItem) {
-        gameView.use(shopItem)
+        shopHandler.use(shopItem)
     }
 
     private fun showNotEnoughGoldText() {
@@ -74,7 +76,7 @@ class ShopFragment(private var gameView: GameView) : Fragment(), View.OnClickLis
     }
 
     override fun closeShop() {
-        gameView.closeShop()
+        shopHandler.closeShop()
         SaveManager.saveShop(shopAdapter.items.map { it.saveData })
         fragmentManager!!.beginTransaction().remove(this).commit()
     }

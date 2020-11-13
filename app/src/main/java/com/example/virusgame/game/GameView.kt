@@ -11,9 +11,9 @@ import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.items.ShopItem
 
 
-class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback, ShopHandler {
+class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private lateinit var thread: GameThread
-    private val gameLoop: GameLoop = GameLoop(context)
+    val gameLoop: GameLoop = GameLoop(context)
     private val doubleSwipeListener = DoubleSwipeListener(gameLoop)
 
     init {
@@ -77,26 +77,6 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
     fun resume(){
         newGameThread()
         gameLoop.resume()
-    }
-
-    override fun openShop() {
-        gameLoop.openShop()
-    }
-
-    override fun closeShop() {
-        gameLoop.closeShop()
-    }
-
-    override fun purchase(shopItem: ShopItem): Boolean {
-        return gameLoop.purchase(shopItem)
-    }
-
-    override fun canPurchase(shopItem: ShopItem): Boolean {
-        return gameLoop.canPurchase(shopItem)
-    }
-
-    override fun use(shopItem: ShopItem) {
-        gameLoop.use(shopItem)
     }
 }
 

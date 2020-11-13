@@ -6,7 +6,7 @@ import android.graphics.Paint
 import androidx.core.content.ContextCompat
 import com.example.virusgame.R
 import com.example.virusgame.SoundManager
-import com.example.virusgame.Vibrator
+import com.example.virusgame.vibrator.Vibrator
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.FirstDefenceEvent
 import com.example.virusgame.game.events.ZombieAttackEvent
