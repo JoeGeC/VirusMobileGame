@@ -15,7 +15,7 @@ class Ui (context: Context){
     private val zombieHeart = ZombieHeartUi(context, border.bottom)
     internal val death = DeathUi(context)
     private val shop = ShopUi(context, border.bottom)
-    private val ability = AbilityUi(context, border.bottom)
+    private val ability = AbilityUi(border.bottom)
 
     fun draw(canvas: Canvas, player: Player, gameStats: GameStats){
 //        shop.draw(canvas)

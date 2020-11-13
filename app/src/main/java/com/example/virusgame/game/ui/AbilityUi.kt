@@ -1,19 +1,18 @@
 package com.example.virusgame.game.ui
 
-import android.content.Context
 import android.graphics.*
 import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.abilities.Ability
 import com.example.virusgame.game.vector2.FloatVector2
 
-class AbilityUi(context: Context, borderBottom: Float) {
+class AbilityUi(borderBottom: Float) {
     private val coolDownPaint: Paint = Paint()
     private val abilityIconPos: FloatVector2 = FloatVector2(50f, borderBottom + 150f)
     private var iconRect: Rect? = null
 
     init{
-        coolDownPaint.color = Color.argb(60, 0, 0, 255)
+        coolDownPaint.color = Color.argb(150, 0, 0, 255)
         coolDownPaint.textAlign = Paint.Align.CENTER
         coolDownPaint.textSize = ScreenDimensions.height / 30.0f
     }

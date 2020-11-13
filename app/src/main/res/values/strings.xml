@@ -6,7 +6,7 @@
     <string name="first_kill">Good, keep on taking out those zombies!</string>
     <string name="shake_advice">Quick! Shake your device to defend the zombie\'s attack!</string>
     <string name="first_damage_advice">Ouch! Try to shake your device next time so you don\'t take damage. If your health hits 0, you\'ll die!</string>
-    <string name="intro">A virus has broken out! Quick, swipe on the screen and take out that zombie!</string>
+    <string name="intro">A virus has broken out! Quick, look around you using your device and swipe on the screen to take out zombies!</string>
     <string name="first_defence">Great! Remember, you can\'t attack while a zombie has a hold of you.</string>
     <string name="playerPreferenceId">player</string>
     <string name="game_name_id">virusGame</string>
