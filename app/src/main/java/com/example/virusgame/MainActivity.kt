@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(){
         fragmentTransaction.add(R.id.fragmentContainer, MainMenu())
         fragmentTransaction.commit()
 
+        SaveManager.loadSettings()
         SoundManager.playMusic(applicationContext, R.raw.music_wind_and_tree)
     }
 

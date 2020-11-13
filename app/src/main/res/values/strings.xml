@@ -43,4 +43,9 @@
     <string name="sfx">SFX</string>
     <string name="done">Done</string>
     <string name="subFragment">subFragment</string>
+    <string name="settingsPreferenceId">settings</string>
+    <string name="volumePreferenceId">volume</string>
+    <string name="vibratePreferenceId">vibrate</string>
+    <string name="musicVolumePreferenceId">musicVolume</string>
+    <string name="sfxVolumePreferenceId">sfxVolume</string>
 </resources>

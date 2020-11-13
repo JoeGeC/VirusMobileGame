@@ -8,7 +8,7 @@ import com.example.virusgame.game.abilities.Ability
 import com.example.virusgame.game.abilities.AbilityFactory
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.shop.items.ShopItemSaveData
-import com.example.virusgame.shop.items.ShopItem
+import com.example.virusgame.vibrator.VibrateManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -33,6 +33,12 @@ object SaveManager {
     fun saveShop(shopItems: List<ShopItemSaveData>){
         val shopJson = gson.toJson(shopItems)
         sharedPref.edit().putString(context.getString(R.string.shopPreferenceId), shopJson).apply()
+    }
+
+    fun saveSettings() {
+        sharedPref.edit().putInt(context.getString(R.string.musicVolumePreferenceId), SoundManager.musicVolume).apply()
+        sharedPref.edit().putInt(context.getString(R.string.sfxVolumePreferenceId), SoundManager.sfxVolume).apply()
+        sharedPref.edit().putBoolean(context.getString(R.string.vibratePreferenceId), VibrateManager.active).apply()
     }
 
     fun loadPlayer(): Player {
@@ -62,5 +68,11 @@ object SaveManager {
         val shopJson = sharedPref.getString(context.getString(R.string.shopPreferenceId), "")
         if (shopJson!!.isEmpty()) return null
         return gson.fromJson(shopJson, object : TypeToken<List<ShopItemSaveData>>() {}.type)
+    }
+
+    fun loadSettings(){
+        SoundManager.musicVolume = sharedPref.getInt(context.getString(R.string.musicVolumePreferenceId), 70)
+        SoundManager.sfxVolume = sharedPref.getInt(context.getString(R.string.sfxVolumePreferenceId), 70)
+        VibrateManager.active = sharedPref.getBoolean(context.getString(R.string.vibratePreferenceId), true)
     }
 }

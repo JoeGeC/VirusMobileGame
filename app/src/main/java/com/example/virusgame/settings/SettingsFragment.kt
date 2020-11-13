@@ -9,15 +9,18 @@ import android.widget.TextView
 import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
 import com.example.virusgame.R
+import com.example.virusgame.SaveManager
 import com.example.virusgame.SoundManager
 import com.example.virusgame.vibrator.VibrateManager
 
-class SettingsFragment() : Fragment() {
+class SettingsFragment() : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.settings, container, false)
         setUpVibrateToggle(view)
         setUpMusicSlider(view)
         setUpSfxSlider(view)
+        view.findViewById<TextView>(R.id.closeSettingsButton).setOnClickListener(this)
+        view.findViewById<TextView>(R.id.doneButton).setOnClickListener(this)
         return view
     }
 
@@ -61,5 +64,15 @@ class SettingsFragment() : Fragment() {
             }
         })
         sfxSlider.progress = SoundManager.sfxVolume
+    }
+
+    override fun onClick(v: View?) {
+        closeSettings()
+    }
+
+    private fun closeSettings() {
+//        shopHandler.closeShop()
+        SaveManager.saveSettings()
+        fragmentManager!!.beginTransaction().remove(this).commit()
     }
 }

@@ -13,11 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
-import com.example.virusgame.game.GameLoop
-import com.example.virusgame.game.GameView
 import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.items.ShopItem
-import kotlinx.android.synthetic.main.shop.*
 
 class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnClickListener, ShopHandler {
     private lateinit var shopView: ConstraintLayout
