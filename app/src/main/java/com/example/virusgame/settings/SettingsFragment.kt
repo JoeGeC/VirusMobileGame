@@ -13,7 +13,7 @@ import com.example.virusgame.SaveManager
 import com.example.virusgame.SoundManager
 import com.example.virusgame.vibrator.VibrateManager
 
-class SettingsFragment(private val settingsHandler: SettingsHandler) : Fragment(), View.OnClickListener {
+class SettingsFragment(private val settingsHandler: SettingsHandler?) : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.settings, container, false)
         setUpVibrateToggle(view)
@@ -21,7 +21,7 @@ class SettingsFragment(private val settingsHandler: SettingsHandler) : Fragment(
         setUpSfxSlider(view)
         view.findViewById<TextView>(R.id.closeSettingsButton).setOnClickListener(this)
         view.findViewById<TextView>(R.id.doneButton).setOnClickListener(this)
-        settingsHandler.openMenu()
+        settingsHandler?.openMenu()
         return view
     }
 
@@ -72,7 +72,7 @@ class SettingsFragment(private val settingsHandler: SettingsHandler) : Fragment(
     }
 
     private fun closeSettings() {
-        settingsHandler.closeMenu()
+        settingsHandler?.closeMenu()
         SaveManager.saveSettings()
         fragmentManager!!.beginTransaction().remove(this).commit()
     }

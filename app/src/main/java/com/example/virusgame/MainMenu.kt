@@ -4,15 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import kotlinx.android.synthetic.main.main_menu.*
+import com.example.virusgame.settings.SettingsFragment
 
 class MainMenu : Fragment() {
+    private lateinit var  menuFragmentManager: MenuFragmentManager
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View? {
         val view = inflater.inflate(R.layout.main_menu, container, false)
         view.findViewById<TextView>(R.id.playText).setOnClickListener{ openGame() }
+        view.findViewById<LinearLayout>(R.id.settingsIcon).setOnClickListener{ openSettings() }
+        menuFragmentManager = MenuFragmentManager(context!!, fragmentManager!!)
         return view
     }
 
@@ -23,6 +28,6 @@ class MainMenu : Fragment() {
     }
 
     private fun openSettings(){
-
+        menuFragmentManager.openFragment(SettingsFragment(null))
     }
 }
