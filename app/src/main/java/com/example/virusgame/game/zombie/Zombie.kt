@@ -110,6 +110,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
         attackSpeed = (playerStrength * 300) / wave
         setNextAttackTime()
         lastAttackTime = System.nanoTime()
+        deactivatedTime = System.nanoTime()
         location = Random.nextInt(-180, 180)
     }
 
@@ -117,11 +118,26 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
         attackTime = Random.nextInt((attackSpeed * 0.8).toInt(), (attackSpeed * 1.2).toInt())
     }
 
-    fun adjustLastAttackTimeForDeactivation() {
-        lastAttackTime += System.nanoTime() - deactivatedTime
+    private fun adjustTimesForDeactivation() {
+        val offsetTime = System.nanoTime() - deactivatedTime
+        lastAttackTime += offsetTime
+        state.lastFrameUpdateTime += offsetTime
+        if(state is PreAttackZombie) (state as PreAttackZombie).startTime += offsetTime
     }
 
     fun onShake(damage: Int) {
         if(state is PreAttackZombie) (state as PreAttackZombie).onShake(damage)
+    }
+
+    fun deactivate() {
+        active = false
+        deactivatedTime = System.nanoTime()
+        if(state is PreAttackZombie) (state as PreAttackZombie).pause()
+    }
+
+    fun resume() {
+        active = true
+        adjustTimesForDeactivation()
+        if(state is PreAttackZombie) (state as PreAttackZombie).warningVibrate()
     }
 }

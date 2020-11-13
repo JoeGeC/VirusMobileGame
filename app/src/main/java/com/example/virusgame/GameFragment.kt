@@ -33,8 +33,13 @@ class GameFragment : Fragment(), View.OnClickListener {
         fragmentTransaction.commit()
     }
 
+    override fun onPause() {
+        super.onPause()
+        gameView.pause()
+    }
+
     override fun onResume() {
         super.onResume()
-        gameView.newGameThread()
+        gameView.resume()
     }
 }

@@ -8,7 +8,7 @@ import com.example.virusgame.game.events.FirstTimePlayingEvent
 
 class DeadZombie(var zombie: Zombie) : ZombieState {
     private var frameNum: Int = 0
-    private var lastFrameUpdateTime: Long = 0
+    override var lastFrameUpdateTime: Long = 0
     override val animation = ZombieAnimations(zombie.context).dieAnimation1()
 
     override fun draw(canvas: Canvas, x: Float, y: Float){

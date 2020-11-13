@@ -13,17 +13,21 @@ import com.example.virusgame.game.events.ZombieAttackEvent
 
 class PreAttackZombie(var zombie: Zombie) : ZombieState {
     private var frameNum: Int = 0
-    private var lastFrameUpdateTime: Long = 0
+    override var lastFrameUpdateTime: Long = 0
     override val animation: List<Bitmap> = ZombieAnimations(zombie.context).preAttackAnimation1()
-    private val startTime: Long = System.nanoTime()
+    internal var startTime: Long = System.nanoTime()
     private var shakeHealth: Int = zombie.maxHealth
     private val zombieAttackMeterPaint: Paint = Paint()
     private var vibrator = Vibrator(zombie.context)
 
     init {
-        vibrator.vibrate(longArrayOf(0, 200, 200), 0)
+        warningVibrate()
         zombieAttackMeterPaint.color = ContextCompat.getColor(zombie.context, R.color.blue)
         SoundManager.playEffect(zombie.context, R.raw.zombie_attack)
+    }
+
+    internal fun warningVibrate() {
+        vibrator.vibrate(longArrayOf(0, 200, 200), 0)
     }
 
     override fun draw(canvas: Canvas, x: Float, y: Float) {
@@ -72,5 +76,10 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
 
     fun finalize(){
         vibrator.stop()
+    }
+
+    fun pause() {
+        vibrator.stop()
+
     }
 }

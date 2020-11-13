@@ -7,7 +7,7 @@ import com.example.virusgame.game.events.ZombieAttackEvent
 
 class AliveZombie(private var zombie: Zombie) : ZombieState {
     private var frameNum : Int = 0
-    private var lastFrameUpdateTime: Long = 0
+    override var lastFrameUpdateTime: Long = 0
     override val animation = ZombieAnimations(zombie.context).idleAnimation1()
 
     override fun draw(canvas: Canvas, x: Float, y: Float){

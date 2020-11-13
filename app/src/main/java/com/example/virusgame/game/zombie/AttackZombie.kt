@@ -9,7 +9,7 @@ import com.example.virusgame.game.events.FirstDamageTaken
 
 class AttackZombie(private val zombie: Zombie) : ZombieState {
     private var frameNum: Int = 0
-    private var lastFrameUpdateTime: Long = 0
+    override var lastFrameUpdateTime: Long = 0
     override val animation: List<Bitmap> = ZombieAnimations(zombie.context).attackAnimation1()
 
     override fun draw(canvas: Canvas, x: Float, y: Float) {

@@ -70,6 +70,15 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         return true
     }
 
+    fun pause() {
+        gameLoop.pause()
+    }
+
+    fun resume(){
+        newGameThread()
+        gameLoop.resume()
+    }
+
     override fun openShop() {
         gameLoop.openShop()
     }

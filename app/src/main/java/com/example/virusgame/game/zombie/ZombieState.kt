@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 
 interface ZombieState {
+    var lastFrameUpdateTime: Long
     val animation: List<Bitmap>
     fun getAnimationFrame(): Bitmap
     fun draw(canvas: Canvas, x: Float, y: Float)

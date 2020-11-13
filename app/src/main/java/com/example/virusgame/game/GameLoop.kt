@@ -131,15 +131,11 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     }
 
     override fun openShop() {
-        zombie!!.active = false
-        zombie!!.deactivatedTime = System.nanoTime()
-        sword.active = false
+        pause()
     }
 
     override fun closeShop(){
-        zombie!!.active = true
-        sword.active = true
-        zombie!!.adjustLastAttackTimeForDeactivation()
+        resume()
         SaveManager.saveGame(player, gameStats, eventManager)
     }
 
@@ -185,5 +181,15 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
 
     override fun onRotate(pitch: Double, tilt: Double, azimuth: Double) {
         location = azimuth
+    }
+
+    fun pause() {
+        zombie!!.deactivate()
+        sword.active = false
+    }
+
+    fun resume(){
+        zombie!!.resume()
+        sword.active = true
     }
 }
