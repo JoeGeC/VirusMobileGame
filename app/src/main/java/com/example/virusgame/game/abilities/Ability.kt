@@ -39,7 +39,7 @@ abstract class Ability(@Transient val context: Context) {
 
 
     private fun getAnimationFrame() : Bitmap {
-        if(Clock.haveMillisecondsPassedSince(lastFrameUpdateTime, 200)){
+        if(Clock.haveMillisecondsPassedSince(lastFrameUpdateTime, 50)){
             lastFrameUpdateTime = System.nanoTime()
             frameNum++
             if(frameNum >= animationFrames.size) finishAnimation()

@@ -10,5 +10,14 @@ class IceAbility(zombieDamageHandler: ZombieDamageHandler) : AttackAbility(zombi
     override val iconBitmap: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ice_ability_icon)
     override val coolDownTime: Int = 15000
     override val attackModifier: Float = 7f
-    override val animationFrames = arrayOf<Bitmap>()
+    override val animationFrames = arrayOf<Bitmap>(
+        BitmapFactory.decodeResource(context.resources, R.drawable.ice_ability_frame1),
+        BitmapFactory.decodeResource(context.resources, R.drawable.ice_ability_frame2),
+        BitmapFactory.decodeResource(context.resources, R.drawable.ice_ability_frame3),
+        BitmapFactory.decodeResource(context.resources, R.drawable.ice_ability_frame4),
+        BitmapFactory.decodeResource(context.resources, R.drawable.ice_ability_frame5),
+        BitmapFactory.decodeResource(context.resources, R.drawable.ice_ability_frame6),
+        BitmapFactory.decodeResource(context.resources, R.drawable.ice_ability_frame7),
+        BitmapFactory.decodeResource(context.resources, R.drawable.ice_ability_frame8)
+    )
 }
