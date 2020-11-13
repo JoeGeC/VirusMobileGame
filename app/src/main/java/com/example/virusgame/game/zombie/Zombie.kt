@@ -24,6 +24,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, var re
     internal var maxHealth = 0
     protected var currentHealth = maxHealth
     internal var gold = 5
+    internal var bossHearts = 0
     internal var attack = 1
     internal var canAttack = false
     internal var attackSpeed = 3000

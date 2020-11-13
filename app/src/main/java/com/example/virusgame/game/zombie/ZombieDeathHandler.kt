@@ -4,4 +4,5 @@ interface ZombieDeathHandler {
     fun takeGold(gold: Int)
     fun spawnNewZombie()
     fun incrementZombieKillCount()
+    fun takeBossHearts(bossHearts: Int)
 }

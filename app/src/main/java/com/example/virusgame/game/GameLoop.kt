@@ -85,7 +85,11 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     }
 
     override fun takeGold(gold: Int) {
-        player.increaseGold(gold)
+        player.gold += gold
+    }
+
+    override fun takeBossHearts(bossHearts: Int) {
+        player.bossHearts += bossHearts
     }
 
     override fun spawnNewZombie() {
@@ -160,12 +164,12 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
 
     override fun upgradeAttack() {
         if(!player.upgradeAttack())
-            speech.setSpeechText(context.getString(R.string.not_enough_gold))
+            speech.setSpeechText(context.getString(R.string.not_enough_boss_hearts))
     }
 
     override fun upgradeHealth() {
         if(!player.upgradeHealth())
-            speech.setSpeechText(context.getString(R.string.not_enough_gold))
+            speech.setSpeechText(context.getString(R.string.not_enough_boss_hearts))
     }
 
     override fun revive() {

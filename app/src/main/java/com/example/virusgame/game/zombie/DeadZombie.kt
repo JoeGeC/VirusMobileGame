@@ -28,6 +28,7 @@ class DeadZombie(var zombie: Zombie) : ZombieState {
         FirstTimePlayingEvent.complete = true
         FirstKillEvent.trigger()
         zombie.entityHandler.takeGold(zombie.gold)
+        zombie.entityHandler.takeBossHearts(zombie.bossHearts)
         zombie.entityHandler.incrementZombieKillCount()
         zombie.entityHandler.spawnNewZombie()
     }

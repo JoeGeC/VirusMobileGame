@@ -13,7 +13,7 @@ import com.example.virusgame.game.vector2.IntVector2
 class DeathUi(context: Context) {
     var active = false
     private val deathScreen: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.death_border)
-    private val gold: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.gold)
+    private val heart: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.heart)
     private val deathScreenPos = FloatVector2(ScreenDimensions.width / 2f - deathScreen.width / 2f, ScreenDimensions.height / 2f - deathScreen.height / 1.7f)
     private val attackRect = Rect(
         (deathScreenPos.x + deathScreen.width / 10).toInt(),
@@ -47,10 +47,10 @@ class DeathUi(context: Context) {
             canvas.drawBitmap(deathScreen, deathScreenPos.x, deathScreenPos.y, null)
             canvas.drawText(player.attack.toString(), attackRect.left + attackRect.width() / 2.0f, attackRect.bottom + attackRect.height() / 1.5f, paint)
             canvas.drawText(player.maxHealth.toString(), healthRect.left + healthRect.width() / 2.0f, healthRect.bottom + healthRect.height() / 1.5f, paint)
-            canvas.drawBitmap(gold, attackRect.left.toFloat(), attackRect.bottom + attackRect.height() / 1.2f, null)
-            canvas.drawBitmap(gold, healthRect.left.toFloat(), healthRect.bottom + attackRect.height() / 1.2f, null)
-            canvas.drawText(player.attackBuyValue.toString(), attackRect.left + (gold.width + attackRect.width()) / 2.0f, attackRect.bottom + attackRect.height().toFloat(), paint)
-            canvas.drawText(player.maxHealthBuyValue.toString(), healthRect.left + (gold.width + attackRect.width()) / 2.0f, healthRect.bottom + attackRect.height().toFloat(), paint)
+            canvas.drawBitmap(heart, attackRect.left.toFloat(), attackRect.bottom + attackRect.height() / 1.2f, null)
+            canvas.drawBitmap(heart, healthRect.left.toFloat(), healthRect.bottom + attackRect.height() / 1.2f, null)
+            canvas.drawText(player.attackBuyValue.toString(), attackRect.left + attackRect.width() / 2.0f, deathScreenPos.y + deathScreen.height / 1.4f , paint)
+            canvas.drawText(player.maxHealthBuyValue.toString(), healthRect.left + attackRect.width() / 2.0f, deathScreenPos.y + deathScreen.height / 1.4f, paint)
         }
     }
 

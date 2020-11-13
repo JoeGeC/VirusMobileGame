@@ -14,7 +14,7 @@ import kotlin.random.Random
 
 class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: FloatVector2) :
     Zombie(context, entityHandler, rectOffset) {
-    private var bossPaint = Paint();
+    private var bossPaint = Paint()
 
     init {
         bossPaint.textSize = ScreenDimensions.height / 40.0f
@@ -39,5 +39,6 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Flo
         attackSpeed = (playerStrength * 300) / wave
         setNextAttackTime()
         lastAttackTime = System.nanoTime()
+        bossHearts = 1 + wave / 5
     }
 }
