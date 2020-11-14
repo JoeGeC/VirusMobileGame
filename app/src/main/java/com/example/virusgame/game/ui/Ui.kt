@@ -14,13 +14,11 @@ class Ui (context: Context){
     private val gold = GoldUi(context, border.bottom)
     private val zombieHeart = ZombieHeartUi(context, border.bottom)
     internal val death = DeathUi(context)
-    private val shop = ShopUi(context, border.bottom)
     private val ability = AbilityUi(border.bottom)
 
     fun draw(canvas: Canvas, player: Player, gameStats: GameStats){
-//        shop.draw(canvas)
         border.draw(canvas)
-        wave.draw(canvas, gameStats.wave)
+        wave.draw(canvas, gameStats.getWave())
         health.draw(canvas, player.currentHealth, player.maxHealth)
         gold.draw(canvas, player.gold)
         zombieHeart.draw(canvas, player.bossHearts)
@@ -32,6 +30,5 @@ class Ui (context: Context){
         if(death.hasTappedAttack(startTouchPos, touchPos)) uiHandler.upgradeAttack()
         if(death.hasTappedHealth(startTouchPos, touchPos)) uiHandler.upgradeHealth()
         if(death.hasTappedTryAgain(startTouchPos, touchPos)) uiHandler.revive()
-        if(shop.tapped(startTouchPos, touchPos)) uiHandler.openMenu()
     }
 }

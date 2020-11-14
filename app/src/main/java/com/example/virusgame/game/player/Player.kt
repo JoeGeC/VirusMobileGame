@@ -23,7 +23,7 @@ class Player(){
         get(){ return (maxHealth.toFloat().pow(1.2f) - 10).toInt() }
         set(value) {}
 
-    fun setupPlayer(entityHandler: EntityHandler){
+    fun setup(entityHandler: EntityHandler){
         playerHandler = entityHandler
         ability = SaveManager.loadAbility(entityHandler)
     }

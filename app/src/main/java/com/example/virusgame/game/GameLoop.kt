@@ -6,6 +6,7 @@ import android.view.MotionEvent
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
 import com.example.virusgame.SoundManager
+import com.example.virusgame.WaveListener
 import com.example.virusgame.game.doubleSwipe.DoubleSwipeHandler
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.IntroEvent
@@ -42,7 +43,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
 
     init {
         player = SaveManager.loadPlayer()
-        player.setupPlayer(this)
+        player.setup(this)
         ZombieDamageCalculator.player = player
         SaveManager.loadEventManager(eventManager)
         eventManager.setupEvents(speech)
@@ -95,8 +96,8 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
 
     override fun spawnNewZombie() {
         zombie = when (gameStats.zombieWaveKillCount) {
-            gameStats.waveAmount - 1 -> ZombieMaker().makeBossZombie(context, this, sword.offset, gameStats.wave, player.maxHealth + player.attack)
-            else -> ZombieMaker().makeZombie(context, this, sword.offset, gameStats.wave, player.maxHealth + player.attack)
+            gameStats.waveAmount - 1 -> ZombieMaker().makeBossZombie(context, this, sword.offset, gameStats.getWave(), player.maxHealth + player.attack)
+            else -> ZombieMaker().makeZombie(context, this, sword.offset, gameStats.getWave(), player.maxHealth + player.attack)
         }
     }
 
@@ -162,7 +163,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     }
 
     override fun revive() {
-        gameStats.wave = 1
+        gameStats.resetWave()
         gameStats.zombieWaveKillCount = 0
         player.restoreHealthToMax()
         spawnNewZombie()
@@ -187,5 +188,9 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     fun resume(){
         zombie!!.resume()
         sword.active = true
+    }
+
+    fun assignWaveListener(waveListener: WaveListener){
+        gameStats.assignWaveListener(waveListener)
     }
 }
