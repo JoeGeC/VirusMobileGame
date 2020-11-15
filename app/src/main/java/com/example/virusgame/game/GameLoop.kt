@@ -39,6 +39,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     private var sword = Sword(context)
     private val background = Background(context)
     private val collectors = mutableListOf<Collector>()
+    private val chest = Chest(this)
 
     private var touched: Boolean = false
     private var touchPos: IntVector2 = IntVector2(0, 0)
@@ -63,10 +64,12 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
             sword.update(touchPos)
         } else sword.deactivate()
         zombie!!.update(location)
+        chest.update(location)
     }
 
     fun draw(canvas: Canvas) {
         background.draw(canvas)
+        chest.draw(canvas)
         zombie!!.draw(canvas)
         ui.draw(canvas, player, gameStats)
         sword.draw(canvas)
@@ -90,6 +93,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         swipeState = StartSwipeState()
         speech.onTouch(startTouchPos)
         ui.onTouch(startTouchPos, touchPos, this)
+        chest.onTouch(startTouchPos, touchPos)
     }
 
     override fun onZombieDeath(gold: Int, zombieHearts: Int, zombiePosition: FloatVector2) {
@@ -98,6 +102,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         incrementZombieKillCount()
         spawnNewZombie()
         IntroEvent.onComplete()
+        chest.spawn()
     }
 
     private fun spawnNewZombie() {

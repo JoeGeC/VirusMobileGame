@@ -8,10 +8,11 @@ import androidx.core.content.res.ResourcesCompat
 import com.example.virusgame.MainActivity
 import com.example.virusgame.R
 import com.example.virusgame.ScreenDimensions
+import com.example.virusgame.game.CollectorDoneListener
 import com.example.virusgame.game.vector2.FloatVector2
 
-abstract class Collector(private var position: FloatVector2, protected val amount: Int, protected val collectorManager: CollectorManager) {
-    protected val context = MainActivity.applicationContext()
+abstract class Collector(private var position: FloatVector2, protected val amount: Int, protected val collectorManager: CollectorManager, private val collectorDoneListener: CollectorDoneListener? = null) {
+    protected val context = collectorManager.context
     abstract val image: Bitmap
     private var count = 0
     private var paint: Paint = Paint()
@@ -31,6 +32,11 @@ abstract class Collector(private var position: FloatVector2, protected val amoun
         canvas.drawText("+$amount", position.x + 20, position.y, paint)
         position.y--
         count++
-        if(count >= 30) collectorManager.destroyCollector(this)
+        if(count >= 30) finish()
+    }
+
+    private fun finish() {
+        collectorDoneListener?.onCollectorDone()
+        collectorManager.destroyCollector(this)
     }
 }
