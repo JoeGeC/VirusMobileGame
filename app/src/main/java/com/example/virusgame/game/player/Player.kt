@@ -6,6 +6,8 @@ import com.example.virusgame.SaveManager
 import com.example.virusgame.SoundManager
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.abilities.Ability
+import com.example.virusgame.game.abilities.AbilityFactory
+import com.example.virusgame.game.zombie.ZombieDamageHandler
 import kotlin.math.pow
 
 class Player(){
@@ -73,5 +75,12 @@ class Player(){
         currentHealth += healthToRestore
         if(currentHealth > maxHealth) currentHealth = maxHealth
         SoundManager.playSfx(MainActivity.applicationContext(), R.raw.potion)
+    }
+
+    fun equipAbility(abilityName: String, zombieDamageHandler: ZombieDamageHandler) {
+        val lastAbilityUseTime = ability?.lastAbilityUseTime
+        ability = AbilityFactory().createAbility(abilityName, zombieDamageHandler)
+        if(lastAbilityUseTime != null) ability?.lastAbilityUseTime = lastAbilityUseTime
+        ability?.playSoundEffect()
     }
 }
