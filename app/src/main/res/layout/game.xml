@@ -10,14 +10,14 @@
         android:id="@+id/gameView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    <ImageView
+    <com.example.virusgame.ShopIcon
         android:id="@+id/shopIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/settingsIcon"
         app:layout_constraintStart_toEndOf="@id/settingsIcon"
         android:src="@drawable/shop"
-        android:visibility="gone"/>
+        android:layout_marginHorizontal="16dp"/>
     <ImageView
         android:id="@+id/settingsIcon"
         android:layout_width="wrap_content"

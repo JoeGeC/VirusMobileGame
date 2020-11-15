@@ -15,7 +15,7 @@ import com.example.virusgame.shop.ShopFragment
 class GameFragment : Fragment(), View.OnClickListener, WaveListener {
     private lateinit var gameView: GameView
     private lateinit var menuFragmentManager: MenuFragmentManager
-    private lateinit var shopIcon: ImageView
+    private lateinit var shopIcon: ShopIcon
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View? {
         val view = inflater.inflate(R.layout.game, container, false)
@@ -37,7 +37,7 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener {
     }
 
     override fun onClick(view: View) {
-        if(view.id == R.id.shopIcon) menuFragmentManager.openFragment(ShopFragment(gameView.gameLoop))
+        if(view.id == R.id.shopIcon) shopIcon.onClick(menuFragmentManager, gameView.gameLoop)
         if(view.id == R.id.settingsIcon) menuFragmentManager.openFragment(SettingsFragment(gameView.gameLoop))
     }
 
@@ -53,13 +53,8 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener {
 
     override fun onWaveChange(wave: Int) {
         if(wave >= 3) {
-            setShopIconVisibility(View.VISIBLE)
+            shopIcon.setAvailable(activity!!)
             ShopOpensEvent.trigger()
-        }
-        else setShopIconVisibility(View.GONE)
-    }
-
-    private fun setShopIconVisibility(visibility: Int){
-        activity!!.runOnUiThread { shopIcon.visibility = visibility }
+        } else shopIcon.setUnavailable(activity!!)
     }
 }
