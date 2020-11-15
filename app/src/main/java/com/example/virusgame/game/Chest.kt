@@ -7,6 +7,8 @@ import com.example.virusgame.R
 import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.game.collector.CollectorManager
 import com.example.virusgame.game.collector.GoldCollector
+import com.example.virusgame.game.collector.PotionCollector
+import com.example.virusgame.game.collector.ZombieHeartCollector
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
 import kotlin.random.Random
@@ -52,8 +54,11 @@ class Chest(private val collectorManager: CollectorManager) : CollectorDoneListe
     private fun openChest() {
         if(!active || open) return
         val random = Random.nextInt(100)
-        if(random < 9) collectorManager.addCollector(GoldCollector(midTopPosition, 10, collectorManager, this))
-        else collectorManager.addCollector(ZombieHeartCollector(midTopPosition, 10, collectorManager, this))
+        when {
+            random < 90 -> collectorManager.addCollector(GoldCollector(midTopPosition, 10, collectorManager, this))
+            random < 99 -> collectorManager.addCollector(PotionCollector(midTopPosition, 10, collectorManager, this))
+            else -> collectorManager.addCollector(ZombieHeartCollector(midTopPosition, 1, collectorManager, this))
+        }
         open = true
         activeImage = openImage
     }

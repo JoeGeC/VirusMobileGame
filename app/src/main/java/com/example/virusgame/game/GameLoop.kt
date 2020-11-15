@@ -5,11 +5,11 @@ import android.graphics.Canvas
 import android.view.MotionEvent
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
-import com.example.virusgame.SoundManager
 import com.example.virusgame.WaveListener
 import com.example.virusgame.game.collector.Collector
 import com.example.virusgame.game.collector.CollectorManager
 import com.example.virusgame.game.collector.GoldCollector
+import com.example.virusgame.game.collector.ZombieHeartCollector
 import com.example.virusgame.game.doubleSwipe.DoubleSwipeHandler
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.IntroEvent
@@ -97,8 +97,8 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     }
 
     override fun onZombieDeath(gold: Int, zombieHearts: Int, zombiePosition: FloatVector2) {
-        addCollector(GoldCollector(zombiePosition.offsetX(-100), gold, this))
         if(zombieHearts > 0) addCollector(ZombieHeartCollector(zombiePosition.offsetX(100), zombieHearts, this))
+        addCollector(GoldCollector(zombiePosition.offsetX(-100), gold, this))
         incrementZombieKillCount()
         spawnNewZombie()
         IntroEvent.onComplete()

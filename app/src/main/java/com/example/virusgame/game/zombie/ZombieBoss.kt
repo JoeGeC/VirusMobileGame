@@ -47,7 +47,6 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Flo
     }
 
     override fun die(){
-        SoundManager.playQueuedSfx(context, R.raw.boss_defeat)
         FirstBossEvent.onComplete()
         super.die()
     }
