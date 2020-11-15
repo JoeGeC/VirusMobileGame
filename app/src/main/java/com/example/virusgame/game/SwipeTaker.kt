@@ -4,5 +4,5 @@ import android.graphics.Rect
 
 interface SwipeTaker {
     fun onSuccessfulSwipe()
-    var rect: Rect
+    var hitRect: Rect
 }

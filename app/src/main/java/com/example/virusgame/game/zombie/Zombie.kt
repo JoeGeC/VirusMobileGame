@@ -16,32 +16,31 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
     var active: Boolean = true
     internal var state: ZombieState = AliveZombie(this)
     private var location: Int = 0
-    private var x: Int = 0
-    var y: Int = (ScreenDimensions.height / 1.8f - state.animation[0].height / 2).toInt()
+    internal var position = FloatVector2(0f, ScreenDimensions.height / 1.8f - state.animation[0].height / 2)
     internal val healthBarYOffset = 30
 
     private val zombieHealthPaint: Paint = Paint()
     internal var maxHealth = 0
     protected var currentHealth = maxHealth
     internal var gold = 5
-    internal var bossHearts = 0
+    internal var hearts = 0
     internal var attack = 1
     internal var canAttack = false
     internal var attackSpeed = 3000
     internal var attackTime: Int = 3000
     internal var lastAttackTime: Long = 0
-    var deactivatedTime: Long = 0
+    private var deactivatedTime: Long = 0
 
     protected var fullRect: Rect get(){
-        return Rect(x, y, x + state.animation[0].width, y + state.animation[0].height)
+        return Rect(position.x.toInt(), position.y.toInt(), position.x.toInt() + state.animation[0].width, position.y.toInt() + state.animation[0].height)
     } set(value) {}
 
-    override var rect: Rect get() {
+    override var hitRect: Rect get() {
         return Rect(
-            (x + fullRect.width() / 5 + rectOffset.x).toInt(),
-            (y + fullRect.height() / 5 + rectOffset.y).toInt(),
-            (x + fullRect.width() - fullRect.width() / 5 + rectOffset.x).toInt(),
-            (y + fullRect.height() - fullRect.height() / 5 + rectOffset.y).toInt())
+            (position.x + fullRect.width() / 5 + rectOffset.x).toInt(),
+            (position.y + fullRect.height() / 5 + rectOffset.y).toInt(),
+            (position.x + fullRect.width() - fullRect.width() / 5 + rectOffset.x).toInt(),
+            (position.y + fullRect.height() - fullRect.height() / 5 + rectOffset.y).toInt())
     } set(value) {}
 
     init {
@@ -50,7 +49,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
     }
 
     open fun draw(canvas: Canvas){
-        state.draw(canvas, x.toFloat(), y.toFloat())
+        state.draw(canvas, position.x, position.y)
     }
 
     internal fun takeDamage(damage: Int) {
@@ -79,7 +78,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
         var distanceToZombie = azimuth - location
         if(distanceToZombie < -180) distanceToZombie += 360
         else if(distanceToZombie > 180) distanceToZombie -= 360
-        x = (distanceToZombie * (ScreenDimensions.width / 180)).toInt()
+        position.x = (distanceToZombie * (ScreenDimensions.width / 180)).toFloat()
     }
 
     fun drawHealth(canvas: Canvas){
@@ -87,14 +86,14 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
     }
 
     internal fun getBarRect(maxValue: Int, currentValue: Int,  yOffset: Int) : Rect {
-        val startPos = rect.left - 10.0f
-        val endPos = rect.right + 10.0f
+        val startPos = hitRect.left - 10.0f
+        val endPos = hitRect.right + 10.0f
         val currentEndPos: Float = try {
             (endPos - startPos) / maxValue * currentValue + startPos
         } catch (e: Exception) {
             startPos
         }
-        val bottom = y - yOffset
+        val bottom = position.y.toInt() - yOffset
         val top = bottom - 20
         return Rect(startPos.toInt(), top, currentEndPos.toInt(), bottom)
     }

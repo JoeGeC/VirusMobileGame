@@ -13,7 +13,7 @@ import kotlin.math.pow
 class Player(){
     @Transient private lateinit var playerHandler: PlayerHandler
     var gold = 10000
-    var bossHearts = 10000
+    var zombieHearts = 10000
     var maxHealth = 10
     var currentHealth = maxHealth
     var attack = 1
@@ -43,8 +43,8 @@ class Player(){
     }
 
     fun upgradeAttack(): Boolean {
-        if(bossHearts >= attackBuyValue){
-            bossHearts -= attackBuyValue
+        if(zombieHearts >= attackBuyValue){
+            zombieHearts -= attackBuyValue
             attack++
             SoundManager.playSfx(MainActivity.applicationContext(), R.raw.attack_upgrade)
             return true
@@ -53,8 +53,8 @@ class Player(){
     }
 
     fun upgradeHealth(): Boolean {
-        if(bossHearts >= maxHealthBuyValue){
-            bossHearts -= maxHealthBuyValue
+        if(zombieHearts >= maxHealthBuyValue){
+            zombieHearts -= maxHealthBuyValue
             maxHealth++
             currentHealth++
             SoundManager.playSfx(MainActivity.applicationContext(), R.raw.potion)

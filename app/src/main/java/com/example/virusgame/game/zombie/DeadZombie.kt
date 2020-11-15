@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.IntroEvent
+import com.example.virusgame.game.vector2.FloatVector2
 
 class DeadZombie(var zombie: Zombie) : ZombieState {
     private var frameNum: Int = 0
@@ -24,11 +25,8 @@ class DeadZombie(var zombie: Zombie) : ZombieState {
     }
 
     private fun die() {
-        IntroEvent.onComplete()
-        zombie.entityHandler.takeGold(zombie.gold)
-        zombie.entityHandler.takeBossHearts(zombie.bossHearts)
-        zombie.entityHandler.incrementZombieKillCount()
-        zombie.entityHandler.spawnNewZombie()
+        val midTopZombiePosition = FloatVector2(zombie.position.x + animation[frameNum].width / 2, zombie.position.y)
+        zombie.entityHandler.onZombieDeath(zombie.gold, zombie.hearts, midTopZombiePosition)
     }
 
     override fun onSuccessfulSwipe() {}

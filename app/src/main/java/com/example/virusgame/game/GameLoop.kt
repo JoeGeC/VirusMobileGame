@@ -17,6 +17,7 @@ import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 import com.example.virusgame.game.ui.Ui
 import com.example.virusgame.game.uiHandlers.UiHandler
+import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
 import com.example.virusgame.game.zombie.*
 import com.example.virusgame.settings.SettingsHandler
@@ -24,7 +25,7 @@ import com.example.virusgame.shop.ShopList
 import com.example.virusgame.shop.items.ShopItem
 
 class GameLoop(override var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler,
-    RotationHandler, SettingsHandler {
+    RotationHandler, SettingsHandler, CollectorManager {
     private var location: Double = 0.0
     private val gameStats = SaveManager.loadGameStats()
     private val eventManager = EventManager()
@@ -34,6 +35,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     private var player = Player()
     private var sword = Sword(context)
     private val background = Background(context)
+    private val collectors = mutableListOf<Collector>()
 
     private var touched: Boolean = false
     private var touchPos: IntVector2 = IntVector2(0, 0)
@@ -66,6 +68,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         ui.draw(canvas, player, gameStats)
         sword.draw(canvas)
         player.ability?.draw(canvas)
+        for (collector in collectors) collector.draw(canvas)
         speech.draw(canvas)
     }
 
@@ -86,23 +89,33 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         ui.onTouch(startTouchPos, touchPos, this)
     }
 
-    override fun takeGold(gold: Int) {
+    override fun onZombieDeath(gold: Int, zombieHearts: Int, zombiePosition: FloatVector2) {
+        takeGold(gold, zombiePosition)
+        takeBossHearts(zombieHearts, zombiePosition)
+        incrementZombieKillCount()
+        spawnNewZombie()
+        IntroEvent.onComplete()
+    }
+
+    private fun takeGold(gold: Int, zombiePosition: FloatVector2) {
         player.gold += gold
+        collectors.add(Collector(zombiePosition.offsetX(-100), R.drawable.gold, gold, this))
         SoundManager.playQueuedSfx(context, R.raw.gold)
     }
 
-    override fun takeBossHearts(bossHearts: Int) {
-        player.bossHearts += bossHearts
+    private fun takeBossHearts(bossHearts: Int, zombiePosition: FloatVector2) {
+        player.zombieHearts += bossHearts
+        if(bossHearts > 0) collectors.add(Collector(zombiePosition.offsetX(100), R.drawable.zombie_heart, bossHearts, this))
     }
 
-    override fun spawnNewZombie() {
+    private fun spawnNewZombie() {
         zombie = when (gameStats.zombieWaveKillCount) {
             gameStats.waveAmount - 1 -> ZombieMaker().makeBossZombie(context, this, sword.offset, gameStats.getWave(), player.maxHealth + player.attack)
             else -> ZombieMaker().makeZombie(context, this, sword.offset, gameStats.getWave(), player.maxHealth + player.attack)
         }
     }
 
-    override fun incrementZombieKillCount() {
+    private fun incrementZombieKillCount() {
         gameStats.incrementZombieKillCount()
         SaveManager.saveGame(player, gameStats, eventManager)
     }
@@ -193,5 +206,9 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
 
     fun assignWaveListener(waveListener: WaveListener){
         gameStats.assignWaveListener(waveListener)
+    }
+
+    override fun destroyCollector(collector: Collector) {
+        collectors.remove(collector)
     }
 }

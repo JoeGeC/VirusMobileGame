@@ -5,7 +5,7 @@ import com.example.virusgame.game.vector2.IntVector2
 
 class InsideSwipeState : SwipeState {
     override fun onTouch(touchPos: IntVector2, swipeTaker: SwipeTaker): SwipeState {
-        if(touchPos.isOutside(swipeTaker.rect)){
+        if(touchPos.isOutside(swipeTaker.hitRect)){
             swipeTaker.onSuccessfulSwipe()
             return StartSwipeState()
         }

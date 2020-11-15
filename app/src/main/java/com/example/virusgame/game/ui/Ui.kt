@@ -21,7 +21,7 @@ class Ui (context: Context){
         wave.draw(canvas, gameStats.getWave())
         health.draw(canvas, player.currentHealth, player.maxHealth)
         gold.draw(canvas, player.gold)
-        zombieHeart.draw(canvas, player.bossHearts)
+        zombieHeart.draw(canvas, player.zombieHearts)
         ability.draw(canvas, player.ability)
         death.draw(canvas, player)
     }

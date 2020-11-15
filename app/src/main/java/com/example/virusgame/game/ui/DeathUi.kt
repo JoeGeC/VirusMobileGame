@@ -13,7 +13,7 @@ import com.example.virusgame.game.vector2.IntVector2
 class DeathUi(context: Context) {
     var active = false
     private val deathScreen: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.death_border)
-    private val heart: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.heart)
+    private val heart: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.zombie_heart)
     private val deathScreenPos = FloatVector2(ScreenDimensions.width / 2f - deathScreen.width / 2f, ScreenDimensions.height / 2f - deathScreen.height / 1.7f)
     private val attackRect = Rect(
         (deathScreenPos.x + deathScreen.width / 10).toInt(),

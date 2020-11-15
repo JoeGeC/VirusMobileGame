@@ -43,7 +43,7 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Flo
         attackSpeed = (playerStrength * 300) / wave
         setNextAttackTime()
         lastAttackTime = System.nanoTime()
-        bossHearts = 1 + wave / 5
+        hearts = 1 + wave / 5
     }
 
     override fun die(){
