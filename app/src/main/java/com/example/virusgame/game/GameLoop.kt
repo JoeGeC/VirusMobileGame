@@ -7,6 +7,9 @@ import com.example.virusgame.R
 import com.example.virusgame.SaveManager
 import com.example.virusgame.SoundManager
 import com.example.virusgame.WaveListener
+import com.example.virusgame.game.collector.Collector
+import com.example.virusgame.game.collector.CollectorManager
+import com.example.virusgame.game.collector.GoldCollector
 import com.example.virusgame.game.doubleSwipe.DoubleSwipeHandler
 import com.example.virusgame.game.events.EventManager
 import com.example.virusgame.game.events.IntroEvent
@@ -32,7 +35,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     private val ui = Ui(context)
     private val speech = Speech(context)
     private var zombie: Zombie? = null
-    private var player = Player()
+    override var player = Player()
     private var sword = Sword(context)
     private val background = Background(context)
     private val collectors = mutableListOf<Collector>()
@@ -90,22 +93,11 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     }
 
     override fun onZombieDeath(gold: Int, zombieHearts: Int, zombiePosition: FloatVector2) {
-        takeGold(gold, zombiePosition)
-        takeBossHearts(zombieHearts, zombiePosition)
+        addCollector(GoldCollector(zombiePosition.offsetX(-100), gold, this))
+        if(zombieHearts > 0) addCollector(ZombieHeartCollector(zombiePosition.offsetX(100), zombieHearts, this))
         incrementZombieKillCount()
         spawnNewZombie()
         IntroEvent.onComplete()
-    }
-
-    private fun takeGold(gold: Int, zombiePosition: FloatVector2) {
-        player.gold += gold
-        collectors.add(Collector(zombiePosition.offsetX(-100), R.drawable.gold, gold, this))
-        SoundManager.playQueuedSfx(context, R.raw.gold)
-    }
-
-    private fun takeBossHearts(bossHearts: Int, zombiePosition: FloatVector2) {
-        player.zombieHearts += bossHearts
-        if(bossHearts > 0) collectors.add(Collector(zombiePosition.offsetX(100), R.drawable.zombie_heart, bossHearts, this))
     }
 
     private fun spawnNewZombie() {
@@ -210,5 +202,9 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
 
     override fun destroyCollector(collector: Collector) {
         collectors.remove(collector)
+    }
+
+    override fun addCollector(collector: Collector) {
+        collectors.add(collector)
     }
 }

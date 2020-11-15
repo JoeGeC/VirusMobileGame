@@ -1,6 +1,6 @@
-package com.example.virusgame.game
+package com.example.virusgame.game.collector
 
-import android.graphics.BitmapFactory
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import androidx.core.content.ContextCompat
@@ -10,9 +10,9 @@ import com.example.virusgame.R
 import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.game.vector2.FloatVector2
 
-class Collector(private var position: FloatVector2, imageResource: Int, private val amount: Int, private val collectorManager: CollectorManager) {
-    private val context = MainActivity.applicationContext()
-    private val image = BitmapFactory.decodeResource(context.resources, imageResource)
+abstract class Collector(private var position: FloatVector2, protected val amount: Int, protected val collectorManager: CollectorManager) {
+    protected val context = MainActivity.applicationContext()
+    abstract val image: Bitmap
     private var count = 0
     private var paint: Paint = Paint()
 
@@ -21,7 +21,10 @@ class Collector(private var position: FloatVector2, imageResource: Int, private 
         paint.textSize = ScreenDimensions.height / 40.0f
         paint.typeface = ResourcesCompat.getFont(context, R.font.unispace)
         paint.textAlign = Paint.Align.CENTER
+        this.collect()
     }
+
+    abstract fun collect()
 
     fun draw(canvas: Canvas){
         canvas.drawBitmap(image, position.x, position.y, null)
