@@ -6,22 +6,20 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
-import com.example.virusgame.game.doubleSwipe.DoubleSwipeListener
-import com.example.virusgame.game.uiHandlers.ShopHandler
-import com.example.virusgame.shop.items.ShopItem
+import com.example.virusgame.game.doubleSwipe.DoubleSwipeManager
 
 
 class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context, attributes), SurfaceHolder.Callback {
     private lateinit var thread: GameThread
     val gameLoop: GameLoop = GameLoop(context)
-    private val doubleSwipeListener = DoubleSwipeListener(gameLoop)
+    private val doubleSwipeManager = DoubleSwipeManager(gameLoop)
 
     init {
         holder.addCallback(this)
         newGameThread()
     }
 
-    fun newGameThread(){
+    private fun newGameThread(){
         thread = GameThread(holder, this)
     }
 
@@ -63,9 +61,9 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
         when(event.action){
             MotionEvent.ACTION_DOWN -> gameLoop.updateTouchStartPos()
             MotionEvent.ACTION_UP -> gameLoop.releaseTouch()
-            MotionEvent.ACTION_POINTER_DOWN -> doubleSwipeListener.startDoubleSwipe(event)
-            MotionEvent.ACTION_POINTER_UP -> doubleSwipeListener.endDoubleSwipe()
-            MotionEvent.ACTION_MOVE -> doubleSwipeListener.moveDoubleSwipe(event)
+            MotionEvent.ACTION_POINTER_DOWN -> doubleSwipeManager.startDoubleSwipe(event)
+            MotionEvent.ACTION_POINTER_UP -> doubleSwipeManager.endDoubleSwipe()
+            MotionEvent.ACTION_MOVE -> doubleSwipeManager.moveDoubleSwipe(event)
         }
         return true
     }

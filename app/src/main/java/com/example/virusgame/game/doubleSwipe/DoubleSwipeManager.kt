@@ -3,7 +3,7 @@ package com.example.virusgame.game.doubleSwipe
 import android.view.MotionEvent
 import kotlin.math.abs
 
-class DoubleSwipeListener(private var swipeHandler: DoubleSwipeHandler) {
+class DoubleSwipeManager(private var swipeHandler: DoubleSwipeHandler) {
     private var swipeMode = SwipeMode.NONE
     private var startX = 0f
     private var stopX = 0f
