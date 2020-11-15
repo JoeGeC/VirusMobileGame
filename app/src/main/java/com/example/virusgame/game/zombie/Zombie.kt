@@ -16,7 +16,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
     var active: Boolean = true
     internal var state: ZombieState = AliveZombie(this)
     private var location: Int = 0
-    internal var position = FloatVector2(0f, ScreenDimensions.height / 1.8f - state.animation[0].height / 2)
+    internal var position = FloatVector2(0f, ScreenDimensions.height / 1.4f - state.animation[0].height)
     internal val healthBarYOffset = 30
 
     private val zombieHealthPaint: Paint = Paint()
