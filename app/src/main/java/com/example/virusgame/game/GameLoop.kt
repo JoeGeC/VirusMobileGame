@@ -20,6 +20,7 @@ import com.example.virusgame.game.uiHandlers.UiHandler
 import com.example.virusgame.game.vector2.IntVector2
 import com.example.virusgame.game.zombie.*
 import com.example.virusgame.settings.SettingsHandler
+import com.example.virusgame.shop.ShopList
 import com.example.virusgame.shop.items.ShopItem
 
 class GameLoop(override var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler,
@@ -165,10 +166,10 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     override fun revive() {
         gameStats.resetWave()
         gameStats.zombieWaveKillCount = 0
-        player.restoreHealthToMax()
+        player.revive()
+        SaveManager.saveShop(ShopList.newShop(context).map { it.saveData })
         spawnNewZombie()
         sword.active = true
-        zombie!!.active = true
         ui.death.active = false
     }
 

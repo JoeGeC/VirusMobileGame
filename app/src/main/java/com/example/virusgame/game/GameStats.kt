@@ -2,10 +2,10 @@ package com.example.virusgame.game
 
 import com.example.virusgame.WaveListener
 
-class GameStats() {
+class GameStats {
     private var wave: Int = 2
     fun getWave() = wave
-    var zombieKillCount = 0
+    private var zombieKillCount = 0
     var zombieWaveKillCount = 9
     var waveAmount = 10
     @Transient lateinit var waveListener: WaveListener

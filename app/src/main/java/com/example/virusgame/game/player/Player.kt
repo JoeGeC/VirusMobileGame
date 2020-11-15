@@ -42,10 +42,6 @@ class Player(){
         playerHandler.onPlayerDeath()
     }
 
-    fun restoreHealthToMax() {
-        currentHealth = maxHealth
-    }
-
     fun upgradeAttack(): Boolean {
         if(bossHearts >= attackBuyValue){
             bossHearts -= attackBuyValue
@@ -82,5 +78,16 @@ class Player(){
         ability = AbilityFactory().createAbility(abilityName, zombieDamageHandler)
         if(lastAbilityUseTime != null) ability?.lastAbilityUseTime = lastAbilityUseTime
         ability?.playSoundEffect()
+    }
+
+    fun revive() {
+        restoreHealthToMax()
+        ability = null
+        gold = 0
+    }
+
+
+    fun restoreHealthToMax() {
+        currentHealth = maxHealth
     }
 }

@@ -14,6 +14,10 @@ object ShopList {
     fun getItems(context: Context): List<ShopItem> {
         val items = SaveManager.loadShop()
         if(items != null) return factory(items, context)
+        return newShop(context)
+    }
+
+    fun newShop(context: Context): List<ShopItem>{
         return listOf(
             FireAbilityItem(context),
             LightningAbilityItem(context),
