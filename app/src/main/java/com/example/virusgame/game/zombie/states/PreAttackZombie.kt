@@ -1,4 +1,4 @@
-package com.example.virusgame.game.zombie
+package com.example.virusgame.game.zombie.states
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -9,10 +9,10 @@ import com.example.virusgame.SoundManager
 import com.example.virusgame.vibrator.Vibrator
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.ZombieAttackEvent
+import com.example.virusgame.game.zombie.Zombie
+import com.example.virusgame.game.zombie.ZombieAnimations
 
-class PreAttackZombie(var zombie: Zombie) : ZombieState {
-    private var frameNum: Int = 0
-    override var lastFrameUpdateTime: Long = 0
+class PreAttackZombie(var zombie: Zombie) : ZombieState(zombie) {
     override val animation: List<Bitmap> = ZombieAnimations(zombie.context).preAttackAnimation1()
     internal var startTime: Long = System.nanoTime()
     private var shakeHealth: Int = zombie.maxHealth
@@ -30,18 +30,13 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
     }
 
     override fun draw(canvas: Canvas, x: Float, y: Float) {
-        canvas.drawBitmap(getAnimationFrame(), x, y, null)
+        super.draw(canvas, x, y)
         zombie.drawHealth(canvas)
         canvas.drawRect(zombie.getBarRect(zombie.maxHealth, shakeHealth, zombie.healthBarYOffset + 20), zombieAttackMeterPaint)
     }
 
-    override fun getAnimationFrame(): Bitmap {
-        if(Clock.haveMillisecondsPassedSince(lastFrameUpdateTime, 100)){
-            lastFrameUpdateTime = System.nanoTime()
-            frameNum++
-            if(frameNum >= animation.size) frameNum = animation.size - 1
-        }
-        return animation[frameNum]
+    override fun onAnimationFinish() {
+        frameNum = animation.size - 1
     }
 
     override fun onSuccessfulSwipe() { }
@@ -78,6 +73,5 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState {
 
     fun pause() {
         vibrator.stop()
-
     }
 }

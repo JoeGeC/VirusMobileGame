@@ -12,6 +12,10 @@ import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.SwipeTaker
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
+import com.example.virusgame.game.zombie.states.AliveZombie
+import com.example.virusgame.game.zombie.states.DeadZombie
+import com.example.virusgame.game.zombie.states.PreAttackZombie
+import com.example.virusgame.game.zombie.states.ZombieState
 import kotlin.math.pow
 import kotlin.random.Random
 

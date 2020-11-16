@@ -22,7 +22,7 @@ import com.example.virusgame.game.ui.Ui
 import com.example.virusgame.game.uiHandlers.UiHandler
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
-import com.example.virusgame.game.zombie.PreAttackZombie
+import com.example.virusgame.game.zombie.states.PreAttackZombie
 import com.example.virusgame.game.zombie.Zombie
 import com.example.virusgame.game.zombie.ZombieDamageCalculator
 import com.example.virusgame.game.zombie.ZombieMaker

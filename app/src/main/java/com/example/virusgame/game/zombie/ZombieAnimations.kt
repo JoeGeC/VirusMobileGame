@@ -6,6 +6,10 @@ import android.graphics.BitmapFactory
 import com.example.virusgame.R
 
 class ZombieAnimations(private var context: Context) {
+    private fun getResource(resource: Int): Bitmap{
+        return BitmapFactory.decodeResource(context.resources, resource)
+    }
+
     fun idleAnimation1(): List<Bitmap>{
         return listOf(
             getResource(R.drawable.zombie_idle_001),
@@ -44,7 +48,7 @@ class ZombieAnimations(private var context: Context) {
         )
     }
 
-    fun attackAnimation1(): List<Bitmap>{
+    fun attackAnimation1(): List<Bitmap> {
         return listOf(
             getResource(R.drawable.zombie_attack_004),
             getResource(R.drawable.zombie_attack_005),
@@ -57,7 +61,16 @@ class ZombieAnimations(private var context: Context) {
         )
     }
 
-    private fun getResource(resource: Int): Bitmap{
-        return BitmapFactory.decodeResource(context.resources, resource)
+    fun hurtAnimation1(): List<Bitmap> {
+        return listOf(
+            getResource(R.drawable.zombie_hurt_000),
+            getResource(R.drawable.zombie_hurt_001),
+            getResource(R.drawable.zombie_hurt_002),
+            getResource(R.drawable.zombie_hurt_003),
+            getResource(R.drawable.zombie_hurt_004),
+            getResource(R.drawable.zombie_hurt_005),
+            getResource(R.drawable.zombie_hurt_006),
+            getResource(R.drawable.zombie_hurt_007)
+        )
     }
 }
