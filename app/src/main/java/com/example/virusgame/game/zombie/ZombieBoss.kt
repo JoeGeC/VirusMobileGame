@@ -10,13 +10,14 @@ import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.SoundManager
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.events.FirstBossEvent
-import com.example.virusgame.game.vector2.FloatVector2
+import com.example.virusgame.game.vector2.IntVector2
 import kotlin.math.pow
 import kotlin.random.Random
 
-class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: FloatVector2) :
+class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: IntVector2) :
     Zombie(context, entityHandler, rectOffset) {
     private var bossPaint = Paint()
+    override val healthBarOffset = 50
 
     init {
         bossPaint.textSize = ScreenDimensions.height / 40.0f

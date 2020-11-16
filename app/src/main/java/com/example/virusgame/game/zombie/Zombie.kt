@@ -1,7 +1,9 @@
 package com.example.virusgame.game.zombie
 
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
 import androidx.core.content.ContextCompat
 import com.example.virusgame.R
 import com.example.virusgame.ScreenDimensions
@@ -9,10 +11,11 @@ import com.example.virusgame.SoundManager
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.SwipeTaker
 import com.example.virusgame.game.vector2.FloatVector2
+import com.example.virusgame.game.vector2.IntVector2
 import kotlin.math.pow
 import kotlin.random.Random
 
-open class Zombie(var context: Context, var entityHandler: EntityHandler, private var rectOffset: FloatVector2) : SwipeTaker {
+open class Zombie(var context: Context, var entityHandler: EntityHandler, private var rectOffset: IntVector2) : SwipeTaker {
     var active: Boolean = true
     internal var state: ZombieState = AliveZombie(this)
     private var location: Int = 0
@@ -30,6 +33,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
     internal var attackTime: Int = 3000
     internal var lastAttackTime: Long = 0
     private var deactivatedTime: Long = 0
+    open val healthBarOffset: Int = 100
 
     protected var fullRect: Rect get(){
         return Rect(position.x.toInt(), position.y.toInt(), position.x.toInt() + state.animation[0].width, position.y.toInt() + state.animation[0].height)
@@ -37,9 +41,9 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
 
     override var hitRect: Rect get() {
         return Rect(
-            (position.x + fullRect.width() / 5 + rectOffset.x).toInt(),
+            (position.x + fullRect.width() / 4  - rectOffset.x).toInt(),
             (position.y + fullRect.height() / 5 + rectOffset.y).toInt(),
-            (position.x + fullRect.width() - fullRect.width() / 5 + rectOffset.x).toInt(),
+            (position.x + fullRect.width() - fullRect.width() / 5 - rectOffset.x).toInt(),
             (position.y + fullRect.height() - fullRect.height() / 5 + rectOffset.y).toInt())
     } set(value) {}
 
@@ -86,16 +90,16 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
     }
 
     internal fun getBarRect(maxValue: Int, currentValue: Int,  yOffset: Int) : Rect {
-        val startPos = hitRect.left - 10.0f
-        val endPos = hitRect.right + 10.0f
-        val currentEndPos: Float = try {
+        val startPos = fullRect.left + healthBarOffset
+        val endPos = fullRect.right - healthBarOffset
+        val currentEndPos: Int = try {
             (endPos - startPos) / maxValue * currentValue + startPos
         } catch (e: Exception) {
             startPos
         }
         val bottom = position.y.toInt() - yOffset
         val top = bottom - 20
-        return Rect(startPos.toInt(), top, currentEndPos.toInt(), bottom)
+        return Rect(startPos, top, currentEndPos, bottom)
     }
 
     open fun setStats(wave: Int, playerStrength: Int){
