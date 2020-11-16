@@ -16,7 +16,7 @@ class Player(){
     var zombieHearts = 10000
     var maxHealth = 10
     var currentHealth = maxHealth
-    var attack = 7
+    var attack = 1
     @Transient var ability: Ability? = null
     var attackBuyValue: Int
         get(){ return ((attack + 9f).pow(1.3f) - 10).toInt() }

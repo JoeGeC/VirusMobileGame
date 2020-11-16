@@ -26,7 +26,7 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Int
     override val healthBarOffset = 50
     override val animations = NormalZombieAnimations(context)
     override var state: ZombieState = AliveZombie(this)
-    override var position = FloatVector2(0f, ScreenDimensions.height / 1.4f - state.animation[0].height)
+    override var position = FloatVector2(0f, ScreenDimensions.height / 1.3f - state.animation[0].height)
 
     init {
         bossPaint.textSize = ScreenDimensions.height / 40.0f

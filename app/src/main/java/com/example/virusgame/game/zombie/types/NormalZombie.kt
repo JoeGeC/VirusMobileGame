@@ -12,5 +12,5 @@ import com.example.virusgame.game.zombie.states.ZombieState
 class NormalZombie(context: Context, entityHandler: EntityHandler, offset: IntVector2) : Zombie(context, entityHandler, offset){
     override val animations = NormalZombieAnimations(context)
     override var state: ZombieState = AliveZombie(this)
-    override var position = FloatVector2(0f, ScreenDimensions.height / 1.4f - state.animation[0].height)
+    override var position = FloatVector2(0f, ScreenDimensions.height / 1.3f - state.animation[0].height)
 }

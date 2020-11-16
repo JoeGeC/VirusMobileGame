@@ -16,7 +16,7 @@ class HealthRecoveryZombie(context: Context, entityHandler: EntityHandler, offse
     var lastHealthRecoverTime: Long = 0
     override val animations = HealthRecoveryZombieAnimations(context)
     override var state: ZombieState = AliveZombie(this)
-    override var position = FloatVector2(0f, ScreenDimensions.height / 1.4f - state.animation[0].height)
+    override var position = FloatVector2(0f, ScreenDimensions.height / 1.3f - state.animation[0].height)
 
     override fun update(azimuth: Double){
         super.update(azimuth)

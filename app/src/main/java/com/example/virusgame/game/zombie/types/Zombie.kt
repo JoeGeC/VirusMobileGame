@@ -38,7 +38,7 @@ abstract class Zombie(var context: Context, var entityHandler: EntityHandler, pr
     internal var attackTime: Int = 3000
     internal var lastAttackTime: Long = 0
     private var deactivatedTime: Long = 0
-    open val healthBarOffset: Int = 100
+    open val healthBarOffset: Int = 150
 
     protected var fullRect: Rect get(){
         return Rect(position.x.toInt(), position.y.toInt(), position.x.toInt() + state.animation[0].width, position.y.toInt() + state.animation[0].height)
@@ -89,7 +89,7 @@ abstract class Zombie(var context: Context, var entityHandler: EntityHandler, pr
 
     internal fun getBarRect(maxValue: Int, currentValue: Int,  yOffset: Int) : Rect {
         val startPos = fullRect.left + healthBarOffset
-        val endPos = fullRect.right - healthBarOffset
+        val endPos = fullRect.right - healthBarOffset * 3
         val currentEndPos: Int = try {
             (endPos - startPos) / maxValue * currentValue + startPos
         } catch (e: Exception) {
