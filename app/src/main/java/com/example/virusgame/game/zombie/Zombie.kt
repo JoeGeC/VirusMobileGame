@@ -19,11 +19,10 @@ import com.example.virusgame.game.zombie.states.ZombieState
 import kotlin.math.pow
 import kotlin.random.Random
 
-open class Zombie(var context: Context, var entityHandler: EntityHandler, private var rectOffset: IntVector2) : SwipeTaker {
+open class Zombie(var context: Context, var entityHandler: EntityHandler, private var rectOffset: IntVector2) : AzimuthEntity(), SwipeTaker {
     var active: Boolean = true
     internal var state: ZombieState = AliveZombie(this)
-    private var location: Int = 0
-    internal var position = FloatVector2(0f, ScreenDimensions.height / 1.4f - state.animation[0].height)
+    override var position = FloatVector2(0f, ScreenDimensions.height / 1.4f - state.animation[0].height)
     internal val healthBarYOffset = 30
 
     private val zombieHealthPaint: Paint = Paint()
@@ -82,13 +81,6 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
         setPositionOnScreen(azimuth)
     }
 
-    private fun setPositionOnScreen(azimuth: Double) {
-        var distanceToZombie = azimuth - location
-        if(distanceToZombie < -180) distanceToZombie += 360
-        else if(distanceToZombie > 180) distanceToZombie -= 360
-        position.x = (distanceToZombie * (ScreenDimensions.width / 180)).toFloat()
-    }
-
     fun drawHealth(canvas: Canvas){
         canvas.drawRect(getBarRect(maxHealth, currentHealth, healthBarYOffset), zombieHealthPaint)
     }
@@ -118,7 +110,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
         setNextAttackTime()
         lastAttackTime = System.nanoTime()
         deactivatedTime = System.nanoTime()
-        location = Random.nextInt(-180, 180)
+        setLocation()
     }
 
     fun setNextAttackTime(){

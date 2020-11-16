@@ -11,20 +11,20 @@ import com.example.virusgame.game.collector.PotionCollector
 import com.example.virusgame.game.collector.ZombieHeartCollector
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
+import com.example.virusgame.game.zombie.AzimuthEntity
 import kotlin.math.pow
 import kotlin.random.Random
 
-class Chest(private val collectorManager: CollectorManager) : CollectorDoneListener {
+class Chest(private val collectorManager: CollectorManager) : AzimuthEntity(), CollectorDoneListener {
     private val closedImage = BitmapFactory.decodeResource(collectorManager.context.resources, R.drawable.chest_closed)
     private val openImage = BitmapFactory.decodeResource(collectorManager.context.resources, R.drawable.chest_open)
     private var activeImage = closedImage
-    private var location = 0
-    var position = FloatVector2(0f, ScreenDimensions.height / 1.4f - activeImage.height)
+    override var position = FloatVector2(0f, ScreenDimensions.height / 1.4f - activeImage.height)
     private val midTopPosition get() = FloatVector2(position.x + activeImage.width / 2, position.y)
-    var open = false
-    var active = false
+    private var open = false
+    private var health = 1
     var gold = 10
-    var health = 1
+    var active = false
 
     private var fullRect: Rect get(){
         return Rect(position.x.toInt(), position.y.toInt(), position.x.toInt() + activeImage.width, position.y.toInt() + activeImage.height)
@@ -33,7 +33,7 @@ class Chest(private val collectorManager: CollectorManager) : CollectorDoneListe
     fun spawn(wave: Int){
         gold = (wave.toFloat().pow(1.5f) * 7).toInt()
         health = wave * 2
-        location = Random.nextInt(-180, 180)
+        setLocation()
         active = true
     }
 
@@ -43,13 +43,6 @@ class Chest(private val collectorManager: CollectorManager) : CollectorDoneListe
 
     fun onTouch(startTouchPos: IntVector2, endTouchPos: IntVector2){
         if(startTouchPos.isInside(fullRect) && endTouchPos.isInside(fullRect)) openChest()
-    }
-
-    private fun setPositionOnScreen(azimuth: Double) {
-        var distanceToChest = azimuth - location
-        if(distanceToChest < -180) distanceToChest += 360
-        else if(distanceToChest > 180) distanceToChest -= 360
-        position.x = (distanceToChest * (ScreenDimensions.width / 180)).toFloat()
     }
 
     fun draw(canvas: Canvas){
