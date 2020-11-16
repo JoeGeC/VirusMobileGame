@@ -9,9 +9,9 @@ import com.example.virusgame.game.collector.CollectorManager
 import com.example.virusgame.game.collector.GoldCollector
 import com.example.virusgame.game.collector.PotionCollector
 import com.example.virusgame.game.collector.ZombieHeartCollector
+import com.example.virusgame.game.rotation.AzimuthEntity
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
-import com.example.virusgame.game.zombie.AzimuthEntity
 import kotlin.math.pow
 import kotlin.random.Random
 

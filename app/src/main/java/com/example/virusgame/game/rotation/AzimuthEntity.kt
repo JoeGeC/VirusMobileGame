@@ -1,4 +1,4 @@
-package com.example.virusgame.game.zombie
+package com.example.virusgame.game.rotation
 
 import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.game.vector2.FloatVector2

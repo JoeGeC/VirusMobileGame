@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import com.example.virusgame.R
 import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.SoundManager
+import com.example.virusgame.game.rotation.AzimuthEntity
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.SwipeTaker
 import com.example.virusgame.game.vector2.FloatVector2
