@@ -196,11 +196,15 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     fun pause() {
         zombie!!.deactivate()
         sword.active = false
+        shakeReceiver.onPause()
+        rotationReceiver.onPause()
     }
 
     fun resume(){
         zombie!!.resume()
         sword.active = true
+        shakeReceiver.onResume()
+        rotationReceiver.onResume()
     }
 
     fun assignWaveListener(waveListener: WaveListener){

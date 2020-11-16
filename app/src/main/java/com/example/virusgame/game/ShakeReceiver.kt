@@ -22,6 +22,18 @@ class ShakeReceiver(private var context: Context, var zombieDamageHandler: Zombi
                 zombieDamageHandler.shakeZombie()
             }
         })
+        registerListener()
+    }
+
+    fun onPause(){
+        sensorManager.unregisterListener(shakeSensor)
+    }
+
+    fun onResume(){
+        registerListener()
+    }
+
+    private fun registerListener(){
         sensorManager.registerListener(shakeSensor, accelerometer, SensorManager.SENSOR_DELAY_UI)
     }
 }

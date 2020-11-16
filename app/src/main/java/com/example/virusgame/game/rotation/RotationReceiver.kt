@@ -21,6 +21,19 @@ class RotationReceiver(private val context: Context, private val rotationReceive
                 rotationReceiver.onRotate(pitch, tilt, azimuth)
             }
         })
+        registerListener()
+    }
+
+
+    fun onPause(){
+        sensorManager.unregisterListener(rotationSensor)
+    }
+
+    fun onResume(){
+        registerListener()
+    }
+
+    private fun registerListener(){
         sensorManager.registerListener(rotationSensor, accelerometer, SensorManager.SENSOR_DELAY_UI)
     }
 }
