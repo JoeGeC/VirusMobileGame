@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.ZombieAttackEvent
-import com.example.virusgame.game.zombie.Zombie
+import com.example.virusgame.game.zombie.types.Zombie
 import com.example.virusgame.game.zombie.ZombieDamageCalculator
 
 abstract class ZombieState(private var zombie: Zombie) {

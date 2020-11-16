@@ -9,11 +9,11 @@ import com.example.virusgame.SoundManager
 import com.example.virusgame.vibrator.Vibrator
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.ZombieAttackEvent
-import com.example.virusgame.game.zombie.Zombie
-import com.example.virusgame.game.zombie.ZombieAnimations
+import com.example.virusgame.game.zombie.types.Zombie
+import com.example.virusgame.game.zombie.animations.NormalZombieAnimations
 
 class PreAttackZombie(var zombie: Zombie) : ZombieState(zombie) {
-    override val animation: List<Bitmap> = ZombieAnimations(zombie.context).preAttackAnimation1()
+    override val animation: List<Bitmap> = zombie.animations.preAttackAnimation()
     internal var startTime: Long = System.nanoTime()
     private var shakeHealth: Int = zombie.maxHealth
     private val zombieAttackMeterPaint: Paint = Paint()

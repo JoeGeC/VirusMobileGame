@@ -10,7 +10,13 @@ import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.SoundManager
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.events.FirstBossEvent
+import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
+import com.example.virusgame.game.zombie.animations.NormalZombieAnimations
+import com.example.virusgame.game.zombie.animations.ZombieAnimations
+import com.example.virusgame.game.zombie.states.AliveZombie
+import com.example.virusgame.game.zombie.states.ZombieState
+import com.example.virusgame.game.zombie.types.Zombie
 import kotlin.math.pow
 import kotlin.random.Random
 
@@ -18,6 +24,9 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Int
     Zombie(context, entityHandler, rectOffset) {
     private var bossPaint = Paint()
     override val healthBarOffset = 50
+    override val animations = NormalZombieAnimations(context)
+    override var state: ZombieState = AliveZombie(this)
+    override var position = FloatVector2(0f, ScreenDimensions.height / 1.4f - state.animation[0].height)
 
     init {
         bossPaint.textSize = ScreenDimensions.height / 40.0f
@@ -40,7 +49,6 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Int
         gold = maxHealth
         val attackVal = wave.toFloat().pow(1.8f) + 1
         attack = Random.nextInt((attackVal * 0.8).toInt(), (attackVal * 1.2).toInt())
-        canAttack = wave > 1
         attackSpeed = (playerStrength * 300) / wave
         setNextAttackTime()
         lastAttackTime = System.nanoTime()

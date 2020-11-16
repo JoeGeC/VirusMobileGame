@@ -1,16 +1,11 @@
-package com.example.virusgame.game.zombie
+package com.example.virusgame.game.zombie.animations
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import com.example.virusgame.R
 
-class ZombieAnimations(private var context: Context) {
-    private fun getResource(resource: Int): Bitmap{
-        return BitmapFactory.decodeResource(context.resources, resource)
-    }
-
-    fun idleAnimation1(): List<Bitmap>{
+class NormalZombieAnimations(context: Context) : ZombieAnimations(context) {
+    override fun idleAnimation(): List<Bitmap>{
         return listOf(
             getResource(R.drawable.zombie_idle_001),
             getResource(R.drawable.zombie_idle_002),
@@ -26,7 +21,7 @@ class ZombieAnimations(private var context: Context) {
         )
     }
 
-    fun dieAnimation1(): List<Bitmap>{
+    override fun dieAnimation(): List<Bitmap>{
         return listOf(
             getResource(R.drawable.zombie_die_000),
             getResource(R.drawable.zombie_die_001),
@@ -39,7 +34,7 @@ class ZombieAnimations(private var context: Context) {
         )
     }
 
-    fun preAttackAnimation1(): List<Bitmap>{
+    override fun preAttackAnimation(): List<Bitmap>{
         return listOf(
             getResource(R.drawable.zombie_attack_000),
             getResource(R.drawable.zombie_attack_001),
@@ -48,7 +43,7 @@ class ZombieAnimations(private var context: Context) {
         )
     }
 
-    fun attackAnimation1(): List<Bitmap> {
+    override fun attackAnimation(): List<Bitmap> {
         return listOf(
             getResource(R.drawable.zombie_attack_004),
             getResource(R.drawable.zombie_attack_005),
@@ -61,7 +56,7 @@ class ZombieAnimations(private var context: Context) {
         )
     }
 
-    fun hurtAnimation1(): List<Bitmap> {
+    override fun hurtAnimation(): List<Bitmap> {
         return listOf(
             getResource(R.drawable.zombie_hurt_000),
             getResource(R.drawable.zombie_hurt_001),

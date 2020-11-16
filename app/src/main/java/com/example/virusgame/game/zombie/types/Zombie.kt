@@ -1,4 +1,4 @@
-package com.example.virusgame.game.zombie
+package com.example.virusgame.game.zombie.types
 
 import android.content.Context
 import android.graphics.Canvas
@@ -8,11 +8,12 @@ import androidx.core.content.ContextCompat
 import com.example.virusgame.R
 import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.SoundManager
-import com.example.virusgame.game.rotation.AzimuthEntity
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.SwipeTaker
+import com.example.virusgame.game.rotation.AzimuthEntity
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
+import com.example.virusgame.game.zombie.animations.ZombieAnimations
 import com.example.virusgame.game.zombie.states.AliveZombie
 import com.example.virusgame.game.zombie.states.DeadZombie
 import com.example.virusgame.game.zombie.states.PreAttackZombie
@@ -20,10 +21,10 @@ import com.example.virusgame.game.zombie.states.ZombieState
 import kotlin.math.pow
 import kotlin.random.Random
 
-open class Zombie(var context: Context, var entityHandler: EntityHandler, private var rectOffset: IntVector2) : AzimuthEntity(), SwipeTaker {
+abstract class Zombie(var context: Context, var entityHandler: EntityHandler, private var rectOffset: IntVector2) : AzimuthEntity(), SwipeTaker {
     var active: Boolean = true
-    internal var state: ZombieState = AliveZombie(this)
-    override var position = FloatVector2(0f, ScreenDimensions.height / 1.4f - state.animation[0].height)
+    abstract val animations: ZombieAnimations
+    internal abstract var state: ZombieState
     internal val healthBarYOffset = 30
 
     private val zombieHealthPaint: Paint = Paint()
@@ -32,7 +33,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
     internal var gold = 5
     internal var hearts = 0
     internal var attack = 1
-    internal var canAttack = false
+    internal open var canAttack = true
     internal var attackSpeed = 3000
     internal var attackTime: Int = 3000
     internal var lastAttackTime: Long = 0
@@ -77,7 +78,7 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
         state.onSuccessfulSwipe()
     }
 
-    fun update(azimuth: Double) {
+    open fun update(azimuth: Double) {
         if(active) state.update()
         setPositionOnScreen(azimuth)
     }
@@ -106,7 +107,6 @@ open class Zombie(var context: Context, var entityHandler: EntityHandler, privat
         gold = maxHealth
         val attackVal = wave.toFloat().pow(1.5f) + 1
         attack = Random.nextInt((attackVal * 0.8).toInt(), (attackVal * 1.2).toInt())
-        canAttack = wave > 1
         attackSpeed = (playerStrength * 300) / wave
         setNextAttackTime()
         lastAttackTime = System.nanoTime()

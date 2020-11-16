@@ -1,11 +1,11 @@
 package com.example.virusgame.game.zombie.states
 
 import com.example.virusgame.game.vector2.FloatVector2
-import com.example.virusgame.game.zombie.Zombie
-import com.example.virusgame.game.zombie.ZombieAnimations
+import com.example.virusgame.game.zombie.types.Zombie
+import com.example.virusgame.game.zombie.animations.NormalZombieAnimations
 
 class DeadZombie(var zombie: Zombie) : ZombieState(zombie) {
-    override val animation = ZombieAnimations(zombie.context).dieAnimation1()
+    override val animation = zombie.animations.dieAnimation()
     override val animationSpeed = 20
 
     override fun onAnimationFinish() {

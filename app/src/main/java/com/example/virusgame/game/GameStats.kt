@@ -3,11 +3,11 @@ package com.example.virusgame.game
 import com.example.virusgame.WaveListener
 
 class GameStats {
-    private var wave: Int = 2
+    private var wave: Int = 4
     fun getCurrentWave() = wave
     private var zombieKillCount = 0
-    var zombieWaveKillCount = 9
-    var waveAmount = 10
+    var zombieWaveKillCount = 0
+    val waveAmount = 10
     @Transient lateinit var waveListener: WaveListener
 
     fun incrementZombieKillCount() {
