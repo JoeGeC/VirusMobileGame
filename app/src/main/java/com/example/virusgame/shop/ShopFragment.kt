@@ -31,7 +31,7 @@ class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnCl
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.shop, container, false)
         notEnoughGoldText = view.findViewById(R.id.notEnoughGold)
-        view.findViewById<TextView>(R.id.closeShopButton).setOnClickListener(this)
+        view.findViewById<TextView>(R.id.doneButton).setOnClickListener(this)
         setupShop(view)
         return view
     }
@@ -74,7 +74,7 @@ class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnCl
     }
 
     override fun onClick(view: View?) {
-        if(view!!.id == R.id.closeShopButton) closeMenu()
+        if(view!!.id == R.id.doneButton) closeMenu()
     }
 
     override fun closeMenu() {

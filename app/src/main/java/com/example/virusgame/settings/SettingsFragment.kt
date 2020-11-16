@@ -19,7 +19,6 @@ class SettingsFragment(private val settingsHandler: SettingsHandler?) : Fragment
         setUpVibrateToggle(view)
         setUpMusicSlider(view)
         setUpSfxSlider(view)
-        view.findViewById<TextView>(R.id.closeSettingsButton).setOnClickListener(this)
         view.findViewById<TextView>(R.id.doneButton).setOnClickListener(this)
         settingsHandler?.openMenu()
         return view
