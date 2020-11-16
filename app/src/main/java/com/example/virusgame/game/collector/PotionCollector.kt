@@ -9,7 +9,7 @@ import com.example.virusgame.game.vector2.FloatVector2
 
 class PotionCollector(position: FloatVector2, amount: Int, collectorManager: CollectorManager, collectorDoneListener: CollectorDoneListener? = null)
     : Collector(position, amount, collectorManager, collectorDoneListener) {
-    override val image: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.red_potion_icon)
+    override val image: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.red_potion)
 
     override fun collect() {
         collectorManager.player.restoreHealth(amount)
