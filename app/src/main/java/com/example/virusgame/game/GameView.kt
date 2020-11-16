@@ -58,9 +58,11 @@ class GameView(context: Context, attributes: AttributeSet) : SurfaceView(context
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         gameLoop.updateTouchPos(event)
-        when(event.action){
+        when (event.action){
             MotionEvent.ACTION_DOWN -> gameLoop.updateTouchStartPos()
             MotionEvent.ACTION_UP -> gameLoop.releaseTouch()
+        }
+        when(event.actionMasked){
             MotionEvent.ACTION_POINTER_DOWN -> doubleSwipeManager.startDoubleSwipe(event)
             MotionEvent.ACTION_POINTER_UP -> doubleSwipeManager.endDoubleSwipe()
             MotionEvent.ACTION_MOVE -> doubleSwipeManager.moveDoubleSwipe(event)

@@ -9,7 +9,7 @@ class DoubleSwipeManager(private var swipeHandler: DoubleSwipeHandler) {
     private var stopX = 0f
 
     companion object {
-        private const val swipeLength = 100
+        private const val swipeLength = 200
     }
 
     fun startDoubleSwipe(event: MotionEvent) {
