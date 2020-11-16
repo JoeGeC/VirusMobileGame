@@ -4,7 +4,7 @@ import com.example.virusgame.WaveListener
 
 class GameStats {
     private var wave: Int = 2
-    fun getWave() = wave
+    fun getCurrentWave() = wave
     private var zombieKillCount = 0
     var zombieWaveKillCount = 9
     var waveAmount = 10

@@ -64,6 +64,10 @@ class Chest(private val collectorManager: CollectorManager) : CollectorDoneListe
     }
 
     override fun onCollectorDone() {
+        reset()
+    }
+
+    fun reset(){
         active = false
         open = false
         activeImage = closedImage

@@ -18,7 +18,7 @@ class Ui (context: Context){
 
     fun draw(canvas: Canvas, player: Player, gameStats: GameStats){
         border.draw(canvas)
-        wave.draw(canvas, gameStats.getWave())
+        wave.draw(canvas, gameStats.getCurrentWave())
         health.draw(canvas, player.currentHealth, player.maxHealth)
         gold.draw(canvas, player.gold)
         zombieHeart.draw(canvas, player.zombieHearts)

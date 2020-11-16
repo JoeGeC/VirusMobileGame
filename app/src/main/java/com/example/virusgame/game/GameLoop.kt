@@ -26,6 +26,7 @@ import com.example.virusgame.game.zombie.*
 import com.example.virusgame.settings.SettingsHandler
 import com.example.virusgame.shop.ShopList
 import com.example.virusgame.shop.items.ShopItem
+import kotlin.random.Random
 
 class GameLoop(override var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler,
     RotationHandler, SettingsHandler, CollectorManager {
@@ -102,13 +103,13 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         incrementZombieKillCount()
         spawnNewZombie()
         IntroEvent.onComplete()
-        chest.spawn()
+        if(Random.nextInt(12) == 0 || gameStats.zombieWaveKillCount == 4) chest.spawn()
     }
 
     private fun spawnNewZombie() {
         zombie = when (gameStats.zombieWaveKillCount) {
-            gameStats.waveAmount - 1 -> ZombieMaker().makeBossZombie(context, this, sword.offset, gameStats.getWave(), player.maxHealth + player.attack)
-            else -> ZombieMaker().makeZombie(context, this, sword.offset, gameStats.getWave(), player.maxHealth + player.attack)
+            gameStats.waveAmount - 1 -> ZombieMaker().makeBossZombie(context, this, sword.offset, gameStats.getCurrentWave(), player.maxHealth + player.attack)
+            else -> ZombieMaker().makeZombie(context, this, sword.offset, gameStats.getCurrentWave(), player.maxHealth + player.attack)
         }
     }
 
@@ -138,6 +139,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         sword.active = false
         zombie!!.active = false
         ui.death.active = true
+        chest.reset()
     }
 
     override fun openMenu() { pause() }
