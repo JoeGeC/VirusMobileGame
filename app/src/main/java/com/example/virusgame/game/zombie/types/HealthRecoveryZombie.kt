@@ -20,7 +20,7 @@ class HealthRecoveryZombie(context: Context, entityHandler: EntityHandler, offse
 
     override fun update(azimuth: Double){
         super.update(azimuth)
-        if(Clock.haveMillisecondsPassedSince(lastHealthRecoverTime, 1000)){
+        if(Clock.haveMillisecondsPassedSince(lastHealthRecoverTime, 500)){
             recoverHealth()
             lastHealthRecoverTime = System.nanoTime()
         }
