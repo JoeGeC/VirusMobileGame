@@ -103,7 +103,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         incrementZombieKillCount()
         spawnNewZombie()
         IntroEvent.onComplete()
-        if(Random.nextInt(12) == 0 || gameStats.zombieWaveKillCount == 4) chest.spawn()
+        if(Random.nextInt(12) == 0 || gameStats.zombieWaveKillCount == 4) chest.spawn(gameStats.getCurrentWave())
     }
 
     private fun spawnNewZombie() {

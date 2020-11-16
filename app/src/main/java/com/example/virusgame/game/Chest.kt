@@ -11,6 +11,7 @@ import com.example.virusgame.game.collector.PotionCollector
 import com.example.virusgame.game.collector.ZombieHeartCollector
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
+import kotlin.math.pow
 import kotlin.random.Random
 
 class Chest(private val collectorManager: CollectorManager) : CollectorDoneListener {
@@ -22,12 +23,16 @@ class Chest(private val collectorManager: CollectorManager) : CollectorDoneListe
     private val midTopPosition get() = FloatVector2(position.x + activeImage.width / 2, position.y)
     var open = false
     var active = false
+    var gold = 10
+    var health = 1
 
     private var fullRect: Rect get(){
         return Rect(position.x.toInt(), position.y.toInt(), position.x.toInt() + activeImage.width, position.y.toInt() + activeImage.height)
     } set(value) {}
 
-    fun spawn(){
+    fun spawn(wave: Int){
+        gold = (wave.toFloat().pow(1.5f) * 7).toInt()
+        health = wave * 2
         location = Random.nextInt(-180, 180)
         active = true
     }
@@ -55,8 +60,8 @@ class Chest(private val collectorManager: CollectorManager) : CollectorDoneListe
         if(!active || open) return
         val random = Random.nextInt(100)
         when {
-            random < 90 -> collectorManager.addCollector(GoldCollector(midTopPosition, 10, collectorManager, this))
-            random < 99 -> collectorManager.addCollector(PotionCollector(midTopPosition, 10, collectorManager, this))
+            random < 90 -> collectorManager.addCollector(GoldCollector(midTopPosition, gold, collectorManager, this))
+            random < 99 -> collectorManager.addCollector(PotionCollector(midTopPosition, health, collectorManager, this))
             else -> collectorManager.addCollector(ZombieHeartCollector(midTopPosition, 1, collectorManager, this))
         }
         open = true
