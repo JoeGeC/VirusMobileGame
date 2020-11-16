@@ -75,4 +75,17 @@ object SaveManager {
         SoundManager.sfxVolume = sharedPref.getFloat(context.getString(R.string.sfxVolumePreferenceId), 0.7f)
         VibrateManager.active = sharedPref.getBoolean(context.getString(R.string.vibratePreferenceId), true)
     }
+
+    fun clearData() {
+        with(sharedPref.edit()) {
+            putString(context.getString(R.string.playerPreferenceId), "")
+            putString(context.getString(R.string.abilityPreferenceId), "")
+            putString(context.getString(R.string.statsPreferenceId), "")
+            putString(context.getString(R.string.eventPreferenceId), "")
+            putString(context.getString(R.string.shopPreferenceId), "").apply()
+            apply()
+        }
+        sharedPref.edit().putString(context.getString(R.string.shopPreferenceId), "").apply()
+
+    }
 }

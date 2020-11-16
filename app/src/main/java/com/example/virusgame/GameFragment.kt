@@ -8,11 +8,12 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.virusgame.game.GameView
 import com.example.virusgame.game.events.ShopOpensEvent
+import com.example.virusgame.settings.ClearDataListener
 import com.example.virusgame.settings.SettingsFragment
 import com.example.virusgame.shop.ShopFragment
 
 
-class GameFragment : Fragment(), View.OnClickListener, WaveListener {
+class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataListener {
     private lateinit var gameView: GameView
     private lateinit var menuFragmentManager: MenuFragmentManager
     private lateinit var shopIcon: ShopIcon
@@ -38,7 +39,7 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener {
 
     override fun onClick(view: View) {
         if(view.id == R.id.shopIcon) shopIcon.onClick(menuFragmentManager, gameView.gameLoop)
-        if(view.id == R.id.settingsIcon) menuFragmentManager.openFragment(SettingsFragment(gameView.gameLoop))
+        if(view.id == R.id.settingsIcon) menuFragmentManager.openFragment(SettingsFragment(this, gameView.gameLoop))
     }
 
     override fun onPause() {
@@ -56,5 +57,11 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener {
             shopIcon.setAvailable(activity!!)
             ShopOpensEvent.trigger()
         } else shopIcon.setUnavailable(activity!!)
+    }
+
+    override fun onDataCleared() {
+        val transaction = fragmentManager!!.beginTransaction()
+        transaction.replace(R.id.fragmentContainer, MainMenu())
+        transaction.commit()
     }
 }

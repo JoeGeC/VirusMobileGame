@@ -5,40 +5,43 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
 import com.example.virusgame.SoundManager
 import com.example.virusgame.vibrator.VibrateManager
+import kotlinx.android.synthetic.main.settings.*
 
-class SettingsFragment(private val settingsHandler: SettingsHandler?) : Fragment(), View.OnClickListener {
+
+class SettingsFragment(private val clearDataListener: ClearDataListener, private val settingsListener: SettingsListener?) : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.settings, container, false)
-        setUpVibrateToggle(view)
-        setUpMusicSlider(view)
-        setUpSfxSlider(view)
-        view.findViewById<TextView>(R.id.doneButton).setOnClickListener(this)
-        settingsHandler?.openMenu()
-        return view
+        return inflater.inflate(R.layout.settings, container, false)
     }
 
-    private fun setUpVibrateToggle(view: View) {
-        val vibrateToggle = view.findViewById<ToggleButton>(R.id.vibrationSwitch)
-        vibrateToggle.setOnCheckedChangeListener { _, isChecked -> toggleVibration(isChecked) }
-        vibrateToggle.isChecked = VibrateManager.active
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpVibrateToggle()
+        setUpMusicSlider()
+        setUpSfxSlider()
+        doneButton.setOnClickListener(this)
+        clearDataButton.setOnClickListener(this)
+        clearDataConfirmButton.setOnClickListener(this)
+        clearDataCancelButton.setOnClickListener(this)
+        settingsListener?.onMenuOpened()
+    }
+
+    private fun setUpVibrateToggle() {
+        vibrationSwitch.setOnCheckedChangeListener { _, isChecked -> toggleVibration(isChecked) }
+        vibrationSwitch.isChecked = VibrateManager.active
     }
 
     private fun toggleVibration(isChecked: Boolean) {
         VibrateManager.active = isChecked
     }
 
-    private fun setUpMusicSlider(view: View) {
-        val musicSlider = view.findViewById<SeekBar>(R.id.musicSlider)
-        val musicPercentage = view.findViewById<TextView>(R.id.musicPercentage)
+    private fun setUpMusicSlider() {
         musicPercentage.text = SoundManager.musicVolume.toString() + "%"
-        musicSlider.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+        musicSlider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 musicPercentage.text = "$progress%"
             }
@@ -50,14 +53,13 @@ class SettingsFragment(private val settingsHandler: SettingsHandler?) : Fragment
         musicSlider.progress = (SoundManager.musicVolume * 100).toInt()
     }
 
-    private fun setUpSfxSlider(view: View) {
-        val sfxSlider = view.findViewById<SeekBar>(R.id.sfxSlider)
-        val sfxPercentage = view.findViewById<TextView>(R.id.sfxPercentage)
+    private fun setUpSfxSlider() {
         sfxPercentage.text = SoundManager.sfxVolume.toString() + "%"
-        sfxSlider.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+        sfxSlider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 sfxPercentage.text = "$progress%"
             }
+
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 SoundManager.sfxVolume = seekBar.progress / 100f
@@ -66,13 +68,31 @@ class SettingsFragment(private val settingsHandler: SettingsHandler?) : Fragment
         sfxSlider.progress = (SoundManager.sfxVolume * 100).toInt()
     }
 
-    override fun onClick(v: View?) {
-        closeSettings()
+    override fun onClick(view: View) {
+        when (view.id) {
+            R.id.doneButton -> closeSettings()
+            R.id.clearDataButton -> openClearDataConfirmation()
+            R.id.clearDataCancelButton -> closeClearDataConfirmation()
+            R.id.clearDataConfirmButton -> clearData()
+        }
     }
 
     private fun closeSettings() {
-        settingsHandler?.closeMenu()
+        settingsListener?.onMenuClosed()
         SaveManager.saveSettings()
         fragmentManager!!.beginTransaction().remove(this).commit()
+    }
+
+    private fun openClearDataConfirmation() {
+        clearDataConfirmation.visibility = View.VISIBLE
+    }
+
+    private fun closeClearDataConfirmation() {
+        clearDataConfirmation.visibility = View.GONE
+    }
+
+    private fun clearData() {
+        SaveManager.clearData()
+        clearDataListener.onDataCleared()
     }
 }

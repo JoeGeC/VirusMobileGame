@@ -12,7 +12,7 @@ class MenuFragmentManager(var context: Context, var fragmentManager: FragmentMan
         fragmentTransaction.commit()
     }
 
-    private fun removeFragment() {
+    fun removeFragment() {
         val fragmentToRemove = fragmentManager.findFragmentByTag(context.getString(R.string.subFragment))
         if(fragmentToRemove != null) fragmentManager.beginTransaction().remove(fragmentToRemove).commit()
     }

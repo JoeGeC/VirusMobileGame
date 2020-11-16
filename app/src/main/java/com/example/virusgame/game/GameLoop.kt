@@ -23,13 +23,13 @@ import com.example.virusgame.game.uiHandlers.UiHandler
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
 import com.example.virusgame.game.zombie.*
-import com.example.virusgame.settings.SettingsHandler
+import com.example.virusgame.settings.SettingsListener
 import com.example.virusgame.shop.ShopList
 import com.example.virusgame.shop.items.ShopItem
 import kotlin.random.Random
 
 class GameLoop(override var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler,
-    RotationHandler, SettingsHandler, CollectorManager {
+    RotationHandler, SettingsListener, CollectorManager {
     private var location: Double = 0.0
     private val gameStats = SaveManager.loadGameStats()
     private val eventManager = EventManager()
@@ -142,9 +142,9 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         chest.reset()
     }
 
-    override fun openMenu() { pause() }
+    override fun onMenuOpened() { pause() }
 
-    override fun closeMenu(){
+    override fun onMenuClosed(){
         resume()
         SaveManager.saveGame(player, gameStats, eventManager)
     }

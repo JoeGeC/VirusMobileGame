@@ -8,9 +8,10 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.virusgame.settings.ClearDataListener
 import com.example.virusgame.settings.SettingsFragment
 
-class MainMenu : Fragment() {
+class MainMenu : Fragment(), ClearDataListener{
     private lateinit var  menuFragmentManager: MenuFragmentManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View? {
@@ -28,6 +29,10 @@ class MainMenu : Fragment() {
     }
 
     private fun openSettings(){
-        menuFragmentManager.openFragment(SettingsFragment(null))
+        menuFragmentManager.openFragment(SettingsFragment(this, null))
+    }
+
+    override fun onDataCleared() {
+        menuFragmentManager.removeFragment()
     }
 }

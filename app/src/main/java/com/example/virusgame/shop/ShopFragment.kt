@@ -45,11 +45,11 @@ class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnCl
             layoutManager = shopViewManager
             adapter = shopAdapter
         }
-        openMenu()
+        onMenuOpened()
     }
 
-    override fun openMenu() {
-        shopHandler.openMenu()
+    override fun onMenuOpened() {
+        shopHandler.onMenuOpened()
     }
 
     override fun purchase(shopItem: ShopItem): Boolean {
@@ -74,11 +74,11 @@ class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnCl
     }
 
     override fun onClick(view: View?) {
-        if(view!!.id == R.id.doneButton) closeMenu()
+        if(view!!.id == R.id.doneButton) onMenuClosed()
     }
 
-    override fun closeMenu() {
-        shopHandler.closeMenu()
+    override fun onMenuClosed() {
+        shopHandler.onMenuClosed()
         SaveManager.saveShop(shopAdapter.items.map { it.saveData })
         fragmentManager!!.beginTransaction().remove(this).commit()
     }
