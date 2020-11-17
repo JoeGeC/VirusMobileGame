@@ -10,27 +10,23 @@ import com.example.virusgame.game.vector2.IntVector2
 import java.util.*
 
 class Sword(context: Context) {
-    private var position: Queue<FloatVector2> = LinkedList<FloatVector2>()
+    private var position = FloatVector2(0f, 0f)
     private var image: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.short_sword)
     private var show: Boolean = false
     var active: Boolean = true
     var offset = IntVector2(image.width, image.height)
 
     fun draw(canvas: Canvas) {
-        if(show && active) {
-            for(pos in position)
-                canvas.drawBitmap(image, pos.x, pos.y - image.width, null)
-        }
+        if(show && active)
+            canvas.drawBitmap(image, position.x, position.y - image.width, null)
     }
 
     fun update(touchPos: IntVector2){
-        position.add(touchPos.toFloat())
-        if(position.size > 3) position.remove()
+        position = touchPos.toFloat()
         show = true
     }
 
     fun deactivate() {
         show = false
-        position.clear()
     }
 }
