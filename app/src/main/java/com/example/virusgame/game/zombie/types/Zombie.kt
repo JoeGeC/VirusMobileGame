@@ -107,15 +107,19 @@ abstract class Zombie(var context: Context, var entityHandler: EntityHandler, pr
         gold = maxHealth
         val attackVal = wave.toFloat().pow(1.5f) + 1
         attack = Random.nextInt((attackVal * 0.8).toInt(), (attackVal * 1.2).toInt())
-        attackSpeed = (playerStrength * 300) / wave
-        setNextAttackTime()
+        attackSpeed = setAttackSpeed(playerStrength, wave)
+        attackTime = setNextAttackTime()
         lastAttackTime = System.nanoTime()
         deactivatedTime = System.nanoTime()
         setLocation()
     }
 
-    fun setNextAttackTime(){
-        attackTime = Random.nextInt((attackSpeed * 0.8).toInt(), (attackSpeed * 1.2).toInt())
+    open fun setNextAttackTime(): Int {
+        return Random.nextInt((attackSpeed * 0.8).toInt(), (attackSpeed * 1.2).toInt())
+    }
+
+    open fun setAttackSpeed(playerStrength: Int, wave: Int): Int{
+        return (playerStrength * 300) / wave
     }
 
     private fun adjustTimesForDeactivation() {

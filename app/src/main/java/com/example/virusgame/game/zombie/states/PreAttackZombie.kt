@@ -42,7 +42,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState(zombie) {
     override fun onSuccessfulSwipe() { }
 
     override fun update() {
-        if(zombie.active && Clock.haveMillisecondsPassedSince(startTime, zombie.attackTime)){
+        if(zombie.active && Clock.haveMillisecondsPassedSince(startTime, zombie.attackSpeed)){
             vibrator.vibrate(600)
             zombie.setNextAttackTime()
             zombie.state = AttackZombie(zombie)
