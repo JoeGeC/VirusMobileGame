@@ -9,7 +9,7 @@ import com.example.virusgame.game.zombie.animations.InvulnerableZombieAnimations
 import com.example.virusgame.game.zombie.states.AliveZombie
 import com.example.virusgame.game.zombie.states.ZombieState
 
-class InvulnerableZombie(context: Context, entityHandler: EntityHandler, offset: IntVector2) :
+open class InvulnerableZombie(context: Context, entityHandler: EntityHandler, offset: IntVector2) :
     Zombie(context, entityHandler, offset) {
     override val animations = InvulnerableZombieAnimations(context)
     override var state: ZombieState = AliveZombie(this)

@@ -11,7 +11,7 @@ import com.example.virusgame.game.zombie.animations.ZombieAnimations
 import com.example.virusgame.game.zombie.states.AliveZombie
 import com.example.virusgame.game.zombie.states.ZombieState
 
-class HealthRecoveryZombie(context: Context, entityHandler: EntityHandler, offset: IntVector2) :
+open class HealthRecoveryZombie(context: Context, entityHandler: EntityHandler, offset: IntVector2) :
     Zombie(context, entityHandler, offset) {
     var lastHealthRecoverTime: Long = 0
     override val animations = HealthRecoveryZombieAnimations(context)

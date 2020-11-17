@@ -1,4 +1,4 @@
-package com.example.virusgame.game.zombie
+package com.example.virusgame.game.zombie.bosses
 
 import android.content.Context
 import android.graphics.Canvas
@@ -12,21 +12,17 @@ import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.events.FirstBossEvent
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
-import com.example.virusgame.game.zombie.animations.NormalZombieAnimations
-import com.example.virusgame.game.zombie.animations.ZombieAnimations
+import com.example.virusgame.game.zombie.animations.HealthRecoveryZombieAnimations
 import com.example.virusgame.game.zombie.states.AliveZombie
 import com.example.virusgame.game.zombie.states.ZombieState
-import com.example.virusgame.game.zombie.types.Zombie
+import com.example.virusgame.game.zombie.types.HealthRecoveryZombie
 import kotlin.math.pow
 import kotlin.random.Random
 
-class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: IntVector2) :
-    Zombie(context, entityHandler, rectOffset) {
+class HealthRecoveryZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: IntVector2) :
+    HealthRecoveryZombie(context, entityHandler, rectOffset) {
     private var bossPaint = Paint()
     override val healthBarOffset = 50
-    override val animations = NormalZombieAnimations(context)
-    override var state: ZombieState = AliveZombie(this)
-    override var position = FloatVector2(0f, ScreenDimensions.height / 1.3f - state.animation[0].height)
 
     init {
         bossPaint.textSize = ScreenDimensions.height / 40.0f
@@ -35,7 +31,6 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Int
         bossPaint.color = ContextCompat.getColor(context, R.color.white)
         bossPaint.isFakeBoldText = true
         SoundManager.playSfx(context, R.raw.zombie_boss)
-        FirstBossEvent.trigger()
     }
 
     override fun draw(canvas: Canvas){
@@ -44,19 +39,14 @@ class ZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: Int
     }
 
     override fun setStats(wave: Int, playerStrength: Int){
-        maxHealth = wave * 10
+        maxHealth = wave * 6
         currentHealth = maxHealth
-        gold = maxHealth
-        val attackVal = wave.toFloat().pow(1.8f) + 1
+        gold = maxHealth * 2
+        val attackVal = wave.toFloat().pow(1.6f) + 1
         attack = Random.nextInt((attackVal * 0.8).toInt(), (attackVal * 1.2).toInt())
         attackSpeed = (playerStrength * 300) / wave
-        setNextAttackTime()
+        attackTime = setNextAttackTime()
         lastAttackTime = System.nanoTime()
-        hearts = 1 + wave / 5
-    }
-
-    override fun die(){
-        FirstBossEvent.onComplete()
-        super.die()
+        hearts = 2 + wave / 4
     }
 }
