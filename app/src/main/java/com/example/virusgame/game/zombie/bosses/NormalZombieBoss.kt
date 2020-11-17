@@ -10,17 +10,15 @@ import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.SoundManager
 import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.events.FirstBossEvent
-import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
-import com.example.virusgame.game.zombie.animations.NormalZombieAnimations
-import com.example.virusgame.game.zombie.states.AliveZombie
-import com.example.virusgame.game.zombie.states.ZombieState
+import com.example.virusgame.game.zombie.animations.NormalZombieBossAnimations
 import com.example.virusgame.game.zombie.types.NormalZombie
 import kotlin.math.pow
 import kotlin.random.Random
 
 class NormalZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: IntVector2) :
     NormalZombie(context, entityHandler, rectOffset) {
+    override val animations = NormalZombieBossAnimations(context)
     private var bossPaint = Paint()
     override val healthBarOffset = 50
 

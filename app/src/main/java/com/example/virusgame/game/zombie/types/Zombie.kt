@@ -24,7 +24,7 @@ import kotlin.random.Random
 abstract class Zombie(var context: Context, var entityHandler: EntityHandler, private var rectOffset: IntVector2) : AzimuthEntity(), SwipeTaker {
     var active: Boolean = true
     abstract val animations: ZombieAnimations
-    internal abstract var state: ZombieState
+    lateinit var state: ZombieState
     internal val healthBarYOffset = 30
 
     private val zombieHealthPaint: Paint = Paint()
@@ -55,6 +55,11 @@ abstract class Zombie(var context: Context, var entityHandler: EntityHandler, pr
     init {
         zombieHealthPaint.color = ContextCompat.getColor(context, R.color.red)
         SoundManager.playRandomSfxOf(context, listOf(R.raw.zombie, R.raw.zombie2, R.raw.zombie3, R.raw.zombie4, R.raw.zombie5, R.raw.zombie6, R.raw.zombie7))
+    }
+
+    fun afterInit(){
+        state = AliveZombie(this)
+        position = FloatVector2(0f, ScreenDimensions.height / 1.3f - state.animation[0].height)
     }
 
     open fun draw(canvas: Canvas){

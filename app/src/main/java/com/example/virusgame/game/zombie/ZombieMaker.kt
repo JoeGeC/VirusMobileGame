@@ -18,6 +18,7 @@ class ZombieMaker {
             wave > 7 && random == 1 -> InvulnerableZombie(context, entityHandler, offset)
             else -> NormalZombie(context, entityHandler, offset)
         }
+        zombie.afterInit()
         zombie.setStats(wave, playerStrength)
         return zombie
     }
@@ -29,6 +30,7 @@ class ZombieMaker {
             wave > 7 && wave % 3 == 2 -> InvulnerableZombieBoss(context, entityHandler, offset)
             else -> NormalZombieBoss(context, entityHandler, offset)
         }
+        zombie.afterInit()
         zombie.setStats(wave, playerStrength)
         return zombie
     }
