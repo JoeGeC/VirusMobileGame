@@ -11,6 +11,7 @@ import com.example.virusgame.SoundManager
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.vector2.IntVector2
 
+@Deprecated("Old speech system. Use speech layout instead")
 class Speech(private var context: Context) {
     private val sprite: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.speech_bubble)
     private val x : Int = ScreenDimensions.width / 2 - sprite.width / 2
