@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.view.MotionEvent
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
+import com.example.virusgame.SpeechSetter
 import com.example.virusgame.WaveListener
 import com.example.virusgame.game.collector.Collector
 import com.example.virusgame.game.collector.CollectorManager
@@ -37,7 +38,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     private val gameStats = SaveManager.loadGameStats()
     private val eventManager = EventManager()
     private val ui = Ui(context)
-    private val speech = Speech(context)
+    private lateinit var speech: SpeechSetter
     private var zombie: Zombie? = null
     override var player = Player()
     private var sword = Sword(context)
@@ -56,9 +57,18 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         player = SaveManager.loadPlayer()
         player.setup(this)
         ZombieDamageCalculator.player = player
+    }
+
+    fun lateInit(waveListener: WaveListener, speechSetter: SpeechSetter){
+        gameStats.assignWaveListener(waveListener)
+        speech = speechSetter
+        setupEvents()
+        spawnNewZombie()
+    }
+
+    private fun setupEvents() {
         SaveManager.loadEventManager(eventManager)
         eventManager.setupEvents(speech)
-        spawnNewZombie()
         IntroEvent.trigger()
     }
 
@@ -79,7 +89,6 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         sword.draw(canvas)
         player.ability?.draw(canvas)
         for (collector in collectors) collector.draw(canvas)
-        speech.draw(canvas)
     }
 
     fun updateTouchPos(event: MotionEvent) {
@@ -95,7 +104,6 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     fun releaseTouch() {
         touched = false
         swipeState = StartSwipeState()
-        speech.onTouch(startTouchPos)
         ui.onTouch(startTouchPos, touchPos, this)
         chest.onTouch(startTouchPos, touchPos)
     }
@@ -138,7 +146,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     }
 
     override fun onPlayerDeath() {
-        speech.setSpeechText(context.getString(R.string.death_message))
+        speech.setMessage(context.getString(R.string.death_message))
         sword.active = false
         zombie!!.active = false
         ui.death.active = true
@@ -170,12 +178,12 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
 
     override fun upgradeAttack() {
         if(!player.upgradeAttack())
-            speech.setSpeechText(context.getString(R.string.not_enough_boss_hearts))
+            speech.setMessage(context.getString(R.string.not_enough_boss_hearts))
     }
 
     override fun upgradeHealth() {
         if(!player.upgradeHealth())
-            speech.setSpeechText(context.getString(R.string.not_enough_boss_hearts))
+            speech.setMessage(context.getString(R.string.not_enough_boss_hearts))
     }
 
     override fun revive() {
@@ -208,10 +216,6 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         sword.active = true
         shakeReceiver.onResume()
         rotationReceiver.onResume()
-    }
-
-    fun assignWaveListener(waveListener: WaveListener){
-        gameStats.assignWaveListener(waveListener)
     }
 
     override fun destroyCollector(collector: Collector) {

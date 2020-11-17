@@ -13,6 +13,7 @@ class DeadZombie(var zombie: Zombie) : ZombieState(zombie) {
     }
 
     private fun die() {
+        frameNum = animation.size - 1
         val midTopZombiePosition = FloatVector2(zombie.position.x + animation[frameNum].width / 2, zombie.position.y)
         zombie.entityHandler.onZombieDeath(zombie.gold, zombie.hearts, midTopZombiePosition)
     }

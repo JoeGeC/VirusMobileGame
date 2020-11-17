@@ -7,13 +7,13 @@ object FirstBossEvent: Event() {
 
     override fun trigger() {
         if(!isComplete())
-            speech.setSpeechText(context.getString(R.string.firstBossEventMessage))
+            speech.setMessage(context.getString(R.string.firstBossEventMessage))
     }
 
     override fun onComplete() {
         if(!isComplete()){
             super.onComplete()
-            speech.setSpeechText(context.getString(R.string.firstHeartMessage))
+            speech.setMessage(context.getString(R.string.firstHeartMessage))
         }
     }
 }

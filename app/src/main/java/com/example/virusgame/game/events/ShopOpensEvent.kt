@@ -7,6 +7,6 @@ object ShopOpensEvent: Event() {
 
     override fun trigger() {
         if(!isComplete())
-            speech.setSpeechText(context.getString(R.string.shopOpensMessage))
+            speech.setMessage(context.getString(R.string.shopOpensMessage))
     }
 }

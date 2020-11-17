@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.game.*
 import kotlinx.android.synthetic.main.speech.*
 
 
-class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataListener {
+class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataListener, SpeechSetter {
     private lateinit var menuFragmentManager: MenuFragmentManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View? {
@@ -29,7 +29,7 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
     }
 
     private fun setupGameView() {
-        gameView.gameLoop.assignWaveListener(this)
+        gameView.gameLoop.lateInit(this, this)
     }
 
     private fun setupShopIcon() {
@@ -65,5 +65,10 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
         val transaction = fragmentManager!!.beginTransaction()
         transaction.replace(R.id.fragmentContainer, MainMenu())
         transaction.commit()
+    }
+
+    override fun setMessage(messageToSet: String) {
+        message.text = messageToSet
+        speech.visibility = View.VISIBLE
     }
 }

@@ -1,6 +1,7 @@
 package com.example.virusgame.game.events
 
 import com.example.virusgame.MainActivity
+import com.example.virusgame.SpeechSetter
 import com.example.virusgame.game.Speech
 
 class EventManager {
@@ -14,7 +15,7 @@ class EventManager {
         FirstAbilityEvent
     )
 
-    fun setupEvents(speech: Speech){
+    fun setupEvents(speech: SpeechSetter){
         events.forEach{ event ->
             event.speech = speech
         }

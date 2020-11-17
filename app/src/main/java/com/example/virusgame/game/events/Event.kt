@@ -1,11 +1,12 @@
 package com.example.virusgame.game.events
 
 import com.example.virusgame.MainActivity
+import com.example.virusgame.SpeechSetter
 import com.example.virusgame.game.Speech
 
 abstract class Event {
     abstract val name: String
-    lateinit var speech: Speech
+    lateinit var speech: SpeechSetter
     val context = MainActivity.applicationContext()
     private var complete = false
     abstract fun trigger()

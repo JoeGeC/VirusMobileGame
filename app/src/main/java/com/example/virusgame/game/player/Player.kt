@@ -87,7 +87,7 @@ class Player(){
     }
 
 
-    fun restoreHealthToMax() {
+    private fun restoreHealthToMax() {
         currentHealth = maxHealth
     }
 }

@@ -7,15 +7,15 @@ object IntroEvent : Event() {
 
     override fun trigger(){
         if(!isComplete())
-            speech.setSpeechText(context.getString(R.string.intro))
+            speech.setMessage(context.getString(R.string.intro))
         else
-            speech.setSpeechText(context.getString(R.string.welcome_back))
+            speech.setMessage(context.getString(R.string.welcome_back))
     }
 
     override fun onComplete() {
         if(!isComplete()){
             super.onComplete()
-            speech.setSpeechText(context.getString(R.string.first_kill))
+            speech.setMessage(context.getString(R.string.first_kill))
         }
     }
 }

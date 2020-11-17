@@ -7,18 +7,18 @@ object ZombieAttackEvent : Event(){
 
     override fun trigger(){
         if(!isComplete())
-            speech.setQuickSpeechText(context.getString(R.string.shake_advice))
+            speech.setMessage(context.getString(R.string.shake_advice))
     }
 
     override fun onComplete() {
         if(!isComplete()){
             super.onComplete()
-            speech.setSpeechText(context.getString(R.string.first_defence))
+            speech.setMessage(context.getString(R.string.first_defence))
         }
     }
 
     fun onFail(){
         if(!isComplete())
-            speech.setSpeechText(context.getString(R.string.first_damage_advice))
+            speech.setMessage(context.getString(R.string.first_damage_advice))
     }
 }
