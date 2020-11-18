@@ -1,5 +1,6 @@
 package com.example.virusgame
 
 interface SpeechSetter {
-    fun setMessage(messageToSet: String)
+    fun setTypedMessage(messageToSet: String)
+    fun setQuickMessage(messageToSet: String)
 }

@@ -7,11 +7,11 @@ object ShopOpensEvent: Event() {
 
     override fun trigger() {
         if(!isComplete())
-            speech.setMessage(context.getString(R.string.shopOpensMessage))
+            speech.setTypedMessage(context.getString(R.string.shopOpensMessage))
     }
 
     override fun completeEvent() {
         super.completeEvent()
-        speech.setMessage(context.getString(R.string.firstTimeEnteringShopMessage))
+        speech.setTypedMessage(context.getString(R.string.firstTimeEnteringShopMessage))
     }
 }

@@ -1,10 +1,6 @@
 package com.example.virusgame
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,13 +10,14 @@ import com.example.virusgame.death.DeathListener
 import com.example.virusgame.game.events.ShopOpensEvent
 import com.example.virusgame.settings.ClearDataListener
 import com.example.virusgame.settings.SettingsFragment
+import com.example.virusgame.speech.Speech
 import kotlinx.android.synthetic.main.game.*
 import kotlinx.android.synthetic.main.speech.*
 
 
-class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataListener, SpeechSetter,
-    DeathListener {
+class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataListener, DeathListener {
     private lateinit var menuFragmentManager: MenuFragmentManager
+    private lateinit var speechSetter: SpeechSetter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View? {
         return inflater.inflate(R.layout.game, container, false)
@@ -28,6 +25,7 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        speechSetter = Speech(speech)
         setupShopIcon()
         setupGameView()
         settingsIcon.setOnClickListener(this)
@@ -36,12 +34,12 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
     }
 
     private fun setupGameView() {
-        gameView.gameLoop.lateInit(this, this, this)
+        gameView.gameLoop.lateInit(speechSetter, this, this)
     }
 
     private fun setupShopIcon() {
         shopIcon.setOnClickListener(this)
-        shopIcon.setSpeechSetter(this)
+        shopIcon.setSpeechSetter(speechSetter)
     }
 
     override fun onClick(view: View) {
@@ -73,25 +71,6 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
         val transaction = fragmentManager!!.beginTransaction()
         transaction.replace(R.id.fragmentContainer, MainMenu())
         transaction.commit()
-    }
-
-    override fun setMessage(messageToSet: String) {
-        Handler(Looper.getMainLooper()).postDelayed({
-            message.text = messageToSet
-            speech.visibility = View.VISIBLE
-            bounceMessage()
-        }, 0)
-    }
-
-    private fun bounceMessage() {
-        val upAnimation = ObjectAnimator.ofFloat(speech, "translationY", -100f)
-        val downAnimation = ObjectAnimator.ofFloat(speech, "translationY", 0f)
-        Handler(Looper.getMainLooper()).postDelayed({
-            AnimatorSet().apply {
-                play(upAnimation).before(downAnimation)
-                start()
-            }
-        }, 0)
     }
 
     override fun onPlayerDeath() {

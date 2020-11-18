@@ -150,7 +150,7 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
     }
 
     override fun onPlayerDeath() {
-        speech.setMessage(context.getString(R.string.death_message))
+        speech.setTypedMessage(context.getString(R.string.death_message))
         sword.active = false
         zombie!!.active = false
         deathListener.onPlayerDeath()
@@ -182,13 +182,13 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
 
     override fun upgradeAttack() {
         if(!player.upgradeAttack())
-            speech.setMessage(context.getString(R.string.not_enough_boss_hearts))
+            speech.setTypedMessage(context.getString(R.string.not_enough_boss_hearts))
         deathUiHandler?.updateAttackValues(player.attack, player.attackBuyValue)
     }
 
     override fun upgradeHealth() {
         if(!player.upgradeHealth())
-            speech.setMessage(context.getString(R.string.not_enough_boss_hearts))
+            speech.setTypedMessage(context.getString(R.string.not_enough_boss_hearts))
         deathUiHandler?.updateHealthValues(player.maxHealth, player.maxHealthBuyValue)
     }
 

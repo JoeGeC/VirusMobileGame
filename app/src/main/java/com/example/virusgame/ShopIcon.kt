@@ -15,7 +15,7 @@ class ShopIcon(context: Context, attributeSet: AttributeSet) : AppCompatImageVie
 
     fun onClick(menuFragmentManager: MenuFragmentManager, shopHandler: ShopHandler){
         if(available) menuFragmentManager.openFragment(ShopFragment(shopHandler))
-        else speechSetter?.setMessage(context.getString(R.string.shopUnavailableMessage))
+        else speechSetter?.setTypedMessage(context.getString(R.string.shopUnavailableMessage))
     }
 
     fun setAvailable(activity: Activity){
