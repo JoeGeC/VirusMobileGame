@@ -11,7 +11,7 @@
         android:id="@+id/gameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/game_name"
+        android:text="@string/app_name"
         android:textSize="50sp"
         android:textColor="@color/white"
         android:fontFamily="@font/unispace"

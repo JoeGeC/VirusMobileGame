@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VirusGame</string>
+    <string name="app_name">ViruSwiper</string>
     <string name="health">Health: </string>
     <string name="play">Play</string>
     <string name="knight">Knight:</string>
@@ -9,7 +9,7 @@
     <string name="intro">A virus has broken out! Quick, look around you using your device and swipe on the screen to take out zombies!</string>
     <string name="first_defence">Great! Remember, you can\'t attack while a zombie has a hold of you.</string>
     <string name="playerPreferenceId">player</string>
-    <string name="game_name_id">virusGame</string>
+    <string name="game_name_id">viruSwiper</string>
     <string name="statsPreferenceId">gameStats</string>
     <string name="eventPreferenceId">eventSave</string>
     <string name="first_damage_taken_event_name">firstDamageEvent</string>
@@ -18,7 +18,6 @@
     <string name="first_time_playing_event_name">firstTimePlaying</string>
     <string name="zombie_attack_event_name">zombieAttack</string>
     <string name="welcome_back">Welcome back! Keep taking out those zombies!</string>
-    <string name="game_name">Virus Game</string>
     <string name="death_message">Oh no! You died! Never mind, upgrade your stats with those zombie hearts and try again!</string>
     <string name="not_enough_gold">You don\'t have enough gold!</string>
     <string name="abilityPreferenceId">ability</string>
