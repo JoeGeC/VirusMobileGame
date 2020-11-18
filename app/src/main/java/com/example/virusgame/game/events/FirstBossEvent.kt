@@ -10,9 +10,9 @@ object FirstBossEvent: Event() {
             speech.setMessage(context.getString(R.string.firstBossEventMessage))
     }
 
-    override fun complete() {
+    override fun completeEvent() {
         if(!isComplete()){
-            super.complete()
+            super.completeEvent()
             speech.setMessage(context.getString(R.string.firstHeartMessage))
         }
     }

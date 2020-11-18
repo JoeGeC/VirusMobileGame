@@ -31,6 +31,6 @@ open class HealthRecoveryZombie(context: Context, entityHandler: EntityHandler, 
     }
 
     override fun die(){
-        FirstHealthRecoveryZombieEvent.complete()
+        FirstHealthRecoveryZombieEvent.completeEvent()
     }
 }

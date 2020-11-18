@@ -36,4 +36,10 @@ class EventManager {
             }
         }
     }
+
+    fun clearEvents(){
+        events.forEach{ event ->
+            event.setComplete(false)
+        }
+    }
 }

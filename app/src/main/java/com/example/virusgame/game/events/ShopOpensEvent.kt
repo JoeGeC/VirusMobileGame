@@ -10,8 +10,8 @@ object ShopOpensEvent: Event() {
             speech.setMessage(context.getString(R.string.shopOpensMessage))
     }
 
-    override fun complete() {
-        super.complete()
+    override fun completeEvent() {
+        super.completeEvent()
         speech.setMessage(context.getString(R.string.firstTimeEnteringShopMessage))
     }
 }

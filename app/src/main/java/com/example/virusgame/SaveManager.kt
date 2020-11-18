@@ -60,8 +60,8 @@ object SaveManager {
 
     fun loadEventManager(eventManager: EventManager) {
         val eventJson = sharedPref.getString(context.getString(R.string.eventPreferenceId), "")
-        if (eventJson!!.isEmpty()) return
-        eventManager.loadEvents(gson.fromJson(eventJson, object : TypeToken<Map<String, Any>>() {}.type))
+        if (eventJson!!.isEmpty()) eventManager.clearEvents()
+        else eventManager.loadEvents(gson.fromJson(eventJson, object : TypeToken<Map<String, Any>>() {}.type))
     }
 
     fun loadShop(): List<ShopItemSaveData>?{

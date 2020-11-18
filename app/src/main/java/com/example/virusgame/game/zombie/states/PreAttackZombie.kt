@@ -63,7 +63,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState(zombie) {
     private fun successfulDefense() {
         vibrator.stop()
         zombie.state = AliveZombie(zombie)
-        ZombieAttackEvent.complete()
+        ZombieAttackEvent.completeEvent()
     }
 
     fun finalize(){

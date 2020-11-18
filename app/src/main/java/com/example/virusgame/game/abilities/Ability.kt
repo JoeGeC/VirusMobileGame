@@ -26,7 +26,7 @@ abstract class Ability(@Transient val context: Context) {
             effect()
             active = true
             playSoundEffect()
-            FirstAbilityEvent.complete()
+            FirstAbilityEvent.completeEvent()
             return true
         }
         return false

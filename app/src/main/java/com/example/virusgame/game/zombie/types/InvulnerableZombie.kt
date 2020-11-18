@@ -25,6 +25,6 @@ open class InvulnerableZombie(context: Context, entityHandler: EntityHandler, of
 
     override fun die() {
         super.die()
-        FirstInvulnerableZombieEvent.complete()
+        FirstInvulnerableZombieEvent.completeEvent()
     }
 }

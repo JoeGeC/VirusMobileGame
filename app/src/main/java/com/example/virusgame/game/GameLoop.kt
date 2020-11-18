@@ -111,9 +111,9 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     override fun onZombieDeath(gold: Int, zombieHearts: Int, zombiePosition: FloatVector2) {
         if(zombieHearts > 0) addCollector(ZombieHeartCollector(zombiePosition.offsetX(100), zombieHearts, this))
         addCollector(GoldCollector(zombiePosition.offsetX(-100), gold, this))
+        IntroEvent.completeEvent()
         incrementZombieKillCount()
         spawnNewZombie()
-        IntroEvent.complete()
         if(Random.nextInt(12) == 0 || gameStats.zombieWaveKillCount == 4) chest.spawn(gameStats.getCurrentWave())
     }
 
