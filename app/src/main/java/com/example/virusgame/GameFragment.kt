@@ -1,6 +1,5 @@
 package com.example.virusgame
 
-import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
@@ -9,8 +8,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import androidx.core.animation.doOnRepeat
 import androidx.fragment.app.Fragment
 import com.example.virusgame.game.events.ShopOpensEvent
 import com.example.virusgame.settings.ClearDataListener
@@ -91,6 +88,5 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
                 start()
             }
         }, 0)
-
     }
 }

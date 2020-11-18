@@ -59,10 +59,10 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         ZombieDamageCalculator.player = player
     }
 
-    fun lateInit(waveListener: WaveListener, speechSetter: SpeechSetter){
-        gameStats.assignWaveListener(waveListener)
+    fun lateInit(speechSetter: SpeechSetter, waveListener: WaveListener){
         speech = speechSetter
         setupEvents()
+        gameStats.assignWaveListener(waveListener)
         spawnNewZombie()
     }
 

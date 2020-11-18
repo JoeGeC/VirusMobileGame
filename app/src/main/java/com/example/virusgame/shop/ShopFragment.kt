@@ -6,8 +6,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,11 +14,9 @@ import com.example.virusgame.SaveManager
 import com.example.virusgame.game.events.ShopOpensEvent
 import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.items.ShopItem
+import kotlinx.android.synthetic.main.shop.*
 
 class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnClickListener, ShopHandler {
-    private lateinit var shopView: ConstraintLayout
-    private lateinit var notEnoughGoldText: TextView
-    private lateinit var shopRecyclerView: RecyclerView
     private lateinit var shopAdapter: ShopListAdapter
     private lateinit var shopViewManager: RecyclerView.LayoutManager
 
@@ -29,18 +25,19 @@ class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnCl
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.shop, container, false)
-        notEnoughGoldText = view.findViewById(R.id.notEnoughGold)
-        view.findViewById<TextView>(R.id.doneButton).setOnClickListener(this)
-        setupShop(view)
-        return view
+        return inflater.inflate(R.layout.shop, container, false)
     }
 
-    private fun setupShop(view: View) {
-        shopView = view.findViewById(R.id.shop)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        doneButton.setOnClickListener(this)
+        setupShop()
+    }
+
+    private fun setupShop() {
         shopViewManager = LinearLayoutManager(context)
         shopAdapter = ShopListAdapter(ShopList.getItems(context!!), this)
-        shopRecyclerView = view.findViewById<RecyclerView>(R.id.shopList).apply {
+        shopList.apply {
             setHasFixedSize(true)
             layoutManager = shopViewManager
             adapter = shopAdapter
@@ -67,9 +64,9 @@ class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnCl
     }
 
     private fun showNotEnoughGoldText() {
-        notEnoughGoldText.visibility = View.VISIBLE
+        notEnoughGold.visibility = View.VISIBLE
         Handler(Looper.getMainLooper()).postDelayed({
-            notEnoughGoldText.visibility = View.GONE
+            notEnoughGold.visibility = View.GONE
         }, 1000)
     }
 
