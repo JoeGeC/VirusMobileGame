@@ -4,8 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
-import com.example.virusgame.game.Speech
-import com.example.virusgame.game.uiHandlers.ShopHandler
+import com.example.virusgame.shop.ShopHandler
 import com.example.virusgame.shop.ShopFragment
 
 class ShopIcon(context: Context, attributeSet: AttributeSet) : AppCompatImageView(context, attributeSet) {

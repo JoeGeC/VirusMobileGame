@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.virusgame.R
-import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.items.ShopItem
 
 class ShopListAdapter (val items: List<ShopItem>, internal val shopHandler: ShopHandler) : RecyclerView.Adapter<ShopListAdapter.ShopItemViewHolder>(){

@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Canvas
 import com.example.virusgame.game.*
 import com.example.virusgame.game.player.Player
-import com.example.virusgame.game.uiHandlers.UiHandler
 import com.example.virusgame.game.vector2.IntVector2
 
 class Ui (context: Context){
@@ -26,9 +25,9 @@ class Ui (context: Context){
         death.draw(canvas, player)
     }
 
-    fun onTouch(startTouchPos: IntVector2, touchPos: IntVector2, uiHandler: UiHandler) {
-        if(death.hasTappedAttack(startTouchPos, touchPos)) uiHandler.upgradeAttack()
-        if(death.hasTappedHealth(startTouchPos, touchPos)) uiHandler.upgradeHealth()
-        if(death.hasTappedTryAgain(startTouchPos, touchPos)) uiHandler.revive()
+    fun onTouch(startTouchPos: IntVector2, touchPos: IntVector2) {
+//        if(death.hasTappedAttack(startTouchPos, touchPos)) uiHandler.upgradeAttack()
+//        if(death.hasTappedHealth(startTouchPos, touchPos)) uiHandler.upgradeHealth()
+//        if(death.hasTappedTryAgain(startTouchPos, touchPos)) uiHandler.revive()
     }
 }

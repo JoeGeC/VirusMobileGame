@@ -3,7 +3,7 @@ package com.example.virusgame.game
 import com.example.virusgame.WaveListener
 
 class GameStats {
-    private var wave: Int = 1
+    private var wave: Int = 5
     fun getCurrentWave() = wave
     private var zombieKillCount = 0
     var zombieWaveKillCount = 0

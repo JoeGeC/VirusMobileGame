@@ -9,11 +9,12 @@ import androidx.fragment.app.Fragment
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
 import com.example.virusgame.SoundManager
+import com.example.virusgame.MenuListener
 import com.example.virusgame.vibrator.VibrateManager
 import kotlinx.android.synthetic.main.settings.*
 
 
-class SettingsFragment(private val clearDataListener: ClearDataListener, private val settingsListener: SettingsListener?) : Fragment(), View.OnClickListener {
+class SettingsFragment(private val clearDataListener: ClearDataListener, private val menuListener: MenuListener?) : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.settings, container, false)
     }
@@ -27,7 +28,7 @@ class SettingsFragment(private val clearDataListener: ClearDataListener, private
         clearDataButton.setOnClickListener(this)
         clearDataConfirmButton.setOnClickListener(this)
         clearDataCancelButton.setOnClickListener(this)
-        settingsListener?.onMenuOpened()
+        menuListener?.onMenuOpened()
     }
 
     private fun setUpVibrateToggle() {
@@ -78,7 +79,7 @@ class SettingsFragment(private val clearDataListener: ClearDataListener, private
     }
 
     private fun closeSettings() {
-        settingsListener?.onMenuClosed()
+        menuListener?.onMenuClosed()
         SaveManager.saveSettings()
         fragmentManager!!.beginTransaction().remove(this).commit()
     }

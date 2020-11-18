@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.virusgame.death.DeathFragment
+import com.example.virusgame.death.DeathListener
 import com.example.virusgame.game.events.ShopOpensEvent
 import com.example.virusgame.settings.ClearDataListener
 import com.example.virusgame.settings.SettingsFragment
@@ -16,7 +18,8 @@ import kotlinx.android.synthetic.main.game.*
 import kotlinx.android.synthetic.main.speech.*
 
 
-class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataListener, SpeechSetter {
+class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataListener, SpeechSetter,
+    DeathListener {
     private lateinit var menuFragmentManager: MenuFragmentManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) : View? {
@@ -33,7 +36,7 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
     }
 
     private fun setupGameView() {
-        gameView.gameLoop.lateInit(this, this)
+        gameView.gameLoop.lateInit(this, this, this)
     }
 
     private fun setupShopIcon() {
@@ -89,5 +92,9 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
                 start()
             }
         }, 0)
+    }
+
+    override fun onPlayerDeath() {
+        menuFragmentManager.openFragment(DeathFragment(gameView.gameLoop))
     }
 }

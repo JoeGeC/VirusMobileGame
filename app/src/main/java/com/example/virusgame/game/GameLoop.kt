@@ -7,6 +7,9 @@ import com.example.virusgame.R
 import com.example.virusgame.SaveManager
 import com.example.virusgame.SpeechSetter
 import com.example.virusgame.WaveListener
+import com.example.virusgame.death.DeathHandler
+import com.example.virusgame.death.DeathListener
+import com.example.virusgame.death.DeathUiHandler
 import com.example.virusgame.game.collector.Collector
 import com.example.virusgame.game.collector.CollectorManager
 import com.example.virusgame.game.collector.GoldCollector
@@ -20,20 +23,19 @@ import com.example.virusgame.game.rotation.RotationReceiver
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 import com.example.virusgame.game.ui.Ui
-import com.example.virusgame.game.uiHandlers.UiHandler
 import com.example.virusgame.game.vector2.FloatVector2
 import com.example.virusgame.game.vector2.IntVector2
-import com.example.virusgame.game.zombie.states.PreAttackZombie
-import com.example.virusgame.game.zombie.types.Zombie
 import com.example.virusgame.game.zombie.ZombieDamageCalculator
 import com.example.virusgame.game.zombie.ZombieMaker
-import com.example.virusgame.settings.SettingsListener
+import com.example.virusgame.game.zombie.states.PreAttackZombie
+import com.example.virusgame.game.zombie.types.Zombie
+import com.example.virusgame.shop.ShopHandler
 import com.example.virusgame.shop.ShopList
 import com.example.virusgame.shop.items.ShopItem
 import kotlin.random.Random
 
-class GameLoop(override var context: Context) : EntityHandler, UiHandler, DoubleSwipeHandler,
-    RotationHandler, SettingsListener, CollectorManager {
+class GameLoop(override var context: Context) : EntityHandler, DeathHandler, ShopHandler, DoubleSwipeHandler,
+    RotationHandler, CollectorManager {
     private var location: Double = 0.0
     private val gameStats = SaveManager.loadGameStats()
     private val eventManager = EventManager()
@@ -45,6 +47,8 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     private val background = Background(context)
     private val collectors = mutableListOf<Collector>()
     private val chest = Chest(this)
+    private var deathUiHandler: DeathUiHandler? = null
+    private lateinit var deathListener: DeathListener
 
     private var touched: Boolean = false
     private var touchPos: IntVector2 = IntVector2(0, 0)
@@ -59,11 +63,12 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         ZombieDamageCalculator.player = player
     }
 
-    fun lateInit(speechSetter: SpeechSetter, waveListener: WaveListener){
+    fun lateInit(speechSetter: SpeechSetter, waveListener: WaveListener, death: DeathListener){
         speech = speechSetter
         setupEvents()
         gameStats.assignWaveListener(waveListener)
         spawnNewZombie()
+        deathListener = death
     }
 
     private fun setupEvents() {
@@ -104,7 +109,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     fun releaseTouch() {
         touched = false
         swipeState = StartSwipeState()
-        ui.onTouch(startTouchPos, touchPos, this)
+        ui.onTouch(startTouchPos, touchPos)
         chest.onTouch(startTouchPos, touchPos)
     }
 
@@ -149,7 +154,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         speech.setMessage(context.getString(R.string.death_message))
         sword.active = false
         zombie!!.active = false
-        ui.death.active = true
+        deathListener.onPlayerDeath()
         chest.reset()
     }
 
@@ -179,11 +184,13 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
     override fun upgradeAttack() {
         if(!player.upgradeAttack())
             speech.setMessage(context.getString(R.string.not_enough_boss_hearts))
+        deathUiHandler?.updateAttackValues(player.attack, player.attackBuyValue)
     }
 
     override fun upgradeHealth() {
         if(!player.upgradeHealth())
             speech.setMessage(context.getString(R.string.not_enough_boss_hearts))
+        deathUiHandler?.updateHealthValues(player.maxHealth, player.maxHealthBuyValue)
     }
 
     override fun revive() {
@@ -193,7 +200,12 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         SaveManager.saveShop(ShopList.newShop(context).map { it.saveData })
         spawnNewZombie()
         sword.active = true
-        ui.death.active = false
+    }
+
+    override fun setDeathUiHandler(handler: DeathUiHandler) {
+        deathUiHandler = handler
+        deathUiHandler?.updateAttackValues(player.attack, player.attackBuyValue)
+        deathUiHandler?.updateHealthValues(player.maxHealth, player.maxHealthBuyValue)
     }
 
     override fun onSuccessfulDoubleSwipe() {

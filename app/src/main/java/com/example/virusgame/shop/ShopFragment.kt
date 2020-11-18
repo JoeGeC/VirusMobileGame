@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
 import com.example.virusgame.game.events.ShopOpensEvent
-import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.items.ShopItem
 import kotlinx.android.synthetic.main.shop.*
 
-class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnClickListener, ShopHandler {
+class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnClickListener,
+    ShopHandler {
     private lateinit var shopAdapter: ShopListAdapter
     private lateinit var shopViewManager: RecyclerView.LayoutManager
 
