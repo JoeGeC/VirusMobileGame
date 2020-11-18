@@ -67,4 +67,6 @@
     <string name="shopUnavailableMessage">You wanna buy something? You\'re gonna have to wait, we\'re not open yet.</string>
     <string name="attack">Attack</string>
     <string name="try_again">Try Again</string>
+    <string name="you_died">You died!</string>
+    <string name="upgrade">Upgrade your health and attack using the zombie hearts you\'ve collected and try again.</string>
 </resources>
