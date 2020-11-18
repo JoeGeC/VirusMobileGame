@@ -5,7 +5,7 @@
     <string name="knight">Knight:</string>
     <string name="first_kill">Good, keep on taking out those zombies!</string>
     <string name="shake_advice">Quick! Shake your device until the blue bar is gone to defend the zombie\'s attack!</string>
-    <string name="first_damage_advice">Ouch! Try to shake your device next time so you don\'t take damage!</string>
+    <string name="first_damage_advice">Ouch! Try to shake your device until the blue bar is depleted next time so you don\'t take damage!</string>
     <string name="intro">A virus has broken out! Quick, look around you using your device and swipe on the screen to take out zombies!</string>
     <string name="first_defence">Great! Remember, you can\'t attack while a zombie has a hold of you.</string>
     <string name="playerPreferenceId">player</string>
@@ -60,4 +60,9 @@
     <string name="clearDataConfirmation">"Are you want to clear all save data? This will wipe everything you've achieved so far and send you back to the main menu. No backsies! "</string>
     <string name="changedMyMind">I changed my mind!</string>
     <string name="clearMyData">Clear my data!</string>
+    <string name="firstHealthRecoveryZombieEvent">Health Recovery Zombie Event</string>
+    <string name="firstHealthRecoveryZombieMessage">Be careful! These zombies can recover health.</string>
+    <string name="firstInvulnerableZombieEvent">Invulnerable Zombie Event</string>
+    <string name="firstInvulnerableZombieMessage">These zombies will keep attacking without breaks! Use abilities to defeat them.</string>
+    <string name="shopUnavailableMessage">You wanna buy something? You\'re gonna have to wait, we\'re not open yet.</string>
 </resources>

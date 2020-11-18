@@ -50,7 +50,7 @@ class NormalZombieBoss(context: Context, entityHandler: EntityHandler, rectOffse
     }
 
     override fun die(){
-        FirstBossEvent.onComplete()
+        FirstBossEvent.complete()
         super.die()
     }
 }

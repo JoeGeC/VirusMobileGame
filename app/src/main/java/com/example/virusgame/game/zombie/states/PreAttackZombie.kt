@@ -10,7 +10,6 @@ import com.example.virusgame.vibrator.Vibrator
 import com.example.virusgame.clock.Clock
 import com.example.virusgame.game.events.ZombieAttackEvent
 import com.example.virusgame.game.zombie.types.Zombie
-import com.example.virusgame.game.zombie.animations.NormalZombieAnimations
 
 class PreAttackZombie(var zombie: Zombie) : ZombieState(zombie) {
     override val animation: List<Bitmap> = zombie.animations.preAttackAnimation()
@@ -64,7 +63,7 @@ class PreAttackZombie(var zombie: Zombie) : ZombieState(zombie) {
     private fun successfulDefense() {
         vibrator.stop()
         zombie.state = AliveZombie(zombie)
-        ZombieAttackEvent.onComplete()
+        ZombieAttackEvent.complete()
     }
 
     fun finalize(){

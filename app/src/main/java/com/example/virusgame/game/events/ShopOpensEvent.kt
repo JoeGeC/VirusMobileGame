@@ -9,4 +9,9 @@ object ShopOpensEvent: Event() {
         if(!isComplete())
             speech.setMessage(context.getString(R.string.shopOpensMessage))
     }
+
+    override fun complete() {
+        super.complete()
+        speech.setMessage(context.getString(R.string.firstTimeEnteringShopMessage))
+    }
 }

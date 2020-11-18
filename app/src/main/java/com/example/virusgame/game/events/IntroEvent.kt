@@ -12,9 +12,9 @@ object IntroEvent : Event() {
             speech.setMessage(context.getString(R.string.welcome_back))
     }
 
-    override fun onComplete() {
+    override fun complete() {
         if(!isComplete()){
-            super.onComplete()
+            super.complete()
             speech.setMessage(context.getString(R.string.first_kill))
         }
     }

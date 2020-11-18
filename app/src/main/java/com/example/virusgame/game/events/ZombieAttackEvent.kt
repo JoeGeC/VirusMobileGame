@@ -10,9 +10,9 @@ object ZombieAttackEvent : Event(){
             speech.setMessage(context.getString(R.string.shake_advice))
     }
 
-    override fun onComplete() {
+    override fun complete() {
         if(!isComplete()){
-            super.onComplete()
+            super.complete()
             speech.setMessage(context.getString(R.string.first_defence))
         }
     }

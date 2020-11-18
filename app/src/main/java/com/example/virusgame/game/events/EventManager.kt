@@ -12,7 +12,9 @@ class EventManager {
         ZombieAttackEvent,
         FirstBossEvent,
         ShopOpensEvent,
-        FirstAbilityEvent
+        FirstAbilityEvent,
+        FirstHealthRecoveryZombieEvent,
+        FirstInvulnerableZombieEvent
     )
 
     fun setupEvents(speech: SpeechSetter){

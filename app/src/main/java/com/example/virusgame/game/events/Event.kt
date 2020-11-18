@@ -11,7 +11,7 @@ abstract class Event {
     private var complete = false
     abstract fun trigger()
 
-    open fun onComplete(){
+    open fun complete(){
         complete = true
     }
 

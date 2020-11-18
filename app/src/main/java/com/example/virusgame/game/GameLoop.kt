@@ -113,7 +113,7 @@ class GameLoop(override var context: Context) : EntityHandler, UiHandler, Double
         addCollector(GoldCollector(zombiePosition.offsetX(-100), gold, this))
         incrementZombieKillCount()
         spawnNewZombie()
-        IntroEvent.onComplete()
+        IntroEvent.complete()
         if(Random.nextInt(12) == 0 || gameStats.zombieWaveKillCount == 4) chest.spawn(gameStats.getCurrentWave())
     }
 

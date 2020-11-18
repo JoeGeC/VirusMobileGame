@@ -21,7 +21,7 @@ class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnCl
     private lateinit var shopViewManager: RecyclerView.LayoutManager
 
     init {
-        ShopOpensEvent.onComplete()
+        ShopOpensEvent.complete()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

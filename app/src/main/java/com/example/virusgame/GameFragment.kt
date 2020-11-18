@@ -38,6 +38,7 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
 
     private fun setupShopIcon() {
         shopIcon.setOnClickListener(this)
+        shopIcon.setSpeechSetter(this)
     }
 
     override fun onClick(view: View) {

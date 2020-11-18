@@ -11,9 +11,9 @@ object FirstAbilityEvent: Event(){
         }
     }
 
-    override fun onComplete() {
+    override fun complete() {
         if(!isComplete()){
-            super.onComplete()
+            super.complete()
             speech.setMessage(context.getString(R.string.firstAbilityUsedMessage))
         }
     }

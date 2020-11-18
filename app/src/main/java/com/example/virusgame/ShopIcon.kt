@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
+import com.example.virusgame.game.Speech
 import com.example.virusgame.game.uiHandlers.ShopHandler
 import com.example.virusgame.shop.ShopFragment
 
@@ -11,9 +12,11 @@ class ShopIcon(context: Context, attributeSet: AttributeSet) : AppCompatImageVie
     private var available = false
     private val availableImage = R.drawable.shop
     private val unavailableImage = R.drawable.shop_unavailable
+    private var speechSetter: SpeechSetter? = null
 
     fun onClick(menuFragmentManager: MenuFragmentManager, shopHandler: ShopHandler){
         if(available) menuFragmentManager.openFragment(ShopFragment(shopHandler))
+        else speechSetter?.setMessage(context.getString(R.string.shopUnavailableMessage))
     }
 
     fun setAvailable(activity: Activity){
@@ -28,6 +31,10 @@ class ShopIcon(context: Context, attributeSet: AttributeSet) : AppCompatImageVie
 
     private fun setImageResourceOnUiThread(activity: Activity, imageResource: Int) {
         activity.runOnUiThread { setImageResource(imageResource) }
+    }
+
+    fun setSpeechSetter(speech: SpeechSetter) {
+        speechSetter = speech
     }
 
 }
