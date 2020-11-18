@@ -10,10 +10,10 @@ import com.example.virusgame.game.abilities.AbilityFactory
 import com.example.virusgame.game.zombie.ZombieDamageHandler
 import kotlin.math.pow
 
-class Player(){
+class Player {
     @Transient private lateinit var playerHandler: PlayerHandler
-    var gold = 10000
-    var zombieHearts = 10000
+    var gold = 0
+    var zombieHearts = 0
     var maxHealth = 10
     var currentHealth = maxHealth
     var attack = 1

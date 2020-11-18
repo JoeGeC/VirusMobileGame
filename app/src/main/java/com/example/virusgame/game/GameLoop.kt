@@ -109,7 +109,6 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
     fun releaseTouch() {
         touched = false
         swipeState = StartSwipeState()
-        ui.onTouch(startTouchPos, touchPos)
         chest.onTouch(startTouchPos, touchPos)
     }
 
