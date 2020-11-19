@@ -17,6 +17,7 @@ class Player {
     var maxHealth = 10
     var currentHealth = maxHealth
     var attack = 1
+    var alive = true
     @Transient var ability: Ability? = null
     var attackBuyValue: Int
         get(){ return ((attack + 9f).pow(1.3f) - 10).toInt() }
@@ -39,6 +40,7 @@ class Player {
     }
 
     private fun die(){
+        alive = false
         playerHandler.onPlayerDeath()
     }
 
@@ -84,6 +86,7 @@ class Player {
         restoreHealthToMax()
         ability = null
         gold = 0
+        alive = true
     }
 
 

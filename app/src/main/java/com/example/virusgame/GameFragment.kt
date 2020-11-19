@@ -26,13 +26,13 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        menuFragmentManager = MenuFragmentManager(context!!, fragmentManager!!)
         speechSetter = Speech(speech)
         setupShopIcon()
         setupGameView()
         settingsIcon.setOnClickListener(this)
         speech.setOnClickListener(this)
         tipsIcon.setOnClickListener(this)
-        menuFragmentManager = MenuFragmentManager(context!!, fragmentManager!!)
     }
 
     private fun setupGameView() {

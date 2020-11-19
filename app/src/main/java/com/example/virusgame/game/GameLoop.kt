@@ -63,12 +63,12 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
         ZombieDamageCalculator.player = player
     }
 
-    fun lateInit(speechSetter: SpeechSetter, waveListener: WaveListener, death: DeathListener){
+    fun lateInit(speechSetter: SpeechSetter, waveListener: WaveListener, dListener: DeathListener){
         speech = speechSetter
         setupEvents()
         gameStats.assignWaveListener(waveListener)
         spawnNewZombie()
-        deathListener = death
+        deathListener = dListener
     }
 
     private fun setupEvents() {
@@ -223,6 +223,10 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
     }
 
     fun resume(){
+        if(!player.alive) {
+            deathListener.onPlayerDeath()
+            return
+        }
         zombie!!.resume()
         sword.active = true
         shakeReceiver.onResume()
