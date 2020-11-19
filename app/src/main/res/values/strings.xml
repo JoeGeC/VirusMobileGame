@@ -87,4 +87,5 @@
     <string name="cooldown">Cooldown</string>
     <string name="secs">secs.</string>
     <string name="recovers">Recovers</string>
+    <string name="health_recover">health</string>
 </resources>
