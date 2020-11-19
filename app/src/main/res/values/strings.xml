@@ -69,4 +69,17 @@
     <string name="try_again">Try Again</string>
     <string name="you_died">You died!</string>
     <string name="upgrade">Upgrade your health and attack using the zombie hearts you\'ve collected and try again.</string>
+    <string name="tips">Tips</string>
+    <string name="rotate_device_tip">Rotate your device to find zombies. Once found, swipe at them to deal damage!</string>
+    <string name="shake_tip">When a zombie is attacking you, they\'ll raise their arms and the device will vibrate. </string>
+    <string name="shake_tip_2">When a zombie is attacking you, shake the device until the blue bar above their head is depleted to defend.</string>
+    <string name="gold_tip">When zombies die, they drop gold. You should use this to buy items at the shop.</string>
+    <string name="abilities_tip">Abilities deal more damage than a normal swipe, but have a cooldown time before you can use them again.</string>
+    <string name="abilities_tip_2">Use a two finger swipe to use your equipped ability!</string>
+    <string name="buying_abilities_tip">Once you\'ve bought an ability, if it becomes unequipped, you don\'t have to rebuy it on that run.</string>
+    <string name="chest_tip">Sometimes you\'ll see chests spawn, you should tap these to get gold, zombie hearts or potions!</string>
+    <string name="potion_tip">Potions recover your health. You can buy them from the shop or get them from chests.</string>
+    <string name="death_tip">If your health hits 0, don\'t worry! You can upgrade your stats using your zombie hearts and start over.</string>
+    <string name="health_recovery_zombie_tip">Zombies with blonde hair recover health, defeat them quickly!</string>
+    <string name="invulnerable_zombie_tip">Zombies with brown hair attack relentlessly. Only abilities will damage these foes.</string>
 </resources>

@@ -32,6 +32,7 @@ class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnCl
         super.onViewCreated(view, savedInstanceState)
         doneButton.setOnClickListener(this)
         setupShop()
+        onMenuOpened()
     }
 
     private fun setupShop() {
@@ -42,7 +43,6 @@ class ShopFragment(private var shopHandler: ShopHandler) : Fragment(), View.OnCl
             layoutManager = shopViewManager
             adapter = shopAdapter
         }
-        onMenuOpened()
     }
 
     override fun onMenuOpened() {

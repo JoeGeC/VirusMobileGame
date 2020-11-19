@@ -11,6 +11,7 @@ import com.example.virusgame.game.events.ShopOpensEvent
 import com.example.virusgame.settings.ClearDataListener
 import com.example.virusgame.settings.SettingsFragment
 import com.example.virusgame.speech.Speech
+import com.example.virusgame.tips.TipsFragment
 import kotlinx.android.synthetic.main.game.*
 import kotlinx.android.synthetic.main.speech.*
 
@@ -30,6 +31,7 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
         setupGameView()
         settingsIcon.setOnClickListener(this)
         speech.setOnClickListener(this)
+        tipsIcon.setOnClickListener(this)
         menuFragmentManager = MenuFragmentManager(context!!, fragmentManager!!)
     }
 
@@ -47,6 +49,7 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
             R.id.shopIcon -> shopIcon.onClick(menuFragmentManager, gameView.gameLoop)
             R.id.settingsIcon -> menuFragmentManager.openFragment(SettingsFragment(this, gameView.gameLoop))
             R.id.speech -> speech.visibility = View.GONE
+            R.id.tipsIcon -> menuFragmentManager.openFragment(TipsFragment(gameView.gameLoop))
         }
     }
 

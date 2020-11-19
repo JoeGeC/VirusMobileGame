@@ -137,6 +137,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/try_again"
+        android:textAllCaps="false"
         android:fontFamily="@font/unispace"
         android:textColor="@color/white"
         android:background="@drawable/small_menu_border"

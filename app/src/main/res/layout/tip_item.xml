@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/speech">
+    <ImageView
+        android:id="@+id/speaker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/karl_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <ImageView
+        android:id="@+id/speechBubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/speech_bubble_small"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/speaker"/>
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:text="@string/intro"
+        android:textSize="@dimen/textSize"
+        android:fontFamily="@font/unispace"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@id/speechBubble"
+        app:layout_constraintEnd_toEndOf="@id/speechBubble"
+        app:layout_constraintTop_toTopOf="@id/speechBubble"
+        app:layout_constraintBottom_toBottomOf="@id/speechBubble"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
