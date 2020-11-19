@@ -5,7 +5,7 @@ import com.example.virusgame.R
 
 class IceAbilityItem(override val context: Context) : AbilityItem()  {
     override val imageResource: Int = R.drawable.ice_ability_icon
-    override val description: String = "Deals 7x damage. Cooldown: 15 secs."
+    override val description: String = context.getString(R.string.deals) + " 7x " + context.getString(R.string.damage) + ". " + context.getString(R.string.cooldown) + ": 15 " + context.getString(R.string.secs)
     override val price: Int = 1000
 
     init {

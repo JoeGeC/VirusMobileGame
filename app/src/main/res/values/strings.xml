@@ -1,38 +1,37 @@
 <resources>
-    <string name="app_name">ViruSwiper</string>
+    <string name="app_name" translatable="false">ViruSwiper</string>
     <string name="health">Health</string>
     <string name="play">Play</string>
-    <string name="knight">Knight:</string>
     <string name="first_kill">Good, keep on taking out those zombies!</string>
     <string name="shake_advice">Quick! Shake your device until the blue bar is gone to defend the zombie\'s attack!</string>
     <string name="first_damage_advice">Ouch! Try to shake your device until the blue bar is depleted next time so you don\'t take damage!</string>
     <string name="intro">A virus has broken out! Quick, look around you using your device and swipe on the screen to take out zombies!</string>
     <string name="first_defence">Great! Remember, you can\'t attack while a zombie has a hold of you.</string>
-    <string name="playerPreferenceId">player</string>
-    <string name="game_name_id">viruSwiper</string>
-    <string name="statsPreferenceId">gameStats</string>
-    <string name="eventPreferenceId">eventSave</string>
-    <string name="first_damage_taken_event_name">firstDamageEvent</string>
-    <string name="first_defence_event_name">firstDefence</string>
-    <string name="first_kill_event_name">firstKill</string>
-    <string name="first_time_playing_event_name">firstTimePlaying</string>
-    <string name="zombie_attack_event_name">zombieAttack</string>
+    <string name="playerPreferenceId" translatable="false">player</string>
+    <string name="game_name_id" translatable="false">viruSwiper</string>
+    <string name="statsPreferenceId" translatable="false">gameStats</string>
+    <string name="eventPreferenceId" translatable="false">eventSave</string>
+    <string name="first_damage_taken_event_name" translatable="false">firstDamageEvent</string>
+    <string name="first_defence_event_name" translatable="false">firstDefence</string>
+    <string name="first_kill_event_name" translatable="false">firstKill</string>
+    <string name="first_time_playing_event_name" translatable="false">firstTimePlaying</string>
+    <string name="zombie_attack_event_name" translatable="false">zombieAttack</string>
     <string name="welcome_back">Welcome back! Keep taking out those zombies!</string>
     <string name="death_message">Oh no! You died! Never mind, upgrade your stats with those zombie hearts and try again!</string>
     <string name="not_enough_gold">You don\'t have enough gold!</string>
-    <string name="abilityPreferenceId">ability</string>
+    <string name="abilityPreferenceId" translatable="false">ability</string>
     <string name="fireAbility">Fire Ability</string>
     <string name="shop">Shop</string>
-    <string name="bought">BOUGHT</string>
-    <string name="x">X</string>
+    <string name="bought" translatable="false">BOUGHT</string>
+    <string name="x" translatable="false">X</string>
     <string name="lightningAbility">Lightning Attack</string>
     <string name="iceAbility">Ice Attack</string>
-    <string name="shopPreferenceId">shop</string>
+    <string name="shopPreferenceId" translatable="false">shop</string>
     <string name="smallHealthPotion">Small Potion</string>
     <string name="healthPotion">Health Potion</string>
     <string name="hugeHealthPotion">Huge Health Potion</string>
     <string name="largeHealthPotion">Large Health Potion</string>
-    <string name="karl">Karl</string>
+    <string name="karl" translatable="false">Karl</string>
     <string name="tap">[tap]</string>
     <string name="not_enough_boss_hearts">You don\'t have enough boss hearts!</string>
     <string name="boss">BOSS</string>
@@ -41,28 +40,28 @@
     <string name="music">Music</string>
     <string name="sfx">SFX</string>
     <string name="done">Done</string>
-    <string name="subFragment">subFragment</string>
-    <string name="settingsPreferenceId">settings</string>
-    <string name="volumePreferenceId">volume</string>
-    <string name="vibratePreferenceId">vibrate</string>
-    <string name="musicVolumePreferenceId">musicVolume</string>
-    <string name="sfxVolumePreferenceId">sfxVolume</string>
-    <string name="firstBossEvent">First Boss</string>
+    <string name="subFragment" translatable="false">subFragment</string>
+    <string name="settingsPreferenceId" translatable="false">settings</string>
+    <string name="volumePreferenceId" translatable="false">volume</string>
+    <string name="vibratePreferenceId" translatable="false">vibrate</string>
+    <string name="musicVolumePreferenceId" translatable="false">musicVolume</string>
+    <string name="sfxVolumePreferenceId" translatable="false">sfxVolume</string>
+    <string name="firstBossEvent" translatable="false">First Boss</string>
     <string name="firstBossEventMessage">Hoowee! He\'s a big one! Maybe if you beat him you\'ll get something good.</string>
     <string name="firstHeartMessage">Woah! A zombie heart! They\'ll come in handy later, I\'m sure of it.</string>
     <string name="shopOpensMessage">Ya know I run a shop around here. You can access it up the top and spend yer hard earned gold.</string>
-    <string name="shopOpensEventName">shopOpens</string>
+    <string name="shopOpensEventName" translatable="false">shopOpens</string>
     <string name="firstTimeEnteringShopMessage">Buy an ability to deal some crazy damage, or indulge in some potions to recover health.</string>
-    <string name="firstAbilityEventName">FirstAbility</string>
+    <string name="firstAbilityEventName" translatable="false">FirstAbility</string>
     <string name="firstAbilityMessage">Use two fingers to swipe at once to use your ability!</string>
     <string name="firstAbilityUsedMessage">Awesome! You gotta wait for it to cooldown to use it again though.</string>
     <string name="clearData">Clear Data</string>
-    <string name="clearDataConfirmation">"Are you want to clear all save data? This will wipe everything you've achieved so far and send you back to the main menu. No backsies! "</string>
+    <string name="clearDataConfirmation">"Are you sure you want to clear all save data? This will wipe everything you've achieved so far and send you back to the main menu. No backsies! "</string>
     <string name="changedMyMind">I changed my mind!</string>
     <string name="clearMyData">Clear my data!</string>
-    <string name="firstHealthRecoveryZombieEvent">Health Recovery Zombie Event</string>
+    <string name="firstHealthRecoveryZombieEvent" translatable="false">Health Recovery Zombie Event</string>
     <string name="firstHealthRecoveryZombieMessage">Be careful! These zombies can recover health.</string>
-    <string name="firstInvulnerableZombieEvent">Invulnerable Zombie Event</string>
+    <string name="firstInvulnerableZombieEvent" translatable="false">Invulnerable Zombie Event</string>
     <string name="firstInvulnerableZombieMessage">These zombies will keep attacking without breaks! Use abilities to defeat them.</string>
     <string name="shopUnavailableMessage">You wanna buy something? You\'re gonna have to wait, we\'re not open yet.</string>
     <string name="attack">Attack</string>
@@ -81,5 +80,11 @@
     <string name="potion_tip">Potions recover your health. You can buy them from the shop or get them from chests.</string>
     <string name="death_tip">If your health hits 0, don\'t worry! You can upgrade your stats using your zombie hearts and start over.</string>
     <string name="health_recovery_zombie_tip">Zombies with blonde hair recover health, defeat them quickly!</string>
-    <string name="invulnerable_zombie_tip">Zombies with brown hair attack relentlessly. Only abilities will damage these foes.</string>
+    <string name="invulnerable_zombie_tip">Бързо.</string>
+    <string name="wave">Wave</string>
+    <string name="deals">Deals</string>
+    <string name="damage">damage</string>
+    <string name="cooldown">Cooldown</string>
+    <string name="secs">secs.</string>
+    <string name="recovers">Recovers</string>
 </resources>

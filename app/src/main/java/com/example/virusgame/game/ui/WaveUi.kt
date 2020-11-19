@@ -11,6 +11,7 @@ import com.example.virusgame.game.vector2.FloatVector2
 class WaveUi (context: Context, private val borderBottom: Float) {
     private val waveLabelPaint: Paint = Paint()
     private val wavePaint: Paint = Paint()
+    private val waveString = context.getString(R.string.wave)
 
     init {
         waveLabelPaint.color = ContextCompat.getColor(context, R.color.white)
@@ -23,7 +24,7 @@ class WaveUi (context: Context, private val borderBottom: Float) {
     }
 
     fun draw(canvas: Canvas, wave: Int){
-        canvas.drawText("Wave", ScreenDimensions.width / 2.0f, borderBottom - ScreenDimensions.height / 55.0f, waveLabelPaint)
+        canvas.drawText(waveString, ScreenDimensions.width / 2.0f, borderBottom - ScreenDimensions.height / 55.0f, waveLabelPaint)
         canvas.drawText(wave.toString(), ScreenDimensions.width / 2.0f, borderBottom + ScreenDimensions.height / 15.0f, wavePaint)
     }
 }
