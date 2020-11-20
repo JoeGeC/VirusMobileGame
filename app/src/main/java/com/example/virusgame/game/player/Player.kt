@@ -20,10 +20,10 @@ class Player {
     var alive = true
     @Transient var ability: Ability? = null
     var attackBuyValue: Int
-        get(){ return ((attack + 9f).pow(1.3f) - 10).toInt() }
+        get(){ return ((attack + 9f).pow(1.3f) - 16).toInt() }
         set(value) {}
     var maxHealthBuyValue: Int
-        get(){ return (maxHealth.toFloat().pow(1.2f) - 10).toInt() }
+        get(){ return (maxHealth.toFloat().pow(1.2f) - 14).toInt() }
         set(value) {}
 
     fun setup(entityHandler: EntityHandler){

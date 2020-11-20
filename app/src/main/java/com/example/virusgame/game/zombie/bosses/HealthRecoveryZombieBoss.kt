@@ -42,7 +42,7 @@ class HealthRecoveryZombieBoss(context: Context, entityHandler: EntityHandler, r
     }
 
     override fun setStats(wave: Int, playerStrength: Int){
-        maxHealth = wave * 6
+        maxHealth = wave * 10
         currentHealth = maxHealth
         gold = maxHealth * 2
         val attackVal = wave.toFloat().pow(1.6f) + 1
@@ -50,6 +50,6 @@ class HealthRecoveryZombieBoss(context: Context, entityHandler: EntityHandler, r
         attackSpeed = (playerStrength * 300) / wave
         attackTime = setNextAttackTime()
         lastAttackTime = System.nanoTime()
-        hearts = 2 + wave / 4
+        hearts = wave
     }
 }

@@ -48,6 +48,6 @@ class InvulnerableZombieBoss(context: Context, entityHandler: EntityHandler, rec
         attackSpeed = setAttackSpeed(playerStrength, wave)
         attackTime = setNextAttackTime()
         lastAttackTime = System.nanoTime()
-        hearts = 2 + wave / 4
+        hearts = wave
     }
 }

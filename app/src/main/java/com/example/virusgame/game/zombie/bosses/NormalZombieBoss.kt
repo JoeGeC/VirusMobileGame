@@ -46,7 +46,7 @@ class NormalZombieBoss(context: Context, entityHandler: EntityHandler, rectOffse
         attackSpeed = (playerStrength * 300) / wave
         attackTime = setNextAttackTime()
         lastAttackTime = System.nanoTime()
-        hearts = 1 + wave / 5
+        hearts = wave
     }
 
     override fun die(){
