@@ -119,6 +119,7 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
         incrementZombieKillCount()
         spawnNewZombie()
         if(Random.nextInt(12) == 0 || gameStats.zombieWaveKillCount == 4) chest.spawn(gameStats.getCurrentWave())
+        swipeState = StartSwipeState()
     }
 
     private fun spawnNewZombie() {
