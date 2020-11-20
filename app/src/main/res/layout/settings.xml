@@ -55,7 +55,7 @@
                     android:layout_margin="8dp"/>
                 <ToggleButton
                     android:id="@+id/vibrationSwitch"
-                    android:layout_width="60dp"
+                    android:layout_width="100dp"
                     android:layout_height="40dp"
                     android:layout_margin="8dp"
                     android:textColor="@color/white"
@@ -147,7 +147,7 @@
     </ScrollView>
     <Button
         android:id="@+id/clearDataButton"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="40dp"
         android:text="@string/clearData"
         android:background="@drawable/small_menu_border"
@@ -158,10 +158,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/doneButton"
-        android:layout_margin="16dp"/>
+        android:layout_marginBottom="16dp"/>
     <Button
         android:id="@+id/doneButton"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="40dp"
         android:text="@string/done"
         android:background="@drawable/small_menu_border"
@@ -172,7 +172,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/clearDataButton"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp"/>
+        android:layout_marginBottom="16dp"/>
 
     <LinearLayout
         android:id="@+id/clearDataConfirmation"

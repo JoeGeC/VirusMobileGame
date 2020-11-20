@@ -46,7 +46,7 @@
     <string name="shake_tip">Cuando un zombi te ataque, levantará los brazos y el dispositivo vibrará.</string>
     <string name="shake_tip_2">Cuando un zombi te está atacando, agita el dispositivo hasta que la barra azul sobre su cabeza se agote para defenderte.</string>
     <string name="gold_tip">Cuando los zombis mueren, sueltan oro. Puedes usarlo para comprar artículos en la tienda.</string>
-    <string name="abilities_tip">Las habilidades causan más daño que un deslizamiento normal, pero tienen un tiempo de recuperación antes de poder usarlas de nuevo.</string>
+    <string name="abilities_tip">Las habilidades causan más daño, pero tienen un tiempo de recuperación antes de poder usarlas de nuevo.</string>
     <string name="abilities_tip_2">¡Desliza dos dedos para usar tu habilidad equipada!</string>
     <string name="buying_abilities_tip">Una vez que hayas comprado una habilidad, si no está equipada, no tienes que volver a comprarla en este turno.</string>
     <string name="chest_tip">A veces verás aparecer cofres, ¡debes tocarlos para obtener oro, corazones de zombies o pociones!</string>
@@ -59,7 +59,7 @@
     <string name="deals">Inflige</string>
     <string name="damage">de daño</string>
     <string name="cooldown">Enfriamiento</string>
-    <string name="secs">segundos</string>
+    <string name="secs">s</string>
     <string name="recovers">Recupera</string>
     <string name="health_recover">de salud</string>
 </resources>

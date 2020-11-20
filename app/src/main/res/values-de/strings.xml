@@ -33,7 +33,7 @@
     <string name="firstAbilityUsedMessage">Großartig! Du musst erst den Cooldown abwarten, bevor du deine Fähigkeit erneut anwenden kannst.</string>
     <string name="clearData">Daten löschen</string>
     <string name="clearDataConfirmation">Bist du sicher, dass du alle Spielstände löschen willst? Alles, was du bisher erreicht hast, wird gelöscht.</string>
-    <string name="changedMyMind">Ich hab\'s mir anders überlegt.</string>
+    <string name="changedMyMind">Ich hab\'s mir anders überlegt</string>
     <string name="clearMyData">Lösch\' meine Daten!</string>
     <string name="firstHealthRecoveryZombieMessage">Sei vorsichtig! Diese Zombies können ihre Gesundheit regenerieren.</string>
     <string name="firstInvulnerableZombieMessage">Diese Zombies werden ununterbrochen angreifen! Benutze deine Fähigkeiten, um sie zu besiegen.</string>
