@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="@string/intro"
-        android:textSize="@dimen/textSize"
+        android:textSize="12sp"
         android:fontFamily="@font/unispace"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@id/speechBubble"

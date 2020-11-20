@@ -55,5 +55,11 @@
     <string name="death_tip">Ако си на 0 кръв, не се тревожи! Можеш да оправиш показателите си като използваш зомби сърце и започнеш отначало.</string>
     <string name="health_recovery_zombie_tip">Русите зомбита въстановяват кръв, убивай ги бързо!</string>
     <string name="invulnerable_zombie_tip">Тъмнокосите зомбита атакуват безмилостно. Само дарби ще могат да нанесат щета на тези врагове.</string>
-    <string name="wave">вълна</string>
+    <string name="wave">Вълна</string>
+    <string name="deals">Прави щети</string>
+    <string name="damage" />
+    <string name="cooldown">Изчакване</string>
+    <string name="secs">сек</string>
+    <string name="recovers">Въстановява</string>
+    <string name="health_recover">кръв</string>
 </resources>

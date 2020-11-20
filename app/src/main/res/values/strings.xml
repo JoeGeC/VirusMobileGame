@@ -80,7 +80,7 @@
     <string name="potion_tip">Potions recover your health. You can buy them from the shop or get them from chests.</string>
     <string name="death_tip">If your health hits 0, don\'t worry! You can upgrade your stats using your zombie hearts and start over.</string>
     <string name="health_recovery_zombie_tip">Zombies with blonde hair recover health, defeat them quickly!</string>
-    <string name="invulnerable_zombie_tip">Бързо.</string>
+    <string name="invulnerable_zombie_tip">Zombies with brown hair attack relentlessly. Only abilities will damage these foes.</string>
     <string name="wave">Wave</string>
     <string name="deals">Deals</string>
     <string name="damage">damage</string>
