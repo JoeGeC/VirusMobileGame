@@ -58,7 +58,7 @@
     <string name="wave">Vague</string>
     <string name="deals">Skade</string>
     <string name="damage"/>
-    <string name="cooldown">Køle ned:</string>
+    <string name="cooldown">\nKøle ned</string>
     <string name="secs">s</string>
     <string name="recovers">Gendanner</string>
     <string name="health_recover">helbred</string>
