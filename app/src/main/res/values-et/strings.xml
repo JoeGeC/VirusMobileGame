@@ -9,7 +9,7 @@
     <string name="welcome_back">Tere tulemast tagasi. Jätka zombide tapmist!</string>
     <string name="death_message">Oi ei! Sa said surma. Pole hullu, paranda oma olekut zombi südametega ja proovi uuesti!</string>
     <string name="not_enough_gold">Sul ei ole piisavalt kulda!</string>
-    <string name="fireAbility">Tulerünnak!</string>
+    <string name="fireAbility">Tulerünnak</string>
     <string name="shop">Pood</string>
     <string name="lightningAbility">Välgurünnak</string>
     <string name="iceAbility">Jäärünnak</string>
