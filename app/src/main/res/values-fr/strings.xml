@@ -23,7 +23,7 @@
     <string name="settings">Paramètres</string>
     <string name="vibration">Vibration</string>
     <string name="music">Musiques</string>
-    <string name="sfx">Effets spéciaux</string>
+    <string name="sfx">Effets sonores</string>
     <string name="done">Fait</string>
     <string name="firstBossEventMessage">Waouh! C\'est un gros zombie! Peut-être que si tu le bats tu obtiendras quelque chose de bien.</string>
     <string name="firstHeartMessage">Ouah! Un coeur de zombie ! Ils seront utiles plus tard, j\'en suis sûre!</string>
