@@ -17,7 +17,7 @@
     <string name="healthPotion">Potion de vie</string>
     <string name="hugeHealthPotion">Très grande potion de vie</string>
     <string name="largeHealthPotion">Grande potion de vie</string>
-    <string name="tap">[taper]</string>
+    <string name="tap">[appuyer]</string>
     <string name="not_enough_boss_hearts">Tu n\'as pas assez de coeur de Boss!</string>
     <string name="boss">BOSS</string>
     <string name="settings">Paramètres</string>
