@@ -13,7 +13,7 @@ import com.example.virusgame.shop.items.healthPotions.*
 object ShopList {
     fun getItems(context: Context): List<ShopItem> {
         val items = SaveManager.loadShop()
-        if(items != null) return factory(items, context)
+        if(items != null && items.isNotEmpty()) return factory(items, context)
         return newShop(context)
     }
 
