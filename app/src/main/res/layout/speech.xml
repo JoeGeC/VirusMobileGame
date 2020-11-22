@@ -13,14 +13,14 @@
         android:layout_height="wrap_content"
         android:src="@drawable/karl"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"/>
     <ImageView
         android:id="@+id/speechBubble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/speech_bubble"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/speaker"/>
+        app:layout_constraintLeft_toRightOf="@+id/speaker"/>
     <TextView
         android:id="@+id/speakerName"
         android:layout_width="wrap_content"
@@ -30,8 +30,7 @@
         android:fontFamily="@font/unispace"
         android:textColor="@color/blue"
         app:layout_constraintTop_toTopOf="@id/speechBubble"
-        app:layout_constraintStart_toStartOf="@+id/speechBubble"
-        android:layout_marginStart="@dimen/marginSpeech"
+        app:layout_constraintLeft_toLeftOf="@+id/speechBubble"
         android:layout_marginLeft="@dimen/marginSpeech"
         android:layout_marginTop="8dp"/>
     <TextView
@@ -42,8 +41,7 @@
         android:fontFamily="@font/unispace"
         android:textColor="@color/white"
         app:layout_constraintTop_toTopOf="@id/speechBubble"
-        app:layout_constraintEnd_toEndOf="@+id/speechBubble"
-        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="@+id/speechBubble"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"/>
     <TextView
@@ -54,10 +52,9 @@
         android:textSize="@dimen/textSize"
         android:fontFamily="@font/unispace"
         android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="@id/speakerName"
-        app:layout_constraintEnd_toEndOf="@id/speechBubble"
+        app:layout_constraintLeft_toLeftOf="@id/speakerName"
+        app:layout_constraintRight_toRightOf="@id/speechBubble"
         app:layout_constraintTop_toBottomOf="@id/speakerName"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
