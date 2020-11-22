@@ -8,5 +8,4 @@ interface DeathHandler : MenuListener {
     fun upgradeHealth()
     fun revive()
     fun setDeathUiHandler(handler: DeathUiHandler)
-
 }

@@ -64,4 +64,8 @@ class Speech(private val speechView: View): SpeechSetter {
         setMessage(messageToSet)
         initMessage()
     }
+
+    override fun closeMessage() {
+        speechView.visibility = View.GONE
+    }
 }

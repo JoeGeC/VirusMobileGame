@@ -194,6 +194,7 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
     }
 
     override fun revive() {
+        speech.closeMessage()
         gameStats.resetWave()
         gameStats.zombieWaveKillCount = 0
         player.revive()
