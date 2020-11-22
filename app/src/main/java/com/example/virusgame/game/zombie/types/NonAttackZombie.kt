@@ -9,7 +9,7 @@ import com.example.virusgame.game.zombie.animations.NormalZombieAnimations
 import com.example.virusgame.game.zombie.states.AliveZombie
 import com.example.virusgame.game.zombie.states.ZombieState
 
-class NonAttackZombie(context: Context, entityHandler: EntityHandler, offset: IntVector2) : Zombie(context, entityHandler, offset){
+class NonAttackZombie(context: Context, entityHandler: EntityHandler) : Zombie(context, entityHandler){
     override val animations = NormalZombieAnimations(context)
     override var canAttack = false
 }

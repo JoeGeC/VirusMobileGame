@@ -8,8 +8,8 @@ import com.example.virusgame.game.vector2.IntVector2
 import com.example.virusgame.game.zombie.animations.HealthRecoveryZombieAnimations
 import com.example.virusgame.game.zombie.animations.ZombieAnimations
 
-open class HealthRecoveryZombie(context: Context, entityHandler: EntityHandler, offset: IntVector2) :
-    Zombie(context, entityHandler, offset) {
+open class HealthRecoveryZombie(context: Context, entityHandler: EntityHandler) :
+    Zombie(context, entityHandler) {
     private var lastHealthRecoverTime: Long = 0
     override val animations: ZombieAnimations = HealthRecoveryZombieAnimations(context)
 

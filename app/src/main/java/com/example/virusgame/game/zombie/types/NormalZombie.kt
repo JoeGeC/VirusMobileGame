@@ -10,6 +10,6 @@ import com.example.virusgame.game.zombie.animations.ZombieAnimations
 import com.example.virusgame.game.zombie.states.AliveZombie
 import com.example.virusgame.game.zombie.states.ZombieState
 
-open class NormalZombie(context: Context, entityHandler: EntityHandler, offset: IntVector2) : Zombie(context, entityHandler, offset){
+open class NormalZombie(context: Context, entityHandler: EntityHandler) : Zombie(context, entityHandler){
     override val animations: ZombieAnimations = NormalZombieAnimations(context)
 }

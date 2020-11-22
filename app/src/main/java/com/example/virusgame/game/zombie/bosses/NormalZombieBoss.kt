@@ -16,8 +16,8 @@ import com.example.virusgame.game.zombie.types.NormalZombie
 import kotlin.math.pow
 import kotlin.random.Random
 
-class NormalZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: IntVector2) :
-    NormalZombie(context, entityHandler, rectOffset) {
+class NormalZombieBoss(context: Context, entityHandler: EntityHandler) :
+    NormalZombie(context, entityHandler) {
     override val animations = NormalZombieBossAnimations(context)
     private var bossPaint = Paint()
     override val healthBarOffset = 50

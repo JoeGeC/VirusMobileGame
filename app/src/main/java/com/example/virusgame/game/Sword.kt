@@ -14,11 +14,10 @@ class Sword(context: Context) {
     private var image: Bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.short_sword)
     private var show: Boolean = false
     var active: Boolean = true
-    var offset = IntVector2(image.width, image.height)
 
     fun draw(canvas: Canvas) {
         if(show && active)
-            canvas.drawBitmap(image, position.x, position.y - image.width, null)
+            canvas.drawBitmap(image, position.x - image.width, position.y, null)
     }
 
     fun update(touchPos: IntVector2){

@@ -21,7 +21,7 @@ import com.example.virusgame.game.zombie.states.ZombieState
 import kotlin.math.pow
 import kotlin.random.Random
 
-abstract class Zombie(var context: Context, var entityHandler: EntityHandler, private var rectOffset: IntVector2) : AzimuthEntity(), SwipeTaker {
+abstract class Zombie(var context: Context, var entityHandler: EntityHandler) : AzimuthEntity(), SwipeTaker {
     var active: Boolean = true
     abstract val animations: ZombieAnimations
     lateinit var state: ZombieState
@@ -46,10 +46,10 @@ abstract class Zombie(var context: Context, var entityHandler: EntityHandler, pr
 
     override var hitRect: Rect get() {
         return Rect(
-            (position.x + fullRect.width() / 4  - rectOffset.x).toInt(),
-            (position.y + fullRect.height() / 5 + rectOffset.y).toInt(),
-            (position.x + fullRect.width() - fullRect.width() / 5 - rectOffset.x).toInt(),
-            (position.y + fullRect.height() - fullRect.height() / 5 + rectOffset.y).toInt())
+            (position.x + fullRect.width() / 4).toInt(),
+            (position.y + fullRect.height() / 5).toInt(),
+            (position.x + fullRect.width() - fullRect.width() / 5).toInt(),
+            (position.y + fullRect.height() - fullRect.height() / 5).toInt())
     } set(value) {}
 
     init {

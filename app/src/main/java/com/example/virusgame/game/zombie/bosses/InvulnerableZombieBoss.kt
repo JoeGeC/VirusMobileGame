@@ -9,18 +9,13 @@ import com.example.virusgame.R
 import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.SoundManager
 import com.example.virusgame.game.EntityHandler
-import com.example.virusgame.game.vector2.IntVector2
-import com.example.virusgame.game.zombie.animations.InvulnerableZombieAnimations
 import com.example.virusgame.game.zombie.animations.InvulnerableZombieBossAnimations
-import com.example.virusgame.game.zombie.states.AliveZombie
-import com.example.virusgame.game.zombie.states.ZombieState
-import com.example.virusgame.game.zombie.types.HealthRecoveryZombie
 import com.example.virusgame.game.zombie.types.InvulnerableZombie
 import kotlin.math.pow
 import kotlin.random.Random
 
-class InvulnerableZombieBoss(context: Context, entityHandler: EntityHandler, rectOffset: IntVector2) :
-    InvulnerableZombie(context, entityHandler, rectOffset) {
+class InvulnerableZombieBoss(context: Context, entityHandler: EntityHandler) :
+    InvulnerableZombie(context, entityHandler) {
     override val animations = InvulnerableZombieBossAnimations(context)
     private var bossPaint = Paint()
     override val healthBarOffset = 50

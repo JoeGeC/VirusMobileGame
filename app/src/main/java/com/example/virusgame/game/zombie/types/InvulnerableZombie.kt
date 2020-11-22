@@ -7,8 +7,8 @@ import com.example.virusgame.game.vector2.IntVector2
 import com.example.virusgame.game.zombie.animations.InvulnerableZombieAnimations
 import com.example.virusgame.game.zombie.animations.ZombieAnimations
 
-open class InvulnerableZombie(context: Context, entityHandler: EntityHandler, offset: IntVector2) :
-    Zombie(context, entityHandler, offset) {
+open class InvulnerableZombie(context: Context, entityHandler: EntityHandler) :
+    Zombie(context, entityHandler) {
     override val animations: ZombieAnimations = InvulnerableZombieAnimations(context)
 
     init {
