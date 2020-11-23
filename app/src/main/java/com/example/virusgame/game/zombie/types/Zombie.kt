@@ -44,12 +44,16 @@ abstract class Zombie(var context: Context, var entityHandler: EntityHandler) : 
         return Rect(position.x.toInt(), position.y.toInt(), position.x.toInt() + state.animation[0].width, position.y.toInt() + state.animation[0].height)
     } set(value) {}
 
+    private var hitRectLeftOffset = 0
+    private var hitRectRightOffset = 0
+    private var hitRectTopOffset = 0
+    private var hitRectBottomOffset = 0
     override var hitRect: Rect get() {
         return Rect(
-            (position.x + fullRect.width() / 4).toInt(),
-            (position.y + fullRect.height() / 5).toInt(),
-            (position.x + fullRect.width() - fullRect.width() / 5).toInt(),
-            (position.y + fullRect.height() - fullRect.height() / 5).toInt())
+            (position.x + hitRectLeftOffset).toInt(),
+            (position.y + hitRectTopOffset).toInt(),
+            (position.x + hitRectRightOffset).toInt(),
+            (position.y + hitRectBottomOffset).toInt())
     } set(value) {}
 
     init {
@@ -60,6 +64,10 @@ abstract class Zombie(var context: Context, var entityHandler: EntityHandler) : 
     fun afterInit(){
         state = AliveZombie(this)
         position = FloatVector2(0f, ScreenDimensions.height / 1.3f - state.animation[0].height)
+        hitRectLeftOffset = fullRect.width() / 4
+        hitRectRightOffset = fullRect.width() - fullRect.width() / 5
+        hitRectTopOffset = fullRect.height() / 5
+        hitRectBottomOffset = fullRect.height() - fullRect.height() / 5
     }
 
     open fun draw(canvas: Canvas){
