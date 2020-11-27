@@ -1,6 +1,8 @@
 package com.example.virusgame
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +19,7 @@ import kotlinx.android.synthetic.main.game.*
 import kotlinx.android.synthetic.main.speech.*
 
 
-class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataListener, DeathListener, ResumeListener {
+class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataListener, DeathListener, GamePauseListener {
     private lateinit var menuFragmentManager: MenuFragmentManager
     private lateinit var speechSetter: SpeechSetter
 
@@ -81,7 +83,25 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
         menuFragmentManager.openFragment(DeathFragment(gameView.gameLoop))
     }
 
-    override fun canResume(): Boolean {
-        return menuFragmentManager.menuIsOpen()
+    override fun gamePause() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            pauseDimmer.visibility = View.VISIBLE
+            settingsIcon.setOnClickListener(null)
+            shopIcon.setOnClickListener(null)
+            tipsIcon.setOnClickListener(null)
+        }, 0)
+    }
+
+    override fun canGameResume(): Boolean {
+        if(menuFragmentManager.menuIsOpen()){
+            Handler(Looper.getMainLooper()).postDelayed({
+                pauseDimmer.visibility = View.GONE
+                settingsIcon.setOnClickListener(this)
+                shopIcon.setOnClickListener(this)
+                tipsIcon.setOnClickListener(this)
+            }, 0)
+            return true
+        }
+        return false
     }
 }

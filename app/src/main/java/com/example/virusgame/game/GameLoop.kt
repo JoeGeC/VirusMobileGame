@@ -49,7 +49,7 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
     private val chest = Chest(this)
     private var deathUiHandler: DeathUiHandler? = null
     private lateinit var deathListener: DeathListener
-    private lateinit var resumeListener: ResumeListener
+    private lateinit var pauseListener: GamePauseListener
 
     private var touched: Boolean = false
     private var touchPos: IntVector2 = IntVector2(0, 0)
@@ -65,9 +65,9 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
         latePause = false
     }
 
-    fun lateInit(speechSetter: SpeechSetter, waveListener: WaveListener, dListener: DeathListener, pListener: ResumeListener){
+    fun lateInit(speechSetter: SpeechSetter, waveListener: WaveListener, dListener: DeathListener, pListener: GamePauseListener){
         speech = speechSetter
-        resumeListener = pListener
+        pauseListener = pListener
         setupEvents()
         gameStats.assignWaveListener(waveListener)
         spawnNewZombie()
@@ -222,19 +222,25 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
     }
 
     override fun pause() {
-        try {
-            zombie!!.deactivate()
-        }catch(e: Exception){
-            latePause = true
-            return
-        }
+        if (!tryDeactivateZombie()) return
+        pauseListener.gamePause()
         sword.active = false
         shakeReceiver.onPause()
         rotationReceiver.onPause()
     }
 
+    private fun tryDeactivateZombie(): Boolean {
+        return try {
+            zombie!!.deactivate()
+            true
+        } catch (e: Exception) {
+            latePause = true
+            false
+        }
+    }
+
     override fun resume(){
-        if(!resumeListener.canResume()) return
+        if(!pauseListener.canGameResume()) return
         if(!player.alive) {
             deathListener.onPlayerDeath()
             return
