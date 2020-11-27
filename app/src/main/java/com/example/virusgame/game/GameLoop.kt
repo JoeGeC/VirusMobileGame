@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import android.view.MotionEvent
 import com.example.virusgame.R
 import com.example.virusgame.SaveManager
-import com.example.virusgame.SpeechSetter
+import com.example.virusgame.speech.SpeechSetter
 import com.example.virusgame.WaveListener
 import com.example.virusgame.death.DeathHandler
 import com.example.virusgame.death.DeathListener

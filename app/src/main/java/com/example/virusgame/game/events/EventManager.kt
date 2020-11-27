@@ -1,7 +1,7 @@
 package com.example.virusgame.game.events
 
 import com.example.virusgame.MainActivity
-import com.example.virusgame.SpeechSetter
+import com.example.virusgame.speech.SpeechSetter
 
 class EventManager {
     var context = MainActivity.applicationContext()

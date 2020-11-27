@@ -1,4 +1,4 @@
-package com.example.virusgame
+package com.example.virusgame.speech
 
 interface SpeechSetter {
     fun setTypedMessage(messageToSet: String)

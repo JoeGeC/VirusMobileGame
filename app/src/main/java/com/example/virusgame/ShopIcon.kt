@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 import com.example.virusgame.shop.ShopHandler
 import com.example.virusgame.shop.ShopFragment
+import com.example.virusgame.speech.SpeechSetter
 
 class ShopIcon(context: Context, attributeSet: AttributeSet) : AppCompatImageView(context, attributeSet) {
     private var available = false

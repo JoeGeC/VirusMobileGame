@@ -11,6 +11,7 @@ import com.example.virusgame.game.events.ShopOpensEvent
 import com.example.virusgame.settings.ClearDataListener
 import com.example.virusgame.settings.SettingsFragment
 import com.example.virusgame.speech.Speech
+import com.example.virusgame.speech.SpeechSetter
 import com.example.virusgame.tips.TipsFragment
 import kotlinx.android.synthetic.main.game.*
 import kotlinx.android.synthetic.main.speech.*

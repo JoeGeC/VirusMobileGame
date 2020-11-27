@@ -7,7 +7,7 @@ import android.os.Looper
 import android.view.View
 import android.widget.TextView
 import com.example.virusgame.R
-import com.example.virusgame.SpeechSetter
+import com.example.virusgame.SoundManager
 import com.example.virusgame.clock.Clock
 
 class Speech(private val speechView: View): SpeechSetter {
@@ -17,18 +17,19 @@ class Speech(private val speechView: View): SpeechSetter {
     override fun setTypedMessage(messageToSet: String){
         initMessage()
         messageThread?.interrupt()
-        messageThread = messageThread(messageToSet)
+        messageThread = typeOutMessage(messageToSet)
         messageThread?.start()
     }
 
     private fun initMessage() {
+        SoundManager.playSfx(speechView.context, R.raw.speech)
         Handler(Looper.getMainLooper()).postDelayed({
             bounceMessage()
             speechView.visibility = View.VISIBLE
         }, 0)
     }
 
-    private fun messageThread(message: String): Thread {
+    private fun typeOutMessage(message: String): Thread {
         var typedMessage = ""
         var charNum = 0
         return Thread {
