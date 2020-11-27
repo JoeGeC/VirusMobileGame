@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.virusgame.R
 import com.example.virusgame.SoundManager
 import com.example.virusgame.clock.Clock
@@ -13,16 +14,19 @@ import com.example.virusgame.clock.Clock
 class Speech(private val speechView: View): SpeechSetter {
     private var lastCharTime = System.nanoTime()
     private var messageThread: Thread? = null
+    private var currentMessage = ""
+    private var typing = false
 
     override fun setTypedMessage(messageToSet: String){
-        initMessage()
+        initMessage(messageToSet)
         messageThread?.interrupt()
         messageThread = typeOutMessage(messageToSet)
         messageThread?.start()
     }
 
-    private fun initMessage() {
+    private fun initMessage(messageToSet: String) {
         SoundManager.playSfx(speechView.context, R.raw.speech)
+        currentMessage = messageToSet
         Handler(Looper.getMainLooper()).postDelayed({
             bounceMessage()
             speechView.visibility = View.VISIBLE
@@ -32,6 +36,7 @@ class Speech(private val speechView: View): SpeechSetter {
     private fun typeOutMessage(message: String): Thread {
         var typedMessage = ""
         var charNum = 0
+        typing = true
         return Thread {
             while (charNum < message.length && !Thread.currentThread().isInterrupted) {
                 if (Clock.haveMillisecondsPassedSince(lastCharTime, 30)) {
@@ -41,6 +46,7 @@ class Speech(private val speechView: View): SpeechSetter {
                     setMessage(typedMessage)
                 }
             }
+            typing = false
         }
     }
 
@@ -63,10 +69,19 @@ class Speech(private val speechView: View): SpeechSetter {
 
     override fun setQuickMessage(messageToSet: String){
         setMessage(messageToSet)
-        initMessage()
+        initMessage(messageToSet)
     }
 
     override fun closeMessage() {
         speechView.visibility = View.GONE
+    }
+
+    override fun onClick(speechView: ConstraintLayout) {
+        if(typing) {
+            setMessage(currentMessage)
+            messageThread?.interrupt()
+            return
+        }
+        closeMessage()
     }
 }

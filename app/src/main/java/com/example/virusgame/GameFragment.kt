@@ -49,7 +49,7 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
         when (view.id) {
             R.id.shopIcon -> shopIcon.onClick(menuFragmentManager, gameView.gameLoop)
             R.id.settingsIcon -> menuFragmentManager.openFragment(SettingsFragment(this, gameView.gameLoop))
-            R.id.speech -> speech.visibility = View.GONE
+            R.id.speech -> speechSetter.onClick(speech)
             R.id.tipsIcon -> menuFragmentManager.openFragment(TipsFragment(gameView.gameLoop))
         }
     }
