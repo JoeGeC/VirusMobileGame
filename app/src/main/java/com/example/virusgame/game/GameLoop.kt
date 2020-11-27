@@ -3,10 +3,8 @@ package com.example.virusgame.game
 import android.content.Context
 import android.graphics.Canvas
 import android.view.MotionEvent
-import com.example.virusgame.R
-import com.example.virusgame.SaveManager
+import com.example.virusgame.*
 import com.example.virusgame.speech.SpeechSetter
-import com.example.virusgame.WaveListener
 import com.example.virusgame.death.DeathHandler
 import com.example.virusgame.death.DeathListener
 import com.example.virusgame.death.DeathUiHandler
@@ -32,15 +30,17 @@ import com.example.virusgame.game.zombie.types.Zombie
 import com.example.virusgame.shop.ShopHandler
 import com.example.virusgame.shop.ShopList
 import com.example.virusgame.shop.items.ShopItem
+import java.lang.Exception
 import kotlin.random.Random
 
 class GameLoop(override var context: Context) : EntityHandler, DeathHandler, ShopHandler, DoubleSwipeHandler,
-    RotationHandler, CollectorManager {
+    RotationHandler, CollectorManager, Pauser {
     private var location: Double = 0.0
     private val gameStats = SaveManager.loadGameStats()
     private val eventManager = EventManager()
     private val ui = Ui(context)
     private lateinit var speech: SpeechSetter
+    private var latePause = true
     private var zombie: Zombie? = null
     override var player = Player()
     private var sword = Sword(context)
@@ -49,6 +49,7 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
     private val chest = Chest(this)
     private var deathUiHandler: DeathUiHandler? = null
     private lateinit var deathListener: DeathListener
+    private lateinit var resumeListener: ResumeListener
 
     private var touched: Boolean = false
     private var touchPos: IntVector2 = IntVector2(0, 0)
@@ -61,13 +62,16 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
         player = SaveManager.loadPlayer()
         player.setup(this)
         ZombieDamageCalculator.player = player
+        latePause = false
     }
 
-    fun lateInit(speechSetter: SpeechSetter, waveListener: WaveListener, dListener: DeathListener){
+    fun lateInit(speechSetter: SpeechSetter, waveListener: WaveListener, dListener: DeathListener, pListener: ResumeListener){
         speech = speechSetter
+        resumeListener = pListener
         setupEvents()
         gameStats.assignWaveListener(waveListener)
         spawnNewZombie()
+        if(latePause) pause()
         deathListener = dListener
     }
 
@@ -78,7 +82,7 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
     }
 
     fun update(){
-        if(touched && zombie!!.state !is PreAttackZombie){
+        if(touched && zombie!!.state !is PreAttackZombie && zombie!!.active){
             swipeState = swipeState.onTouch(touchPos, zombie!!)
             sword.update(touchPos)
         } else sword.deactivate()
@@ -217,14 +221,20 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
         location = azimuth
     }
 
-    fun pause() {
-        zombie!!.deactivate()
+    override fun pause() {
+        try {
+            zombie!!.deactivate()
+        }catch(e: Exception){
+            latePause = true
+            return
+        }
         sword.active = false
         shakeReceiver.onPause()
         rotationReceiver.onPause()
     }
 
-    fun resume(){
+    override fun resume(){
+        if(!resumeListener.canResume()) return
         if(!player.alive) {
             deathListener.onPlayerDeath()
             return

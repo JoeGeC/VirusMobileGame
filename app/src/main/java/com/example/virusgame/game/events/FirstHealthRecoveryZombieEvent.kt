@@ -7,6 +7,6 @@ object FirstHealthRecoveryZombieEvent : Event() {
 
     override fun trigger() {
         if(!isComplete())
-            speech.setTypedMessage(context.getString(R.string.firstHealthRecoveryZombieMessage))
+            speech.setTypedPauseMessage(context.getString(R.string.firstHealthRecoveryZombieMessage))
     }
 }

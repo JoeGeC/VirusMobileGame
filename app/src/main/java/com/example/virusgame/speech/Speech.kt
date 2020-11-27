@@ -10,12 +10,18 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.virusgame.R
 import com.example.virusgame.SoundManager
 import com.example.virusgame.clock.Clock
+import com.example.virusgame.game.Pauser
 
-class Speech(private val speechView: View): SpeechSetter {
+class Speech(private val speechView: View, private val pauser: Pauser): SpeechSetter {
     private var lastCharTime = System.nanoTime()
     private var messageThread: Thread? = null
     private var currentMessage = ""
     private var typing = false
+
+    override fun setTypedPauseMessage(messageToSet: String) {
+        pauser.pause()
+        setTypedMessage(messageToSet)
+    }
 
     override fun setTypedMessage(messageToSet: String){
         initMessage(messageToSet)
@@ -23,6 +29,7 @@ class Speech(private val speechView: View): SpeechSetter {
         messageThread = typeOutMessage(messageToSet)
         messageThread?.start()
     }
+
 
     private fun initMessage(messageToSet: String) {
         SoundManager.playSfx(speechView.context, R.raw.speech)
@@ -67,13 +74,14 @@ class Speech(private val speechView: View): SpeechSetter {
         }, 0)
     }
 
+    override fun setQuickPauseMessage(messageToSet: String) {
+        pauser.pause()
+        setQuickMessage(messageToSet)
+    }
+
     override fun setQuickMessage(messageToSet: String){
         setMessage(messageToSet)
         initMessage(messageToSet)
-    }
-
-    override fun closeMessage() {
-        speechView.visibility = View.GONE
     }
 
     override fun onClick(speechView: ConstraintLayout) {
@@ -82,6 +90,11 @@ class Speech(private val speechView: View): SpeechSetter {
             messageThread?.interrupt()
             return
         }
+        pauser.resume()
         closeMessage()
+    }
+
+    override fun closeMessage() {
+        speechView.visibility = View.GONE
     }
 }

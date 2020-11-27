@@ -7,6 +7,6 @@ object FirstInvulnerableZombieEvent : Event() {
 
     override fun trigger() {
         if(!isComplete())
-            speech.setTypedMessage(context.getString(R.string.firstInvulnerableZombieMessage))
+            speech.setTypedPauseMessage(context.getString(R.string.firstInvulnerableZombieMessage))
     }
 }

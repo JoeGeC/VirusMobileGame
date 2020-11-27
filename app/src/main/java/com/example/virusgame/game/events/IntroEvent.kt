@@ -7,7 +7,7 @@ object IntroEvent : Event() {
 
     override fun trigger(){
         if(!isComplete())
-            speech.setTypedMessage(context.getString(R.string.intro))
+            speech.setTypedPauseMessage(context.getString(R.string.intro))
         else
             speech.setTypedMessage(context.getString(R.string.welcome_back))
     }

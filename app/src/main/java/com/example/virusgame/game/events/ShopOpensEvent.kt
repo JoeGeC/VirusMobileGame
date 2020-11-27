@@ -7,7 +7,7 @@ object ShopOpensEvent: Event() {
 
     override fun trigger() {
         if(!isComplete())
-            speech.setTypedMessage(context.getString(R.string.shopOpensMessage))
+            speech.setTypedPauseMessage(context.getString(R.string.shopOpensMessage))
     }
 
     override fun completeEvent() {

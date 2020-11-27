@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.game.*
 import kotlinx.android.synthetic.main.speech.*
 
 
-class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataListener, DeathListener {
+class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataListener, DeathListener, ResumeListener {
     private lateinit var menuFragmentManager: MenuFragmentManager
     private lateinit var speechSetter: SpeechSetter
 
@@ -28,7 +28,7 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         menuFragmentManager = MenuFragmentManager(context!!, fragmentManager!!)
-        speechSetter = Speech(speech)
+        speechSetter = Speech(speech, gameView.gameLoop)
         setupShopIcon()
         setupGameView()
         settingsIcon.setOnClickListener(this)
@@ -37,7 +37,7 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
     }
 
     private fun setupGameView() {
-        gameView.gameLoop.lateInit(speechSetter, this, this)
+        gameView.gameLoop.lateInit(speechSetter, this, this, this)
     }
 
     private fun setupShopIcon() {
@@ -79,5 +79,9 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
 
     override fun onPlayerDeath() {
         menuFragmentManager.openFragment(DeathFragment(gameView.gameLoop))
+    }
+
+    override fun canResume(): Boolean {
+        return menuFragmentManager.menuIsOpen()
     }
 }

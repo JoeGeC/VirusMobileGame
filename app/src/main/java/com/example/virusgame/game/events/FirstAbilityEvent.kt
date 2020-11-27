@@ -7,14 +7,14 @@ object FirstAbilityEvent: Event(){
 
     override fun trigger() {
         if(!isComplete()){
-            speech.setTypedMessage(context.getString(R.string.firstAbilityMessage))
+            speech.setTypedPauseMessage(context.getString(R.string.firstAbilityMessage))
         }
     }
 
     override fun completeEvent() {
         if(!isComplete()){
             super.completeEvent()
-            speech.setTypedMessage(context.getString(R.string.firstAbilityUsedMessage))
+            speech.setTypedPauseMessage(context.getString(R.string.firstAbilityUsedMessage))
         }
     }
 }
