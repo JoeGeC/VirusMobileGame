@@ -240,7 +240,7 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
     }
 
     override fun resume(){
-        if(!pauseListener.canGameResume()) return
+        if(!pauseListener.gameResume()) return
         if(!player.alive) {
             deathListener.onPlayerDeath()
             return
