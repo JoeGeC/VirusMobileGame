@@ -26,15 +26,16 @@ class Vibrator(context: Context) {
         }
     }
 
+    //Using deprecated method for older versions of android
     fun vibrate(pattern: LongArray, repeat: Int){
         if(!VibrateManager.active) return
+        @Suppress("DEPRECATION")
         if (androidVersionIsOverO())
             vibrator.vibrate(VibrationEffect.createWaveform(pattern, repeat))
         else
             vibrator.vibrate(pattern, repeat)
     }
 
-    //Using deprecated method for older versions of android
     private fun androidVersionIsOverO() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
 
     fun stop(){
