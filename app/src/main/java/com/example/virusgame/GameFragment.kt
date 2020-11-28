@@ -31,20 +31,16 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
         super.onViewCreated(view, savedInstanceState)
         menuFragmentManager = MenuFragmentManager(context!!, fragmentManager!!)
         speechSetter = Speech(speech, gameView.gameLoop)
-        setupShopIcon()
-        setupGameView()
-        settingsIcon.setOnClickListener(this)
-        speech.setOnClickListener(this)
-        tipsIcon.setOnClickListener(this)
-    }
-
-    private fun setupGameView() {
-        gameView.gameLoop.lateInit(speechSetter, this, this, this)
-    }
-
-    private fun setupShopIcon() {
-        shopIcon.setOnClickListener(this)
         shopIcon.setSpeechSetter(speechSetter)
+        gameView.gameLoop.lateInit(speechSetter, this, this, this)
+        setIconClickListeners(this)
+        speech.setOnClickListener(this)
+    }
+
+    private fun setIconClickListeners(clickListener: View.OnClickListener?) {
+        settingsIcon?.setOnClickListener(clickListener)
+        tipsIcon?.setOnClickListener(clickListener)
+        shopIcon?.setOnClickListener(clickListener)
     }
 
     override fun onClick(view: View) {
@@ -86,18 +82,14 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
     override fun gamePause() {
         Handler(Looper.getMainLooper()).postDelayed({
             pauseDimmer?.visibility = View.VISIBLE
-            settingsIcon?.setOnClickListener(null)
-            shopIcon?.setOnClickListener(null)
-            tipsIcon?.setOnClickListener(null)
+            setIconClickListeners(null)
         }, 0)
     }
 
     override fun gameResume() {
         Handler(Looper.getMainLooper()).postDelayed({
             pauseDimmer?.visibility = View.GONE
-            settingsIcon?.setOnClickListener(this)
-            shopIcon?.setOnClickListener(this)
-            tipsIcon?.setOnClickListener(this)
+            setIconClickListeners(this)
         }, 0)
     }
 }

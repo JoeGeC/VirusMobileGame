@@ -24,6 +24,9 @@ class RotationReceiver(private val context: Context, private val rotationReceive
         registerListener()
     }
 
+    private fun registerListener(){
+        sensorManager.registerListener(rotationSensor, accelerometer, SensorManager.SENSOR_DELAY_UI)
+    }
 
     fun onPause(){
         sensorManager.unregisterListener(rotationSensor)
@@ -31,9 +34,5 @@ class RotationReceiver(private val context: Context, private val rotationReceive
 
     fun onResume(){
         registerListener()
-    }
-
-    private fun registerListener(){
-        sensorManager.registerListener(rotationSensor, accelerometer, SensorManager.SENSOR_DELAY_UI)
     }
 }

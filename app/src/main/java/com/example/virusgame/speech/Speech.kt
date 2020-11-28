@@ -32,7 +32,7 @@ class Speech(private val speechView: View, private val tipListener: TipListener)
 
     private fun typeMessage(messageToSet: String){
         initMessage(messageToSet)
-        messageThread?.interrupt()
+        messageThread?.interrupt() //if last message is still typing, stop it
         messageThread = typeOutMessage(messageToSet)
         messageThread?.start()
     }

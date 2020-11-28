@@ -18,6 +18,7 @@ import com.example.virusgame.game.events.IntroEvent
 import com.example.virusgame.game.player.Player
 import com.example.virusgame.game.rotation.RotationHandler
 import com.example.virusgame.game.rotation.RotationReceiver
+import com.example.virusgame.game.shake.ShakeReceiver
 import com.example.virusgame.game.swipestates.StartSwipeState
 import com.example.virusgame.game.swipestates.SwipeState
 import com.example.virusgame.game.ui.Ui
@@ -67,6 +68,7 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
         latePause = false
     }
 
+    // called later so that listeners etc can be set and avoid null exceptions
     fun lateInit(speechSetter: SpeechSetter, waveListener: WaveListener, dListener: DeathListener, pListener: GamePauseListener){
         speech = speechSetter
         pauseListener = pListener
@@ -240,6 +242,7 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
         rotationReceiver.onPause()
     }
 
+    //If pause is called from within zombie at init, we do pause() later
     private fun tryDeactivateZombie(): Boolean {
         return try {
             zombie!!.deactivate()
@@ -258,10 +261,6 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
     fun resume(){
         if(tipPaused || menuPaused) return
         pauseListener.gameResume()
-        if(!player.alive) {
-            deathListener.onPlayerDeath()
-            return
-        }
         zombie!!.resume()
         sword.active = true
         shakeReceiver.onResume()

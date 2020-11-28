@@ -2,6 +2,7 @@ package com.example.virusgame.game
 
 import android.graphics.Canvas
 import android.view.SurfaceHolder
+import com.example.virusgame.clock.Clock
 import java.lang.Exception
 
 class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView: GameView) : Thread() {
@@ -17,12 +18,11 @@ class GameThread(private val surfaceHolder: SurfaceHolder, private val gameView:
         var startTime: Long
         var timePassed: Long
         var waitTime: Long
-
         while(running){
             startTime = System.nanoTime()
             canvas = null
             updateFrame()
-            timePassed = (System.nanoTime() - startTime) / 1000000
+            timePassed = Clock.millisecondsPassedSince(startTime)
             waitTime = targetTime - timePassed
             waitForNextFrame(waitTime)
         }

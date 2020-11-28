@@ -60,7 +60,6 @@ class SettingsFragment(private val clearDataListener: ClearDataListener, private
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 sfxPercentage.text = "$progress%"
             }
-
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 SoundManager.sfxVolume = seekBar.progress / 100f

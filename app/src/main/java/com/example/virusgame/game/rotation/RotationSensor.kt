@@ -8,8 +8,6 @@ import kotlin.math.*
 
 class RotationSensor : SensorEventListener {
     private var rotationListener: OnRotationListener? = null
-    private var tilt = 0.0
-    private var azimuth = 0.0
     private var x: Double = 0.0
     private var y: Double = 0.0
     private var z: Double = 0.0

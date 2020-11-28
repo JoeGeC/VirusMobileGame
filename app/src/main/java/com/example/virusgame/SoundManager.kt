@@ -3,7 +3,6 @@ package com.example.virusgame
 import android.content.Context
 import android.media.MediaPlayer
 import android.media.MediaPlayer.OnCompletionListener
-import kotlin.math.ln
 import kotlin.random.Random
 
 object SoundManager {
@@ -38,19 +37,19 @@ object SoundManager {
         }
 
     fun playSfx(context: Context, soundResource: Int){
-        val player = MediaPlayer.create(context, soundResource)
-        activeSfxPlayers.add(player)
-        player.setOnCompletionListener(releaseOnFinishListener)
-        player.setVolume(sfxVolume, sfxVolume)
-        player.start()
+        val mediaPlayer = MediaPlayer.create(context, soundResource)
+        activeSfxPlayers.add(mediaPlayer)
+        mediaPlayer.setOnCompletionListener(releaseOnFinishListener)
+        mediaPlayer.setVolume(sfxVolume, sfxVolume)
+        mediaPlayer.start()
     }
 
     fun playQueuedSfx(context: Context, soundResource: Int) {
-        val player = MediaPlayer.create(context, soundResource)
-        queuedSfxPlayers.add(player)
-        player.setOnCompletionListener(queueOnFinishListener)
-        player.setVolume(sfxVolume, sfxVolume)
-        if(queuedSfxPlayers.size == 1) player.start()
+        val mediaPlayer = MediaPlayer.create(context, soundResource)
+        queuedSfxPlayers.add(mediaPlayer)
+        mediaPlayer.setOnCompletionListener(queueOnFinishListener)
+        mediaPlayer.setVolume(sfxVolume, sfxVolume)
+        if(queuedSfxPlayers.size == 1) mediaPlayer.start()
     }
 
     fun playRandomSfxOf(context: Context, soundResources: List<Int>){

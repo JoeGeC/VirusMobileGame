@@ -1,4 +1,4 @@
-package com.example.virusgame.game
+package com.example.virusgame.game.shake
 
 import android.content.Context
 import android.hardware.Sensor
@@ -17,7 +17,7 @@ class ShakeReceiver(private var context: Context, var zombieDamageHandler: Zombi
     private fun setupShakeSensor() {
         sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         accelerometer  = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        shakeSensor.setOnShakeListener(object : ShakeSensor.OnShakeListener{
+        shakeSensor.setOnShakeListener(object : ShakeListener {
             override fun onShake() {
                 zombieDamageHandler.shakeZombie()
             }

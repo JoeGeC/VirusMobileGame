@@ -11,6 +11,7 @@ import com.example.virusgame.ScreenDimensions
 import com.example.virusgame.game.CollectorDoneListener
 import com.example.virusgame.game.vector2.FloatVector2
 
+//shows gold/items on screen when obtained
 abstract class Collector(private var position: FloatVector2, protected val amount: Int, protected val collectorManager: CollectorManager, private val collectorDoneListener: CollectorDoneListener? = null) {
     protected val context = collectorManager.context
     abstract val image: Bitmap

@@ -12,7 +12,6 @@ import com.example.virusgame.game.EntityHandler
 import com.example.virusgame.game.SwipeTaker
 import com.example.virusgame.game.rotation.AzimuthEntity
 import com.example.virusgame.game.vector2.FloatVector2
-import com.example.virusgame.game.vector2.IntVector2
 import com.example.virusgame.game.zombie.animations.ZombieAnimations
 import com.example.virusgame.game.zombie.states.AliveZombie
 import com.example.virusgame.game.zombie.states.DeadZombie
@@ -100,6 +99,7 @@ abstract class Zombie(var context: Context, var entityHandler: EntityHandler) : 
         canvas.drawRect(getBarRect(maxHealth, currentHealth, healthBarYOffset), zombieHealthPaint)
     }
 
+    //for health and energy bars
     internal fun getBarRect(maxValue: Int, currentValue: Int,  yOffset: Int) : Rect {
         val startPos = fullRect.left + healthBarOffset
         val endPos = fullRect.right - healthBarOffset * 3
@@ -135,7 +135,7 @@ abstract class Zombie(var context: Context, var entityHandler: EntityHandler) : 
         return (playerStrength * 300) / wave
     }
 
-    private fun adjustTimesForDeactivation() {
+    private fun adjustTimesFromDeactivation() {
         val offsetTime = System.nanoTime() - deactivatedTime
         lastAttackTime += offsetTime
         state.lastFrameUpdateTime += offsetTime
@@ -155,7 +155,7 @@ abstract class Zombie(var context: Context, var entityHandler: EntityHandler) : 
     fun resume() {
         if(active) return
         active = true
-        adjustTimesForDeactivation()
+        adjustTimesFromDeactivation()
         if(state is PreAttackZombie) (state as PreAttackZombie).warningVibrate()
     }
 }
