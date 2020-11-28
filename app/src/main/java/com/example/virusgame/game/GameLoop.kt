@@ -34,7 +34,7 @@ import java.lang.Exception
 import kotlin.random.Random
 
 class GameLoop(override var context: Context) : EntityHandler, DeathHandler, ShopHandler, DoubleSwipeHandler,
-    RotationHandler, CollectorManager, Pauser {
+    RotationHandler, CollectorManager, TipListener {
     private var location: Double = 0.0
     private val gameStats = SaveManager.loadGameStats()
     private val eventManager = EventManager()
@@ -50,6 +50,8 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
     private var deathUiHandler: DeathUiHandler? = null
     private lateinit var deathListener: DeathListener
     private lateinit var pauseListener: GamePauseListener
+    private var menuPaused = false
+    private var tipPaused = false
 
     private var touched: Boolean = false
     private var touchPos: IntVector2 = IntVector2(0, 0)
@@ -162,9 +164,13 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
         chest.reset()
     }
 
-    override fun onMenuOpened() { pause() }
+    override fun onMenuOpened() {
+        menuPaused = true
+        pause()
+    }
 
     override fun onMenuClosed(){
+        menuPaused = false
         resume()
         SaveManager.saveGame(player, gameStats, eventManager)
     }
@@ -221,7 +227,12 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
         location = azimuth
     }
 
-    override fun pause() {
+    override fun onPauseTipOpen() {
+        tipPaused = true
+        pause()
+    }
+
+    fun pause() {
         if (!tryDeactivateZombie()) return
         pauseListener.gamePause()
         sword.active = false
@@ -239,8 +250,14 @@ class GameLoop(override var context: Context) : EntityHandler, DeathHandler, Sho
         }
     }
 
-    override fun resume(){
-        if(!pauseListener.gameResume()) return
+    override fun onPauseTipClosed() {
+        tipPaused = false
+        resume()
+    }
+
+    fun resume(){
+        if(tipPaused || menuPaused) return
+        pauseListener.gameResume()
         if(!player.alive) {
             deathListener.onPlayerDeath()
             return

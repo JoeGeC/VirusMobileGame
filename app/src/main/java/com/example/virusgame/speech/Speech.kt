@@ -10,26 +10,32 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.virusgame.R
 import com.example.virusgame.SoundManager
 import com.example.virusgame.clock.Clock
-import com.example.virusgame.game.Pauser
+import com.example.virusgame.game.TipListener
 
-class Speech(private val speechView: View, private val pauser: Pauser): SpeechSetter {
+class Speech(private val speechView: View, private val tipListener: TipListener): SpeechSetter {
     private var lastCharTime = System.nanoTime()
     private var messageThread: Thread? = null
     private var currentMessage = ""
     private var typing = false
+    private var paused = false
 
     override fun setTypedPauseMessage(messageToSet: String) {
-        pauser.pause()
-        setTypedMessage(messageToSet)
+        paused = true
+        tipListener.onPauseTipOpen()
+        typeMessage(messageToSet)
     }
 
     override fun setTypedMessage(messageToSet: String){
+        paused = false
+        typeMessage(messageToSet)
+    }
+
+    private fun typeMessage(messageToSet: String){
         initMessage(messageToSet)
         messageThread?.interrupt()
         messageThread = typeOutMessage(messageToSet)
         messageThread?.start()
     }
-
 
     private fun initMessage(messageToSet: String) {
         SoundManager.playSfx(speechView.context, R.raw.speech)
@@ -75,11 +81,17 @@ class Speech(private val speechView: View, private val pauser: Pauser): SpeechSe
     }
 
     override fun setQuickPauseMessage(messageToSet: String) {
-        pauser.pause()
-        setQuickMessage(messageToSet)
+        paused = true
+        tipListener.onPauseTipOpen()
+        quickMessage(messageToSet)
     }
 
     override fun setQuickMessage(messageToSet: String){
+        paused = false
+        quickMessage(messageToSet)
+    }
+
+    private fun quickMessage(messageToSet: String) {
         setMessage(messageToSet)
         initMessage(messageToSet)
     }
@@ -90,7 +102,7 @@ class Speech(private val speechView: View, private val pauser: Pauser): SpeechSe
             messageThread?.interrupt()
             return
         }
-        pauser.resume()
+        if(paused) tipListener.onPauseTipClosed()
         closeMessage()
     }
 

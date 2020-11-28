@@ -17,13 +17,4 @@ class MenuFragmentManager(var context: Context, var fragmentManager: FragmentMan
         val fragmentToRemove = fragmentManager.findFragmentByTag(context.getString(R.string.subFragment))
         if(fragmentToRemove != null) fragmentManager.beginTransaction().remove(fragmentToRemove).commit()
     }
-
-    fun menuIsOpen() : Boolean{
-        return try{
-            fragmentManager.findFragmentByTag(context.getString(R.string.subFragment))
-            true
-        } catch (e: Exception){
-            false
-        }
-    }
 }

@@ -92,16 +92,12 @@ class GameFragment : Fragment(), View.OnClickListener, WaveListener, ClearDataLi
         }, 0)
     }
 
-    override fun gameResume(): Boolean {
-        if(menuFragmentManager.menuIsOpen()){
-            Handler(Looper.getMainLooper()).postDelayed({
-                pauseDimmer?.visibility = View.GONE
-                settingsIcon?.setOnClickListener(this)
-                shopIcon?.setOnClickListener(this)
-                tipsIcon?.setOnClickListener(this)
-            }, 0)
-            return true
-        }
-        return false
+    override fun gameResume() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            pauseDimmer?.visibility = View.GONE
+            settingsIcon?.setOnClickListener(this)
+            shopIcon?.setOnClickListener(this)
+            tipsIcon?.setOnClickListener(this)
+        }, 0)
     }
 }
