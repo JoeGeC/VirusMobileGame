@@ -17,20 +17,13 @@ class Speech(private val speechView: View, private val tipListener: TipListener)
     private var messageThread: Thread? = null
     private var currentMessage = ""
     private var typing = false
-    private var paused = false
 
     override fun setTypedPauseMessage(messageToSet: String) {
-        paused = true
         tipListener.onPauseTipOpen()
-        typeMessage(messageToSet)
+        setTypedMessage(messageToSet)
     }
 
     override fun setTypedMessage(messageToSet: String){
-        paused = false
-        typeMessage(messageToSet)
-    }
-
-    private fun typeMessage(messageToSet: String){
         initMessage(messageToSet)
         messageThread?.interrupt() //if last message is still typing, stop it
         messageThread = typeOutMessage(messageToSet)
@@ -81,17 +74,11 @@ class Speech(private val speechView: View, private val tipListener: TipListener)
     }
 
     override fun setQuickPauseMessage(messageToSet: String) {
-        paused = true
         tipListener.onPauseTipOpen()
-        quickMessage(messageToSet)
+        setQuickMessage(messageToSet)
     }
 
     override fun setQuickMessage(messageToSet: String){
-        paused = false
-        quickMessage(messageToSet)
-    }
-
-    private fun quickMessage(messageToSet: String) {
         setMessage(messageToSet)
         initMessage(messageToSet)
     }
@@ -102,7 +89,7 @@ class Speech(private val speechView: View, private val tipListener: TipListener)
             messageThread?.interrupt()
             return
         }
-        if(paused) tipListener.onPauseTipClosed()
+        tipListener.onPauseTipClosed()
         closeMessage()
     }
 
