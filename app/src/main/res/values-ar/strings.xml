@@ -19,11 +19,11 @@
     <string name="largeHealthPotion">جزء اكبير أيضآ من صحتك</string>
     <string name="tap">[نقر]</string>
     <string name="not_enough_boss_hearts">ليس لديك ما يكفي من القلوب لدحر الزعيم</string>
-    <string name="boss">الضبط</string>
-    <string name="settings">الاهتزاز</string>
-    <string name="vibration">الموسيقى</string>
-    <string name="music">المؤثرات الصوتية</string>
-    <string name="sfx">مرحبا</string>
+    <string name="boss">الزعيم</string>
+    <string name="settings">الضبط</string>
+    <string name="vibration">الاهتزاز</string>
+    <string name="music">الموسيقى</string>
+    <string name="sfx">المؤثرات الصوتية</string>
     <string name="done">إتمام</string>
     <string name="firstBossEventMessage">عظيم! إن تعزمه سوف ستجد شي أفضل يؤشر علي ذالك</string>
     <string name="firstHeartMessage">واو جميل سوف تكون مفيدة.</string>
@@ -32,7 +32,7 @@
     <string name="firstAbilityMessage">استخدم إصبعين للتمرير مرة واحدة لاستخدام قدرتك!</string>
     <string name="firstAbilityUsedMessage">رهيبة! يجب عليك الانتظار حتى تهدأ لاستخدامه مرة أخرى بالرغم من ذلك.</string>
     <string name="clearData">مسح البيانات</string>
-    <string name="clearDataConfirmation">هل أنت متأكد أنك تريد مسح كافة البيانات المحفوظة؟ سيؤدي هذا إلى مسح كل ما حققته حتى الآن وإعادتك إلى القائمة الرئيسية. لا backsies!</string>
+    <string name="clearDataConfirmation">هل أنت متأكد أنك تريد مسح كافة البيانات المحفوظة؟ سيؤدي هذا إلى مسح كل ما حققته حتى الآن وإعادتك إلى القائمة الرئيسية. لا عودة!</string>
     <string name="changedMyMind">غيرت رأيي!</string>
     <string name="clearMyData">امسح بياناتي!</string>
     <string name="firstHealthRecoveryZombieMessage">كن حذرا! يمكن لهذه الزومبي استعادة الصحة.</string>
