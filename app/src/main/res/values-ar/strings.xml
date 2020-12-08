@@ -62,4 +62,5 @@
     <string name="secs">ثوانى</string>
     <string name="recovers">يتعافى</string>
     <string name="health_recover">الصحة</string>
+    <string name="credits">الاعتمادات</string>
 </resources>

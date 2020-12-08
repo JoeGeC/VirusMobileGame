@@ -88,4 +88,5 @@
     <string name="secs">secs.</string>
     <string name="recovers">Recovers</string>
     <string name="health_recover">health</string>
+    <string name="credits">Credits</string>
 </resources>

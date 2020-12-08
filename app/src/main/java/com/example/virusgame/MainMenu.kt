@@ -20,6 +20,7 @@ class MainMenu : Fragment(), ClearDataListener{
         super.onViewCreated(view, savedInstanceState)
         playText.setOnClickListener{ openGame() }
         settingsIcon.setOnClickListener{ openSettings() }
+        creditsText.setOnClickListener{ openCredits() }
         menuFragmentManager = MenuFragmentManager(context!!, fragmentManager!!)
     }
 
@@ -31,6 +32,10 @@ class MainMenu : Fragment(), ClearDataListener{
 
     private fun openSettings(){
         menuFragmentManager.openFragment(SettingsFragment(this, null))
+    }
+
+    private fun openCredits(){
+        menuFragmentManager.openFragment(CreditsFragment())
     }
 
     override fun onDataCleared() {

@@ -62,4 +62,5 @@
     <string name="secs">sekunder.</string>
     <string name="recovers">Gjenoppretter</string>
     <string name="health_recover">helse</string>
+    <string name="credits">Kreditter</string>
 </resources>

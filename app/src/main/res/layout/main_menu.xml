@@ -30,7 +30,20 @@
         android:fontFamily="@font/unispace"
         app:layout_constraintTop_toBottomOf="@+id/gameTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+    <TextView
+        android:id="@+id/creditsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/credits"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/unispace"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="32dp"/>
     <LinearLayout
         android:id="@+id/settingsIcon"
         android:layout_width="wrap_content"
