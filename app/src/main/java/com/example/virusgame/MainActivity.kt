@@ -3,6 +3,7 @@ package com.example.virusgame
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -34,20 +35,10 @@ class MainActivity : AppCompatActivity(){
         SoundManager.playMusic(applicationContext, R.raw.music_wind_and_tree)
     }
 
-    //using deprecated method for older android versions
     private fun setFullScreen() {
-        @Suppress("DEPRECATION")
-        if (androidVersionIsAtLeastR()) {
-            window.setDecorFitsSystemWindows(false)
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
     }
-
-    private fun androidVersionIsAtLeastR() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
 
     override fun onPause() {
         super.onPause()
